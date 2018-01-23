@@ -3,6 +3,7 @@ import StyledTimeago from './StyledTimeago'
 import formatter from './formatter'
 import DateTime from './DateTime'
 import moment from 'moment'
+
 export default class FormattedTimeago extends Component {
   state = { showRaw: false }
 

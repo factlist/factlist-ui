@@ -4,7 +4,7 @@ import App from './App'
 
 // Global Styles
 import 'sanitize.css/sanitize.css'
-import './global-styles'
+import './globalStyles'
 
 ReactDOM.render(
   <App />,

@@ -1,10 +1,8 @@
 import React from 'react'
-import Report from './components/Report'
+import MainPage from './containers/MainPage'
 
 const App = () => (
-  <div>
-    <Report />
-  </div>
+  <MainPage />
 )
 
 export default App

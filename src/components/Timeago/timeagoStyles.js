@@ -8,6 +8,7 @@ const timeagoStyles = css`
   font-size: 12px;
   color: #000;
   cursor: pointer;
+  user-select: none;
 `
 
 export default timeagoStyles

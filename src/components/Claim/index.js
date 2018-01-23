@@ -6,7 +6,7 @@ import Title from './Title'
 import Img from './Img'
 import Timeago from './../Timeago'
 
-const ReportBox = () => (
+const Claim = () => (
   <Container>
     <Flex justify="space-between" align="center">
       <Box>
@@ -28,4 +28,4 @@ const ReportBox = () => (
   </Container>
 )
 
-export default ReportBox
+export default Claim
