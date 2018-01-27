@@ -22,7 +22,7 @@ const Claim = () => (
         <Title>Brexit - live updates: Theresa May waits on European leaders' decision after climbdown on trade talks</Title>
       </Box>
       <Box>
-        <Img src="images/example.png" />
+        <Img src="images/example-claim.png" />
       </Box>
     </Flex>
   </Container>

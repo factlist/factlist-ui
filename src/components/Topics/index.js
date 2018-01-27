@@ -4,8 +4,20 @@ import Item from './Item'
 import List from './List'
 import Link from './Link'
 
-const Topics = ({ title, links = []}) => (
-  <div>
+const links = [
+  { title: "#JusticeForTrabzonsporarlealkrelakrlkearklea" },
+  { title: "Hayırlı Cumalar" },
+  { title: "Ali Tekintüre" },
+  { title: "Esenyurt Belediye Başkanı" },
+  { title: "YeniDünyaİçin" },
+  { title: "YananAlanlarYeşilleniyor" },
+  { title: "İnfantino" },
+  { title: "Eylül" },
+  { title: "HDP'li Sancar" }
+]
+
+const Topics = ({ title, className }) => (
+  <div className={className}>
     <Title>{title}</Title>
 
     <List>
