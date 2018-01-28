@@ -13,7 +13,7 @@ const Claim = () => (
         <Status trueCount={1} falseCount={2} inConclusiveCount={1} />
       </Box>
       <Box>
-        <Timeago date="2018-05-01 13:00:00" />
+        <Timeago date="2018-01-22 13:00:00" />
       </Box>
     </Flex>
 
