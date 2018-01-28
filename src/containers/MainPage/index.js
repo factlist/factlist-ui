@@ -1,12 +1,11 @@
 import React from 'react'
 import Claim from '../../components/Claim'
-import { Flex } from 'grid-styled'
+import { Flex, Box } from 'grid-styled'
 import Topics from '../../components/Topics'
 import Footer from '../../components/Footer'
 import LeftBox from './LeftBox'
 import CenterBox from './CenterBox'
 import RightBox from './RightBox'
-
 
 const MainPage = () => (
   <Flex justify="center" wrap>
@@ -15,7 +14,17 @@ const MainPage = () => (
     </LeftBox>
 
     <CenterBox>
-      <Claim />
+      <Box mb={30}>
+        <Claim />
+      </Box>
+
+      <Box mb={30} >
+        <Claim />
+      </Box>
+
+      <Box mb={30}>
+        <Claim />
+      </Box>
     </CenterBox>
 
     <RightBox>

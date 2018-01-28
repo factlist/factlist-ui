@@ -5,7 +5,7 @@ import List from './List'
 import Link from './Link'
 
 const links = [
-  { title: "#JusticeForTrabzonsporarlealkrelakrlkearklea" },
+  { title: "#JusticeForTrabzonspor" },
   { title: "Hayırlı Cumalar" },
   { title: "Ali Tekintüre" },
   { title: "Esenyurt Belediye Başkanı" },

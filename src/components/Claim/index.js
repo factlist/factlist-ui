@@ -10,14 +10,14 @@ const Claim = () => (
   <Container>
     <Flex justify="space-between" align="center">
       <Box>
-        <Status trueCount={0} falseCount={1} inConclusiveCount={0} />
+        <Status trueCount={1} falseCount={2} inConclusiveCount={1} />
       </Box>
       <Box>
         <Timeago date="2018-05-01 13:00:00" />
       </Box>
     </Flex>
 
-    <Flex column>
+    <Flex column mt={20}>
       <Box>
         <Title>Brexit - live updates: Theresa May waits on European leaders' decision after climbdown on trade talks</Title>
       </Box>

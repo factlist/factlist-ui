@@ -1,45 +1,42 @@
 import React from 'react'
-import Container from './Container'
 import Label from './Label'
+import Count from './Count'
+import CheckIcon from './Icons/StyledCheck'
+import CloseIcon from './Icons/StyledClose'
+import QuestionIcon from './Icons/StyledQuestion'
+import getStatus from './getStatus'
+import { APPEARS_TO_BE_TRUE } from './constants'
 
-const STATUSES = {
-  needs_evidence: {
-    title: 'NEEDS EVIDENCE',
-    color: '#444444'
-  },
-  appears_to_be_true: {
-    title: 'APPEARS TO BE TRUE',
-    color: '#00D092'
-  },
-  seems_false: {
-    title: 'SEEMS FALSE',
-    color: '#FF6947'
-  },
-  in_conclusive: {
-    title: 'IN CONCLUSIVE',
-    color: '#FFB747'
-  }
-}
-
-const Status = ({
-  trueCount = 0,
-  falseCount = 0,
-  inConclusiveCount = 0
-}) => {
-  let name = 'in_conclusive' // Default
-
-  if ((trueCount + falseCount + inConclusiveCount) === 0) {
-    name = 'needs_evidence'
-  } else if (trueCount > 0 && falseCount === 0 && inConclusiveCount === 0) {
-    name = 'appears_to_be_true'
-  } else if (trueCount === 0 && falseCount > 0 && inConclusiveCount === 0) {
-    name = 'seems_false'
-  }
+const Status = ({ trueCount, falseCount, inConclusiveCount }) => {
+  const status = getStatus(trueCount, falseCount, inConclusiveCount)
 
   return (
-    <Container color={STATUSES[name].color}>
-      <Label>{STATUSES[name].title}</Label>
-    </Container>
+    <div>
+      <Label color={status.color}>
+        {status.title}
+      </Label>
+
+      {trueCount > 0 && (
+        <span>
+          <CheckIcon fill={status.id === APPEARS_TO_BE_TRUE ? '#4CAF50' : null} />
+          <Count color={status.id === APPEARS_TO_BE_TRUE ? '#4CAF50' : '#00D092'}>{trueCount}</Count>
+        </span>
+      )}
+
+      {falseCount > 0 && (
+        <span>
+          <CloseIcon />
+          <Count color="#FF6947">{falseCount}</Count>
+        </span>
+      )}
+
+      {inConclusiveCount > 0 && (
+        <span>
+          <QuestionIcon />
+          <Count color="#FF6947">{inConclusiveCount}</Count>
+        </span>
+      )}
+    </div>
   )
 }
 
