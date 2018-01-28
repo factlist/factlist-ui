@@ -4,7 +4,7 @@ const Because = styled.span`
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 14px;
-  color: #FD5F3B;
+  color: #00D092;
   line-height: 20px;
 `
 
