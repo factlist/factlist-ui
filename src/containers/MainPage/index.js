@@ -7,6 +7,7 @@ import LeftBox from './LeftBox'
 import CenterBox from './CenterBox'
 import RightBox from './RightBox'
 import Evidence from '../../components/Evidence'
+import EvidenceForm from '../../components/EvidenceForm'
 
 const MainPage = () => (
   <Flex justify="center" wrap>
@@ -27,6 +28,10 @@ const MainPage = () => (
 
       <Box mb={30}>
         <Claim />
+      </Box>
+
+      <Box mg={30}>
+        <EvidenceForm />
       </Box>
     </CenterBox>
 
