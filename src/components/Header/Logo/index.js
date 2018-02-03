@@ -1,12 +1,8 @@
 import React from 'react'
-import StyledSVG from './StyledSVG'
-import Text from './Text'
+import StyledIcon from './StyledIcon'
 
 const Logo = () => (
-  <div>
-    <StyledSVG />
-    <Text />
-  </div>
+  <StyledIcon />
 )
 
 export default Logo

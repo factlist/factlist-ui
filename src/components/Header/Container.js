@@ -3,8 +3,8 @@ import { Flex } from 'grid-styled'
 
 const Container = styled(Flex)`
   background-color: #FFF;
-  padding: 30px 0;
-  margin-bottom: 50px;
+  padding: 15px 0;
+  margin-bottom: 30px;
 
   @media (max-width: 730px) {
     padding: 20px 0;
