@@ -6,10 +6,10 @@ services:
   - docker
 
 script:
-  - docker build -t factlist/factlst-api:latest .
+  - docker build -t factlist/factlist-ui .
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker push factlist/factlist-api;
+    docker push factlist/factlist-ui;
     fi
