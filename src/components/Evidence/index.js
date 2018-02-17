@@ -23,8 +23,8 @@ const Evidence = () => (
       </Box>
     </Flex>
 
-    <Flex column mt={20}>
-      <Box>
+    <Flex column mt={10}>
+      <Box ml={50}>
         <Description type="true" text="Trump-Russia probe: Mueller 'requests emails' from Cambridge Analytica firm linked to 2016 campaign and Brexit" />
       </Box>
       <Box>

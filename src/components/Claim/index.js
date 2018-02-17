@@ -10,7 +10,7 @@ const Claim = () => (
   <Container>
     <Flex justify="space-between" align="center">
       <Box>
-        <Status trueCount={1} falseCount={2} inConclusiveCount={1} />
+        <Status trueCount={1} falseCount={1} inConclusiveCount={0} />
       </Box>
       <Box>
         <Timeago date="2018-01-22 13:00:00" />

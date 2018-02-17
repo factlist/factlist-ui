@@ -8,6 +8,7 @@ import CenterBox from './CenterBox'
 import RightBox from './RightBox'
 import Evidence from '../../components/Evidence'
 import EvidenceForm from '../../components/EvidenceForm'
+import Slack from '../../components/Slack'
 
 const MainPage = () => (
   <Flex justify="center" wrap>
@@ -36,7 +37,12 @@ const MainPage = () => (
     </CenterBox>
 
     <RightBox>
-      <Footer />
+      <Box>
+        <Slack />
+      </Box>
+      <Box mt={15}>
+        <Footer />
+      </Box>
     </RightBox>
   </Flex>
 )

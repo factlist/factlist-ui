@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Count = styled.span`
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 11px;
+  font-size: 14px;
 
   padding: 0 3px;
   padding-right: 8px;
