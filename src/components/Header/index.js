@@ -17,7 +17,7 @@ const Header = () => (
       <SearchInput type="text" placeholder="Search | Explosion in Cairo..." />
     </Box>
 
-    <Box width={270} mr={10}>
+    <Box width={270} mr={[20, 10]}>
       <Flex justify="flex-end">
         <Box>
           <MobileSearch />
