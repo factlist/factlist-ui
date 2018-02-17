@@ -1,8 +1,8 @@
 import React from 'react'
-import A from './A'
+import StyledLink from './StyledLink'
 
 const SignIn = () => (
-  <A>Sign In</A>
+  <StyledLink to="/login">Sign In</StyledLink>
 )
 
 export default SignIn

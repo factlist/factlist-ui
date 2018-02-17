@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Claim from '../../components/Claim'
 import { Flex, Box } from 'grid-styled'
 import Topics from '../../components/Topics'
@@ -9,42 +9,57 @@ import RightBox from './RightBox'
 import Evidence from '../../components/Evidence'
 import EvidenceForm from '../../components/EvidenceForm'
 import Slack from '../../components/Slack'
+import Header from '../../components/Header'
 
-const MainPage = () => (
-  <Flex justify="center" wrap>
-    <LeftBox>
-      <Topics title="POPULAR TOPICS" />
-    </LeftBox>
+import { connect } from 'react-redux'
 
-    <CenterBox>
-      <Box mb={30}>
-        <Claim />
-        <Evidence />
-        <Evidence />
-      </Box>
+class MainPage extends Component {
+  render() {
+    return (
+      <div>
+        <Header user={this.props.user} />
+        <Flex justify="center" wrap>
+          <LeftBox>
+            <Topics title="POPULAR TOPICS" />
+          </LeftBox>
 
-      <Box mb={30} >
-        <Claim />
-      </Box>
+          <CenterBox>
+            <Box mb={30}>
+              <Claim />
+              <Evidence />
+              <Evidence />
+            </Box>
 
-      <Box mb={30}>
-        <Claim />
-      </Box>
+            <Box mb={30} >
+              <Claim />
+            </Box>
 
-      <Box mg={30}>
-        <EvidenceForm />
-      </Box>
-    </CenterBox>
+            <Box mb={30}>
+              <Claim />
+            </Box>
 
-    <RightBox>
-      <Box>
-        <Slack />
-      </Box>
-      <Box mt={15}>
-        <Footer />
-      </Box>
-    </RightBox>
-  </Flex>
-)
+            <Box mg={30}>
+              <EvidenceForm />
+            </Box>
+          </CenterBox>
 
-export default MainPage
+          <RightBox>
+            <Box>
+              <Slack />
+            </Box>
+            <Box mt={15}>
+              <Footer />
+            </Box>
+          </RightBox>
+        </Flex>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({
+  user: state.global.user
+})
+
+
+export default connect(mapStateToProps)(MainPage)
