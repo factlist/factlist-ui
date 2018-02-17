@@ -5,10 +5,6 @@ import { LOGOUT_USER } from './constants'
 
 class LogoutPage extends Component {
   componentWillMount() {
-    if (this.props.user === null) {
-      return this.props.redirect()
-    }
-
     localStorage.removeItem('user')
     this.props.logout()
     this.props.redirect()
@@ -19,16 +15,12 @@ class LogoutPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.global.user
-})
-
 const mapDispatchToProps = (dispatch) => ({
   redirect: () => dispatch(push('/')),
   logout: () => dispatch({ type: LOGOUT_USER })
 })
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(LogoutPage)
