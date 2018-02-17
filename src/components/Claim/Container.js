@@ -5,6 +5,8 @@ const Container = styled.div`
   padding: 20px;
   min-width: 375px;
   max-width: 670px;
+
+  border-radius: 2px;
 `
 
 export default Container

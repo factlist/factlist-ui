@@ -13,6 +13,8 @@ const ReportButton = styled.a`
 
   padding: 13px 30px;
 
+  border-radius: 2px;
+
   @media (max-width: 730px) {
     padding: 8px 13px;
   }
