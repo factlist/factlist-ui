@@ -4,7 +4,7 @@ import Container from './Container'
 import Status from './../Status'
 import Title from './Title'
 import Img from './Img'
-import Timeago from './../Timeago'
+import Timeago from '../../containers/Timeago'
 
 const Claim = () => (
   <Container>

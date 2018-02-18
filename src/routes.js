@@ -12,7 +12,6 @@ export default () => (
     <Route path="/login" exact component={LoginPage} />
     <Route path="/logout" exact component={LogoutPage} />
     <PrivateRoute path="/private-page" exact component={PrivatePage} />
-    <PrivateRoute path="/private-page" exact component={PrivatePage} />
   </div>
 )
 

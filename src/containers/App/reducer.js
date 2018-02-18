@@ -1,10 +1,13 @@
 import { USER_AUTH_SUCCESS } from '../../containers/LoginPage/constants'
 import { LOGOUT_USER } from '../../containers/LogoutPage/constants'
+import { TOGGLE_TIMEAGO_FORMAT } from '../../containers/Timeago/constants'
 
-const storage = localStorage.getItem('user')
+const userStorage = localStorage.getItem('user')
+const timeago = localStorage.getItem('timeago')
 
 const initialState = {
-  user: storage ? JSON.parse(storage) : null
+  user: userStorage ? JSON.parse(userStorage) : null,
+  timeago: timeago ? true : false
 }
 
 export default (state = initialState, action) => {
@@ -20,6 +23,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: null
+      }
+    case TOGGLE_TIMEAGO_FORMAT:
+      return {
+        ...state,
+        timeago: !state.timeago
       }
     default:
       return state

@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from './Container'
 import { Flex, Box } from 'grid-styled'
-import Timeago from '../Timeago'
+import Timeago from '../../containers/Timeago'
 import Avatar from './Avatar'
 import Profile from './Profile'
 import FullName from './FullName'
