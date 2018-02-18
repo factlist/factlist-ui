@@ -1,18 +1,20 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import MainPage from './containers/MainPage'
 import LoginPage from './containers/LoginPage'
 import LogoutPage from './containers/LogoutPage'
 import SignupPage from './containers/SignupPage'
+import NotFoundPage from './components/NotFoundPage'
 
 export default () => (
-  <div>
+  <Switch>
     <Route path="/" exact component={MainPage} />
-    <Route path="/login" exact component={LoginPage} />
-    <PrivateRoute path="/logout" exact component={LogoutPage} />
-    <Route path="/signup" exact component={SignupPage} />
-  </div>
+    <Route path="/login" component={LoginPage} />
+    <PrivateRoute path="/logout" component={LogoutPage} />
+    <Route path="/signup" component={SignupPage} />
+    <Route component={NotFoundPage} />
+  </Switch>
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
