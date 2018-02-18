@@ -6,23 +6,25 @@ import Title from './Title'
 import Img from './Img'
 import Timeago from '../../containers/Timeago'
 
-const Claim = () => (
+const Claim = ({ claim }) => (
   <Container>
     <Flex justify="space-between" align="center">
       <Box>
         <Status trueCount={1} falseCount={1} inConclusiveCount={0} />
       </Box>
       <Box>
-        <Timeago date="2018-01-22 13:00:00" />
+        <Timeago date={claim.created_at} />
       </Box>
     </Flex>
 
     <Flex column mt={20}>
       <Box>
-        <Title>Brexit - live updates: Theresa May waits on European leaders' decision after climbdown on trade talks</Title>
+        <Title>{claim.text}</Title>
       </Box>
       <Box>
-        <Img src="images/example-claim.png" />
+        {claim.files.map(file =>
+          <Img key={'claim_file_' + file.id}src={file.source} />
+        )}
       </Box>
     </Flex>
   </Container>

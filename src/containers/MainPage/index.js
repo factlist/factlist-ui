@@ -12,9 +12,23 @@ import Slack from '../../components/Slack'
 import Header from '../../components/Header'
 
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import injectReducer from '../../utils/injectReducer'
+import injectSaga from '../../utils/injectSaga'
+import reducer from './reducer'
+import saga from './saga'
+import { fetchClaims } from './actions'
+
+import ContentLoader, { List } from 'react-content-loader'
 
 class MainPage extends Component {
+  componentDidMount() {
+    this.props.fetchClaims()
+  }
+
   render() {
+    const { claims } = this.props
+
     return (
       <div>
         <Header user={this.props.user} />
@@ -24,19 +38,11 @@ class MainPage extends Component {
           </LeftBox>
 
           <CenterBox>
-            <Box mb={30}>
-              <Claim />
-              <Evidence />
-              <Evidence />
-            </Box>
-
-            <Box mb={30} >
-              <Claim />
-            </Box>
-
-            <Box mb={30}>
-              <Claim />
-            </Box>
+            {claims.map((claim) =>
+              <Box mb={30} key={'claim_' + claim.id}>
+                <Claim claim={claim} />
+              </Box>
+            )}
 
             <Box mg={30}>
               <EvidenceForm />
@@ -58,8 +64,20 @@ class MainPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.global.user
+  user: state.global.user,
+  claims: state.claims.data
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchClaims: () => dispatch(fetchClaims())
+})
 
-export default connect(mapStateToProps)(MainPage)
+const withConnect = connect(mapStateToProps, mapDispatchToProps)
+const withReducer = injectReducer({ key: 'claims', reducer })
+const withSaga = injectSaga({ key: 'claims', saga})
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect
+)(MainPage)
