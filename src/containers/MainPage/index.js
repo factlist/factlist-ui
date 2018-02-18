@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Claim from '../../components/Claim'
 import { Flex, Box } from 'grid-styled'
 import Topics from '../../components/Topics'
@@ -9,42 +9,73 @@ import RightBox from './RightBox'
 import Evidence from '../../components/Evidence'
 import EvidenceForm from '../../components/EvidenceForm'
 import Slack from '../../components/Slack'
+import Header from '../../components/Header'
 
-const MainPage = () => (
-  <Flex justify="center" wrap>
-    <LeftBox>
-      <Topics title="POPULAR TOPICS" />
-    </LeftBox>
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import injectReducer from '../../utils/injectReducer'
+import injectSaga from '../../utils/injectSaga'
+import reducer from './reducer'
+import saga from './saga'
+import { fetchClaims } from './actions'
 
-    <CenterBox>
-      <Box mb={30}>
-        <Claim />
-        <Evidence />
-        <Evidence />
-      </Box>
+class MainPage extends Component {
+  componentDidMount() {
+    this.props.fetchClaims()
+  }
 
-      <Box mb={30} >
-        <Claim />
-      </Box>
+  render() {
+    const { claims } = this.props
 
-      <Box mb={30}>
-        <Claim />
-      </Box>
+    return (
+      <div>
+        <Header user={this.props.user} />
+        <Flex justify="center" wrap>
+          <LeftBox>
+            <Topics title="POPULAR TOPICS" />
+          </LeftBox>
 
-      <Box mg={30}>
-        <EvidenceForm />
-      </Box>
-    </CenterBox>
+          <CenterBox>
+            {claims.map((claim) =>
+              <Box mb={30} key={'claim_' + claim.id}>
+                <Claim claim={claim} />
+              </Box>
+            )}
 
-    <RightBox>
-      <Box>
-        <Slack />
-      </Box>
-      <Box mt={15}>
-        <Footer />
-      </Box>
-    </RightBox>
-  </Flex>
-)
+            <Box mg={30}>
+              <EvidenceForm />
+            </Box>
+          </CenterBox>
 
-export default MainPage
+          <RightBox>
+            <Box>
+              <Slack />
+            </Box>
+            <Box mt={15}>
+              <Footer />
+            </Box>
+          </RightBox>
+        </Flex>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({
+  user: state.global.user,
+  claims: state.claims.data
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchClaims: () => dispatch(fetchClaims())
+})
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps)
+const withReducer = injectReducer({ key: 'claims', reducer })
+const withSaga = injectSaga({ key: 'claims', saga})
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect
+)(MainPage)
