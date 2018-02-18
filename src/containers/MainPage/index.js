@@ -19,8 +19,6 @@ import reducer from './reducer'
 import saga from './saga'
 import { fetchClaims } from './actions'
 
-import ContentLoader, { List } from 'react-content-loader'
-
 class MainPage extends Component {
   componentDidMount() {
     this.props.fetchClaims()
