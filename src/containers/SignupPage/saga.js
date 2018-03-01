@@ -4,7 +4,7 @@ import { signUpSuccess, signUpFailure } from './actions'
 import request from '../../utils/request'
 import { push } from 'react-router-redux'
 
-const REQUEST_URL = 'http://localhost:8884/api/register'
+const REQUEST_URL = 'http://localhost:8000/api/register'
 
 const signUp = function* (action) {
   try {
