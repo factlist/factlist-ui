@@ -3,7 +3,7 @@ import request from '../../utils/request'
 import { FETCH_CLAIMS } from './constants'
 import { fetchClaimsFailure, claimsFetched } from './actions'
 
-const REQUEST_URL = 'http://localhost:8000/api/claims'
+const REQUEST_URL = 'http://localhost:8000/api/v1/claims/'
 
 const fetch = function* () {
   try {
