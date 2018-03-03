@@ -3,7 +3,8 @@ import request from '../../utils/request'
 import { FETCH_CLAIMS } from './constants'
 import { fetchClaimsFailure, claimsFetched } from './actions'
 
-const REQUEST_URL = 'http://localhost:8000/api/v1/claims/'
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+const REQUEST_URL = `${API_ENDPOINT}/v1/claims/`
 
 const fetch = function* () {
   try {

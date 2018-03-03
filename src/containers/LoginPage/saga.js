@@ -4,7 +4,8 @@ import { authSuccess, authFailure } from './actions'
 import request from '../../utils/request'
 import { push } from 'react-router-redux'
 
-const REQUEST_URL = 'http://localhost:8000/api/v1/users/login/'
+const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
+const REQUEST_URL = `${API_ENDPOINT}/v1/users/login/`
 
 const auth = function* (action) {
   const { email, password } = action
