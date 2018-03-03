@@ -22,7 +22,7 @@ const Claim = ({ claim }) => (
         <Title>{claim.text}</Title>
       </Box>
       <Box>
-        {claim.files.map(file =>
+        {claim.files && claim.files.map(file =>
           <Img key={'claim_file_' + file.id}src={file.source} />
         )}
       </Box>

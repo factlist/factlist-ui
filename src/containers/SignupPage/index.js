@@ -45,6 +45,7 @@ class SignupPage extends Component {
             placeholder="Username"
             onChange={this.handleChange}
           />
+
           <input
             type="text"
             name="email"
@@ -52,6 +53,7 @@ class SignupPage extends Component {
             placeholder="Email"
             onChange={this.handleChange}
           />
+
           <input
             type="password"
             name="password"

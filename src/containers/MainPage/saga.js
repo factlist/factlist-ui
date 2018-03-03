@@ -4,7 +4,7 @@ import { FETCH_CLAIMS } from './constants'
 import { fetchClaimsFailure, claimsFetched } from './actions'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-const REQUEST_URL = `${API_ENDPOINT}/v1/claims/`
+const REQUEST_URL = `${API_ENDPOINT}/claims/`
 
 const fetch = function* () {
   try {

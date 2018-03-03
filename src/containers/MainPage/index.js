@@ -6,10 +6,9 @@ import Footer from '../../components/Footer'
 import LeftBox from './LeftBox'
 import CenterBox from './CenterBox'
 import RightBox from './RightBox'
-import Evidence from '../../components/Evidence'
-import EvidenceForm from '../../components/EvidenceForm'
 import Slack from '../../components/Slack'
 import Header from '../../components/Header'
+import UserCard from '../../components/UserCard'
 
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -25,14 +24,20 @@ class MainPage extends Component {
   }
 
   render() {
-    const { claims } = this.props
+    const { user, claims } = this.props
 
     return (
       <div>
         <Header user={this.props.user} />
         <Flex justify="center" wrap>
           <LeftBox>
-            <Topics title="POPULAR TOPICS" />
+
+            { user &&
+              <Box mb={30}>
+                <UserCard />
+              </Box>
+            }
+
           </LeftBox>
 
           <CenterBox>
@@ -41,10 +46,6 @@ class MainPage extends Component {
                 <Claim claim={claim} />
               </Box>
             )}
-
-            <Box mg={30}>
-              <EvidenceForm />
-            </Box>
           </CenterBox>
 
           <RightBox>

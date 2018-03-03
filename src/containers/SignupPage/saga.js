@@ -5,7 +5,7 @@ import request from '../../utils/request'
 import { push } from 'react-router-redux'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-const REQUEST_URL = `${API_ENDPOINT}/v1/users/register/`
+const REQUEST_URL = `${API_ENDPOINT}/users/register/`
 
 const signUp = function* (action) {
   try {
