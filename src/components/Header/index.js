@@ -8,7 +8,7 @@ import ReportButton from './ReportButton'
 import MobileSearch from './MobileSearch'
 import SignIn from './SignIn'
 
-const Header = ({ user }) => (
+const Header = ({ user, openReport }) => (
   <Container justify="center" align="center">
     <Box width={165} ml={10}>
       <Logo />
@@ -28,7 +28,7 @@ const Header = ({ user }) => (
           {user && <Avatar src="images/example-avatar.png" />}
         </Box>
         <Box ml={10} order={[1, 2]}>
-          <ReportButton>REPORT</ReportButton>
+          <ReportButton onClick={openReport}>REPORT</ReportButton>
         </Box>
       </Flex>
     </Box>

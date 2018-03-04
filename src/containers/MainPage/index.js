@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Claim from '../../components/Claim'
 import { Flex, Box } from 'grid-styled'
-import Topics from '../../components/Topics'
 import Footer from '../../components/Footer'
 import LeftBox from './LeftBox'
 import CenterBox from './CenterBox'
@@ -9,6 +8,7 @@ import RightBox from './RightBox'
 import Slack from '../../components/Slack'
 import Header from '../../components/Header'
 import UserCard from '../../components/UserCard'
+import AddReport from '../AddReport'
 
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -19,16 +19,40 @@ import saga from './saga'
 import { fetchClaims } from './actions'
 
 class MainPage extends Component {
+  state = {
+    isAddReportOpen: false
+  }
+
+  openReport = this.openReport.bind(this)
+  closeReportModal = this.closeReportModal.bind(this)
+
+  openReport() {
+    this.setState({
+      isAddReportOpen: true
+    })
+  }
+
+  closeReportModal() {
+    this.setState({
+      isAddReportOpen: false
+    })
+  }
+
   componentDidMount() {
     this.props.fetchClaims()
   }
 
   render() {
     const { user, claims } = this.props
+    const { isAddReportOpen } = this.state
 
     return (
       <div>
-        <Header user={this.props.user} />
+        <Header
+          user={this.props.user}
+          openReport={this.openReport}
+        />
+
         <Flex justify="center" wrap>
           <LeftBox>
 
@@ -57,6 +81,8 @@ class MainPage extends Component {
             </Box>
           </RightBox>
         </Flex>
+
+        {isAddReportOpen && <AddReport onClose={this.closeReportModal} />}
       </div>
     )
   }
