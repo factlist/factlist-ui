@@ -1,57 +1,32 @@
-import React, { Component } from 'react'
-import Claim from '../../components/Claim'
-import { Flex, Box } from 'grid-styled'
-import Footer from '../../components/Footer'
-import LeftBox from './LeftBox'
-import CenterBox from './CenterBox'
-import RightBox from './RightBox'
-import Slack from '../../components/Slack'
-import Header from '../../components/Header'
-import UserCard from '../../components/UserCard'
-import AddReport from '../AddReport'
-
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import injectReducer from '../../utils/injectReducer'
-import injectSaga from '../../utils/injectSaga'
+import injectReducer from 'utils/injectReducer'
+import injectSaga from 'utils/injectSaga'
+import { Flex, Box } from 'grid-styled'
+import Slack from 'components/Slack'
+import Header from 'containers/Header'
+import Footer from 'components/Footer'
+import UserCard from 'components/UserCard'
+import Claim from 'components/Claim'
 import reducer from './reducer'
 import saga from './saga'
 import { fetchClaims } from './actions'
+import LeftBox from './LeftBox'
+import CenterBox from './CenterBox'
+import RightBox from './RightBox'
 
 class MainPage extends Component {
-  state = {
-    isAddReportOpen: false
-  }
-
-  openReport = this.openReport.bind(this)
-  closeReportModal = this.closeReportModal.bind(this)
-
-  openReport() {
-    this.setState({
-      isAddReportOpen: true
-    })
-  }
-
-  closeReportModal() {
-    this.setState({
-      isAddReportOpen: false
-    })
-  }
-
   componentDidMount() {
     this.props.fetchClaims()
   }
 
   render() {
-    const { user, claims } = this.props
-    const { isAddReportOpen } = this.state
+    const { user, claims, fetching } = this.props
 
     return (
-      <div>
-        <Header
-          user={this.props.user}
-          openReport={this.openReport}
-        />
+      <Fragment>
+        <Header />
 
         <Flex justify="center" wrap>
           <LeftBox>
@@ -65,7 +40,9 @@ class MainPage extends Component {
           </LeftBox>
 
           <CenterBox>
-            {claims.map((claim) =>
+            {fetching && 'Getting claims...'}
+
+            {!fetching && claims.map((claim) =>
               <Box mb={30} key={'claim_' + claim.id}>
                 <Claim claim={claim} />
               </Box>
@@ -81,16 +58,15 @@ class MainPage extends Component {
             </Box>
           </RightBox>
         </Flex>
-
-        {isAddReportOpen && <AddReport onClose={this.closeReportModal} />}
-      </div>
+      </Fragment>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
   user: state.global.user,
-  claims: state.claims.data
+  claims: state.claims.data,
+  fetching: state.claims.fetching,
 })
 
 const mapDispatchToProps = (dispatch) => ({

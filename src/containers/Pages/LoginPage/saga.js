@@ -1,7 +1,7 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
 import { USER_AUTH } from './constants'
 import { authSuccess, authFailure } from './actions'
-import request from '../../utils/request'
+import request from 'utils/request'
 import { push } from 'react-router-redux'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT

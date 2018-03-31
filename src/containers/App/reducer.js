@@ -1,6 +1,6 @@
-import { USER_AUTH_SUCCESS } from '../../containers/LoginPage/constants'
-import { LOGOUT_USER } from '../../containers/LogoutPage/constants'
-import { TOGGLE_TIMEAGO_FORMAT } from '../../containers/Timeago/constants'
+import { USER_AUTH_SUCCESS } from 'containers/Pages/LoginPage/constants'
+import { LOGOUT_USER } from 'containers/Pages/LogoutPage/constants'
+import { TOGGLE_TIMEAGO_FORMAT } from 'containers/Timeago/constants'
 
 const userStorage = localStorage.getItem('user')
 const timeago = localStorage.getItem('timeago')

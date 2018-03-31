@@ -1,8 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
+import request from 'utils/request'
+import { push as redirect } from 'react-router-redux'
 import { USER_SIGN_UP } from './constants'
 import { signUpSuccess, signUpFailure } from './actions'
-import request from '../../utils/request'
-import { push } from 'react-router-redux'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
 const REQUEST_URL = `${API_ENDPOINT}/users/register/`
@@ -18,7 +18,7 @@ const signUp = function* (action) {
     })
 
     yield put(signUpSuccess())
-    yield put(push('/login'))
+    yield put(redirect('/login'))
   } catch (error) {
     yield put(signUpFailure(error))
   }

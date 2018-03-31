@@ -1,34 +1,34 @@
 import {
-  FETCH_CLAIMS,
+  FETCH_CLAIMS_REQUEST,
   FETCH_CLAIMS_SUCCESS,
   FETCH_CLAIMS_FAILURE
 } from './constants'
 
 const initialState = {
-  loading: false,
+  fetching: false,
   error: false,
   data: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CLAIMS:
+    case FETCH_CLAIMS_REQUEST:
       return {
         ...state,
-        loading: true,
+        fetching: true,
         error: false
       }
     case FETCH_CLAIMS_SUCCESS:
       return {
         ...state,
-        loading: false,
+        fetching: false,
         error: false,
-        data: action.claims
+        data: action.claims.results
       }
     case FETCH_CLAIMS_FAILURE:
       return {
         ...state,
-        loading: false,
+        fetching: false,
         error: action.error
       }
     default:

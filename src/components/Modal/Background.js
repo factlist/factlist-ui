@@ -10,6 +10,8 @@ const Background = styled.div`
 
   background-color: rgba(0,0,0,0.4);
   cursor: pointer;
+
+  z-index: 4;
 `
 
 export default Background

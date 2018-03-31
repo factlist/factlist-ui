@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import MainPage from './containers/MainPage'
-import LoginPage from './containers/LoginPage'
-import LogoutPage from './containers/LogoutPage'
-import SignupPage from './containers/SignupPage'
-import NotFoundPage from './components/NotFoundPage'
+import MainPage from 'containers/Pages/MainPage'
+import LoginPage from 'containers/Pages/LoginPage'
+import LogoutPage from 'containers/Pages/LogoutPage'
+import SignupPage from 'containers/Pages/SignupPage'
+import NotFoundPage from 'components/NotFoundPage'
 
 export default () => (
   <Switch>

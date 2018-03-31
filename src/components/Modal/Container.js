@@ -1,10 +1,7 @@
 import styled from 'styled-components'
 
-const Modal = styled.div`
-  background-color: #FFFFFF;
-  border: 1px solid #E0E0E0;
-  padding: 20px;
-  min-width: 670px;
+const Container = styled.div`
+  z-index: 5;
 
   // Center
   position: fixed;
@@ -14,4 +11,4 @@ const Modal = styled.div`
   transform: translate(-50%, -50%);
 `
 
-export default Modal
+export default Container

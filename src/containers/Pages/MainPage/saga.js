@@ -1,6 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
-import request from '../../utils/request'
-import { FETCH_CLAIMS } from './constants'
+import request from 'utils/request'
+import { FETCH_CLAIMS_REQUEST } from './constants'
 import { fetchClaimsFailure, claimsFetched } from './actions'
 
 const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
@@ -16,5 +16,5 @@ const fetch = function* () {
 }
 
 export default function* () {
-  yield takeLatest(FETCH_CLAIMS, fetch)
+  yield takeLatest(FETCH_CLAIMS_REQUEST, fetch)
 }
