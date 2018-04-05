@@ -88,7 +88,7 @@ class ClaimForm extends Component {
             Drag & Drop media files or click to browse your files
           </StyledDropzone>
 
-          <Button>ADD Claim</Button>
+          <Button>Add Claim</Button>
         </form>
       </Container>
     )

@@ -1,4 +1,4 @@
-import { USER_AUTH_SUCCESS } from 'containers/Pages/LoginPage/constants'
+import { USER_AUTH_SUCCESS } from 'containers/Forms/SignInForm/constants'
 import { LOGOUT_USER } from 'containers/Pages/LogoutPage/constants'
 import { TOGGLE_TIMEAGO_FORMAT } from 'containers/Timeago/constants'
 

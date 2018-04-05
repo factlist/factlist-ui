@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
-import { USER_AUTH } from './constants'
+import { USER_AUTH_REQUEST } from './constants'
 import { authSuccess, authFailure } from './actions'
 import request from 'utils/request'
 import { push } from 'react-router-redux'
@@ -34,5 +34,5 @@ const auth = function* (action) {
 }
 
 export default function* () {
-  yield takeLatest(USER_AUTH, auth)
+  yield takeLatest(USER_AUTH_REQUEST, auth)
 }

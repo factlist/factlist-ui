@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Background = styled.div`
+const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -14,4 +14,4 @@ const Background = styled.div`
   z-index: 4;
 `
 
-export default Background
+export default Overlay

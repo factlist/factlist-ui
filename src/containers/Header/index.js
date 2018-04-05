@@ -1,45 +1,42 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import HeaderComponent from 'components/Header'
-import Modal from 'components/Modal'
-import ClaimForm from 'containers/Forms/ClaimForm'
+import { showSignInModal } from 'containers/Modals/actions'
 
 class Header extends Component {
-  state = {
-    isClaimModalOpen: false
-  }
+  showSignInModal = this.showSignInModal.bind(this)
 
-  openClaimModal = this.openClaimModal.bind(this)
-  closeClaimModal = this.closeClaimModal.bind(this)
+  showSignInModal(event) {
+    event.preventDefault()
 
-  openClaimModal() {
-    this.setState({ isClaimModalOpen: true })
-  }
+    const { showSignInModal } = this.props
 
-  closeClaimModal() {
-    this.setState({ isClaimModalOpen: false })
+    showSignInModal()
   }
 
   render() {
-    const { user } = this.props
-    const { isClaimModalOpen } = this.state
+    const { user, hideSignInButton } = this.props
 
     return (
       <Fragment>
         <HeaderComponent
           user={user}
-          onClickReportButton={this.openClaimModal} />
-
-        {isClaimModalOpen && <Modal onClose={this.closeClaimModal}>
-          <ClaimForm />
-        </Modal>}
+          onClickSignInButton={this.showSignInModal}
+          hideSignInButton={hideSignInButton} />
       </Fragment>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.global.user
+  user: state.global.user,
 })
 
-export default connect(mapStateToProps)(Header)
+const mapDispatchToProps = (dispatch) => ({
+  showSignInModal: () => dispatch(showSignInModal())
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header)

@@ -1,24 +1,36 @@
 import React, { Component, Fragment } from 'react'
-import Background from './Background'
+import Overlay from './Overlay'
+import CloseButton from './CloseButton'
 import Container from './Container'
 
 export default class Modal extends Component {
-  close = this.close.bind(this)
+  listenKeyboard = this.listenKeyboard.bind(this)
 
-  close() {
+  componentDidMount() {
+    window.addEventListener('keydown', this.listenKeyboard.bind(this), true)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.listenKeyboard.bind(this), true)
+  }
+
+  listenKeyboard(event) {
     const { onClose } = this.props
-
-    onClose()
+    if (event.key === 'Escape' || event.keyCode === 27) {
+      onClose()
+    }
   }
 
   render() {
-    const { children } = this.props
+    const { onClose, children } = this.props
 
     return (
       <Fragment>
-        <Background onClick={this.close} />
+        <Overlay onClick={onClose} />
 
         <Container>
+          <CloseButton onClick={onClose} />
+
           {children}
         </Container>
       </Fragment>

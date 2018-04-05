@@ -1,18 +1,25 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import injectReducer from 'utils/injectReducer'
 import injectSaga from 'utils/injectSaga'
-
+import { push as redirect } from 'react-router-redux'
 import reducer from './reducer'
 import saga from './saga'
 import { auth } from './actions'
 
-import { push } from 'react-router-redux'
+import Container from './Container'
+import H2 from './H2'
+import H4 from './H4'
+import Input from './Input'
+import Form from './Form'
+import SubmitButton from './SubmitButton'
+import TwitterButton from './TwitterButton'
+import OrText from './OrText'
+import PasswordResetLink from './PasswordResetLink'
+import CreateAccountLink from './CreateAccountLink'
 
-class LoginPage extends Component {
+class SignInForm extends Component {
   handleSubmit = this.handleSubmit.bind(this)
   handleChange = this.handleChange.bind(this)
   state = {
@@ -42,37 +49,49 @@ class LoginPage extends Component {
     const { loading, error } = this.props
 
     return (
-      <div>
+      <Container>
         {loading && 'Loading...'}
         {error && 'Invalid email or password'}
-        <h2>
-          <Link to="/">Main</Link>
-        </h2>
 
-        <form onSubmit={this.handleSubmit}>
-          <input
+        <H2>Welcome back, Factchecker!</H2>
+        <H4>Login to add suspicious claims or submit evidences.</H4>
+
+        <Form onSubmit={this.handleSubmit}>
+          <TwitterButton />
+
+          <OrText />
+
+          <Input
             type="text"
             name="email"
             id="email"
+            placeholder="E-mail"
             onChange={this.handleChange}
           />
-          <input
+
+          <Input
             type="password"
             name="password"
             id="password"
             autoComplete="on"
+            placeholder="Password"
             onChange={this.handleChange}
           />
-          <button>Submit</button>
-        </form>
-      </div>
+
+          <PasswordResetLink />
+
+          <SubmitButton>Sign In</SubmitButton>
+
+          <CreateAccountLink />
+        </Form>
+      </Container>
     )
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   auth: (email, password) => dispatch(auth(email, password)),
-  redirect: () => dispatch(push('/'))
+  redirect: () => dispatch(redirect('/'))
 })
 
 const mapStateToProps = (state) => ({
@@ -89,4 +108,4 @@ export default compose(
   withReducer,
   withSaga,
   withConnect
-)(LoginPage)
+)(SignInForm)

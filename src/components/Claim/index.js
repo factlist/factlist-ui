@@ -10,7 +10,10 @@ const Claim = ({ claim }) => (
   <Container>
     <Flex justify="space-between" align="center">
       <Box>
-        <Status trueCount={1} falseCount={1} inConclusiveCount={0} />
+        <Status
+          trueCount={claim.true_count}
+          falseCount={claim.false_count}
+          inConclusiveCount={claim.inconclusive_count} />
       </Box>
       <Box>
         <Timeago date={claim.created_at} />
@@ -23,7 +26,7 @@ const Claim = ({ claim }) => (
       </Box>
       <Box>
         {claim.files && claim.files.map(file =>
-          <Img key={'claim_file_' + file.id}src={file.source} />
+          <Img key={'claim_file_' + file.id} src={file.source} />
         )}
       </Box>
     </Flex>

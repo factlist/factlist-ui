@@ -1,11 +1,11 @@
 import {
-  USER_AUTH,
+  USER_AUTH_REQUEST,
   USER_AUTH_SUCCESS,
   USER_AUTH_FAILURE
 } from './constants'
 
 export const auth = (email, password) => ({
-  type: USER_AUTH,
+  type: USER_AUTH_REQUEST,
   email,
   password
 })

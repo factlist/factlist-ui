@@ -8,9 +8,9 @@ import ReportButton from './ReportButton'
 import MobileSearch from './MobileSearch'
 import SignIn from './SignIn'
 
-const Header = ({ user, onClickReportButton }) => (
+const Header = ({ user, onClickReportButton, onClickSignInButton, hideSignInButton = false }) => (
   <Container justify="center" align="center">
-    <Box width={165} ml={10}>
+    <Box width={200} ml={10}>
       <Logo />
     </Box>
 
@@ -24,7 +24,7 @@ const Header = ({ user, onClickReportButton }) => (
           <MobileSearch />
         </Box>
         <Box ml={10} order={[2, 1]}>
-          {!user && <SignIn />}
+          {!user && !hideSignInButton && <SignIn onClick={onClickSignInButton} />}
           {user && <Avatar src="images/example-avatar.png" />}
         </Box>
         <Box ml={10} order={[1, 2]}>
