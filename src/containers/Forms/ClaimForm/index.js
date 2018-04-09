@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import injectReducer from 'utils/injectReducer'
+import injectSaga from 'utils/injectSaga'
 import H2 from './H2'
 import P from './P'
 import Textarea from './Textarea'
 import Button from './Button'
 import StyledDropzone from './StyledDropzone'
+import FilePreview from 'components/FilePreview'
 import Container from './Container'
-
 import saga from './saga'
 import reducer from './reducer'
-import injectReducer from 'utils/injectReducer'
-import injectSaga from 'utils/injectSaga'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
 import { addReport } from './actions'
 
 class ClaimForm extends Component {
@@ -29,6 +29,7 @@ class ClaimForm extends Component {
   handleOnDrop = this.handleOnDrop.bind(this)
   handleOnSubmit = this.handleOnSubmit.bind(this)
   handleTextChange = this.handleTextChange.bind(this)
+  onRemoveFile = this.onRemoveFile.bind(this)
 
   componentDidMount() {
     this.textInput.focus()
@@ -41,9 +42,7 @@ class ClaimForm extends Component {
   }
 
   handleOnDrop(files) {
-    this.setState({
-      files
-    })
+    this.setState({ files })
   }
 
   handleTextChange(event) {
@@ -60,7 +59,15 @@ class ClaimForm extends Component {
     this.props.addReport(this.state)
   }
 
+  onRemoveFile(file) {
+    this.setState({
+      files: this.state.files.filter(selectedFile => selectedFile.name !== file.name)
+    })
+  }
+
   render() {
+    const { files } = this.state
+
     return (
       <Container>
         <H2>Add Claim</H2>
@@ -74,12 +81,9 @@ class ClaimForm extends Component {
             onChange={this.handleTextChange}
           />
 
-          {/* Selected files preview */}
-          <ul>
-            {this.state.files.map(file =>
-              (<li key={Math.random()}>{file.name}</li>)
-            )}
-          </ul>
+          <FilePreview
+            files={files}
+            onRemove={this.onRemoveFile} />
 
           <StyledDropzone
             accept={this.acceptedFiles.join(',')}

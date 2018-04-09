@@ -7,10 +7,12 @@ import { closeModal } from './actions'
 
 // Modals
 import SignInModal from './SignInModal'
+import AddClaimModal from './AddClaimModal'
 
 // Available modals
 const MODAL_COMPONENTS = {
   'SIGN_IN': SignInModal,
+  'ADD_CLAIM': AddClaimModal,
 }
 
 class Modal extends Component {
@@ -43,6 +45,7 @@ class Modal extends Component {
 
 const mapStateToProps = (state) => ({
   name: state.modal.name,
+  // name: 'ADD_CLAIM',
 })
 
 const mapDispatchToProps = (dispatch) => ({

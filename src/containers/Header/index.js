@@ -1,10 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import HeaderComponent from 'components/Header'
-import { showSignInModal } from 'containers/Modals/actions'
+import {
+  showSignInModal,
+  showAddClaimModal
+} from 'containers/Modals/actions'
 
 class Header extends Component {
   showSignInModal = this.showSignInModal.bind(this)
+  showAddClaimModal = this.showAddClaimModal.bind(this)
 
   showSignInModal(event) {
     event.preventDefault()
@@ -12,6 +16,18 @@ class Header extends Component {
     const { showSignInModal } = this.props
 
     showSignInModal()
+  }
+
+  showAddClaimModal(event) {
+    event.preventDefault()
+
+    const { showAddClaimModal, showSignInModal, user } = this.props
+
+    if (user) {
+      showAddClaimModal()
+    } else {
+      showSignInModal()
+    }
   }
 
   render() {
@@ -22,6 +38,7 @@ class Header extends Component {
         <HeaderComponent
           user={user}
           onClickSignInButton={this.showSignInModal}
+          onClickReportButton={this.showAddClaimModal}
           hideSignInButton={hideSignInButton} />
       </Fragment>
     )
@@ -33,7 +50,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  showSignInModal: () => dispatch(showSignInModal())
+  showSignInModal: () => dispatch(showSignInModal()),
+  showAddClaimModal: () => dispatch(showAddClaimModal()),
 })
 
 export default connect(

@@ -9,13 +9,18 @@ const REQUEST_URL = `${API_ENDPOINT}/claims/`
 const addReport = function* (action) {
   try {
     const { text } = action.data
-    const links = text.match(/(https?:\/\/[^\s]+\.[a-z]+)/g) || []
+    const linkMatches = text.match(/(https?:\/\/[^\s]+\.[a-z]+)/g) || []
+    const links = linkMatches.reduce((accumulator, link) => {
+      accumulator.push({ link })
+
+      return accumulator
+    }, [])
 
     // Prepare  form data
     const formData = new FormData()
     formData.append('text', text)
-    links.map(link => formData.append('links[]', link))
-    action.data.files.map(file => formData.append('files[]', file))
+    formData.append('links', JSON.stringify(links))
+    action.data.files.map(file => formData.append('files', file))
 
     // Get current user's token
     const token = yield select(state => state.global.user.token)
@@ -27,8 +32,6 @@ const addReport = function* (action) {
       method: 'POST',
       body: formData
     })
-
-    console.log(response)
 
     yield put(reportAdded())
   } catch (error) {
