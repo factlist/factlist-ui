@@ -4,11 +4,16 @@ import {
   ADD_EVIDENCE_FAILURE
 } from './constants'
 
-export const addEvidence = (data) => ({
+export const addEvidence = ({ claimId, payload }) => ({
   type: ADD_EVIDENCE_REQUEST,
-  data
+  claimId,
+  payload,
 })
 
 export const evidenceAdded = () => ({
   type: ADD_EVIDENCE_SUCCESS
+})
+
+export const addEvidenceFailure = () => ({
+  type: ADD_EVIDENCE_FAILURE,
 })

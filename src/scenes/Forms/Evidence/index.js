@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addEvidence } from 'modules/evidence/actions'
 import { Flex, Box } from 'grid-styled'
 import Container from './Container'
 import Textarea from './Textarea'
@@ -6,14 +8,6 @@ import Button from './Button'
 import Label from './Label'
 import Upload from './Upload'
 import Status from './Status'
-
-import injectReducer from '../../utils/injectReducer'
-import injectSaga from '../../utils/injectSaga'
-import saga from './saga'
-import reducer from './reducer'
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import { addEvidence } from './actions'
 
 class EvidenceForm extends Component {
   state = {
@@ -49,7 +43,12 @@ class EvidenceForm extends Component {
   handleOnSubmit(event) {
     event.preventDefault()
 
-    this.props.addEvidence(this.state)
+    const { addEvidence, claimId } = this.props
+
+    addEvidence({
+      claimId,
+      payload: this.state,
+    })
   }
 
   render() {
@@ -83,20 +82,15 @@ class EvidenceForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.evidenceForm.loading,
-  error: state.evidenceForm.error,
+  requesting: state.evidence.requesting,
+  error: state.evidence.error,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   addEvidence: (data) => dispatch(addEvidence(data))
 })
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps)
-const withReducer = injectReducer({ key: 'evidenceForm', reducer })
-const withSaga = injectSaga({ key: 'evidenceForm', saga })
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(EvidenceForm)

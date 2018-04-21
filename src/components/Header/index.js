@@ -25,7 +25,7 @@ const Header = ({ user, onClickClaimButton, onClickSignInButton, hideSignInButto
         </Box>
         <Box ml={10}>
           {!user && !hideSignInButton && <SignInButton onClick={onClickSignInButton} />}
-          {user && <Avatar src="images/example-avatar.png" />}
+          {user && <Avatar src="/images/example-avatar.png" />}
         </Box>
         <Box ml={10}>
           <AddClaimButton onClick={onClickClaimButton} />

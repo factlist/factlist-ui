@@ -6,15 +6,15 @@ import { fetchClaim } from 'modules/claim/actions'
 import { selectedClaim } from 'modules/claim/selectors'
 import Claim from 'components/Claim'
 import Evidence from 'components/Evidence'
+import EvidenceForm from 'scenes/Forms/Evidence'
 
 class ClaimScene extends Component {
+  claimId = this.props.match.params.id
+
   componentWillMount() {
     const { fetchClaim } = this.props
 
-    // Claim id
-    const id = this.props.match.params.id
-
-    fetchClaim(id)
+    fetchClaim(this.claimId)
   }
 
   render() {
@@ -34,6 +34,8 @@ class ClaimScene extends Component {
             {claim && claim.evidences.map(evidence => <Evidence
               key={evidence.id}
               evidence={evidence} />)}
+
+            <EvidenceForm claimId={this.claimId} />
           </Center>
           <Right></Right>
         </Container>
