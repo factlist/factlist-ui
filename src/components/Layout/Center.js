@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Box } from 'grid-styled'
 
-const CenterBox = styled(Box)`
+const Center = styled(Box)`
   margin: 0 30px;
   width: 670px;
 
@@ -10,4 +10,4 @@ const CenterBox = styled(Box)`
   }
 `
 
-export default CenterBox
+export default Center

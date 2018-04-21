@@ -1,33 +1,33 @@
 import React from 'react'
 import Container from './Container'
 import { Flex, Box } from 'grid-styled'
-import Timeago from '../../containers/Timeago'
+import Timeago from 'scenes/Timeago'
 import Avatar from './Avatar'
 import Profile from './Profile'
 import FullName from './FullName'
 import Username from './Username'
 import Description from './Description'
 
-const Evidence = () => (
+const Evidence = ({ evidence }) => (
   <Container>
     <Flex justify="space-between">
       <Box>
-        <Avatar src="images/example-avatar-2.png" />
+        <Avatar />
         <Profile>
-          <FullName>Ali Çavdar</FullName>
-          <Username>@alicavdar</Username>
+          <FullName>Şerafettin Yarar</FullName>
+          <Username>@{evidence.user.username}</Username>
         </Profile>
       </Box>
       <Box>
-        <Timeago date="2018-01-24 13:00:00" />
+        <Timeago date={evidence.created_at} />
       </Box>
     </Flex>
 
     <Flex column mt={10}>
       <Box ml={50}>
-        <Description type="true" text="Trump-Russia probe: Mueller 'requests emails' from Cambridge Analytica firm linked to 2016 campaign and Brexit" />
-      </Box>
-      <Box>
+        <Description
+          type={evidence.status}
+          text={evidence.text} />
       </Box>
     </Flex>
   </Container>

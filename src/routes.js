@@ -3,12 +3,13 @@ import { ConnectedRouter as Router } from 'react-router-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 // Scenes
+import Global from 'scenes/Global'
 import Main from 'scenes/Main'
 import SignIn from 'scenes/SignIn'
 import SignOut from 'scenes/SignOut'
 import SignUp from 'scenes/SignUp'
 import NotFound from 'scenes/NotFound'
-import Global from 'scenes/Global'
+import Claim from 'scenes/Claim'
 
 export default ({ history }) => (
   <Router history={history}>
@@ -17,6 +18,7 @@ export default ({ history }) => (
         <Route path="/" exact component={Main} />
         <Route path="/sign_in" component={SignIn} />
         <Route path="/sign_up" component={SignUp} />
+        <Route path="/claims/:id" component={Claim} />
         <PrivateRoute path="/sign_out" component={SignOut} />
         <Route component={NotFound} />
       </Switch>

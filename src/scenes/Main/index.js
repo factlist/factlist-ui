@@ -1,15 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Flex, Box } from 'grid-styled'
+import { Box } from 'grid-styled'
+import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Claim from 'components/Claim'
-import LeftBox from './LeftBox'
-import CenterBox from './CenterBox'
-import RightBox from './RightBox'
-
 import { fetchClaims } from 'modules/claim/actions'
+import { allClaims } from 'modules/claim/selectors'
 
 class Main extends Component {
   componentWillMount() {
@@ -25,12 +23,10 @@ class Main extends Component {
       <Fragment>
         <Header />
 
-        <Flex justify="center" wrap>
-          <LeftBox>
-            {/* Popular topics */}
-          </LeftBox>
+        <Container>
+          <Left>Popular Topics</Left>
 
-          <CenterBox>
+          <Center>
             {fetching && 'Getting claims...'}
 
             {!fetching && claims.map((claim) =>
@@ -38,17 +34,17 @@ class Main extends Component {
                 <Claim claim={claim} />
               </Box>
             )}
-          </CenterBox>
+          </Center>
 
-          <RightBox>
+          <Right>
             <Box>
               <Slack />
             </Box>
             <Box mt={15}>
               <Footer />
             </Box>
-          </RightBox>
-        </Flex>
+          </Right>
+        </Container>
       </Fragment>
     )
   }
@@ -56,7 +52,7 @@ class Main extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  claims: state.claim.data,
+  claims: allClaims(state),
   fetching: state.claim.fetching,
 })
 

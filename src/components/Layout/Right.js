@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Box } from 'grid-styled'
 
-const RightBox = styled(Box)`
+const Right = styled(Box)`
   width: 270px;
   max-width: 670px;
   margin-right: 10px;
@@ -13,4 +13,4 @@ const RightBox = styled(Box)`
   }
 `
 
-export default RightBox
+export default Right
