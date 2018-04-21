@@ -22,7 +22,7 @@ const Img = styled.img`
 export default ({ onClick }) => (
   <A onClick={onClick}>
     <Flex justify="center">
-      <Box><Img src="images/icons/twitter.svg" /></Box>
+      <Box><Img src="/images/icons/twitter.svg" /></Box>
       <Box mx="auto">Login with Twitter</Box>
     </Flex>
   </A>

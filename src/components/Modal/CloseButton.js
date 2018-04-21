@@ -11,6 +11,6 @@ const A  = styled.a`
 
 export default ({ onClick }) => (
   <A onClick={onClick}>
-    <img src="images/icons/close.svg" alt="Close" width={20} height={20} />
+    <img src="/images/icons/close.svg" alt="Close" width={20} height={20} />
   </A>
 )
