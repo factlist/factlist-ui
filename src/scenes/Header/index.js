@@ -38,7 +38,7 @@ class Header extends Component {
         <HeaderComponent
           user={user}
           onClickSignInButton={this.showSignInModal}
-          onClickReportButton={this.showAddClaimModal}
+          onClickClaimButton={this.showAddClaimModal}
           hideSignInButton={hideSignInButton} />
       </Fragment>
     )

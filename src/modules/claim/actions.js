@@ -33,8 +33,13 @@ export const fetchClaimsFailure = () => ({
   type: FETCH_ALL_CLAIMS_FAILURE
 })
 
-export const addReport = (data) => ({
+export const addClaim = (data) => ({
   type: ADD_CLAIM_REQUEST,
+  data
+})
+
+export const claimAdded = (data) => ({
+  type: ADD_CLAIM_SUCCESS,
   data
 })
 

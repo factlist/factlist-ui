@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addReport } from 'modules/claim/actions'
+import { addClaim } from 'modules/claim/actions'
 import H2 from './H2'
 import P from './P'
 import Textarea from './Textarea'
@@ -51,7 +51,9 @@ class ClaimForm extends Component {
   handleOnSubmit(event) {
     event.preventDefault()
 
-    this.props.addReport(this.state)
+    const { addClaim } = this.props
+
+    addClaim(this.state)
   }
 
   onRemoveFile(file) {
@@ -100,7 +102,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addReport: (data) => dispatch(addReport(data))
+  addClaim: (data) => dispatch(addClaim(data))
 })
 
 export default connect(

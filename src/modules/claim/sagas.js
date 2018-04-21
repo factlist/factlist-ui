@@ -1,15 +1,17 @@
-import { takeLatest, fork, put } from 'redux-saga/effects'
+import { takeLatest, fork, put, select } from 'redux-saga/effects'
 import axios from 'axios'
 import { push as redirect } from 'react-router-redux'
 import config from 'config'
 import {
   FETCH_CLAIM_REQUEST,
   FETCH_ALL_CLAIMS_REQUEST,
+  ADD_CLAIM_REQUEST,
 } from './constants'
 import {
   claimFetched,
   claimsFetched,
   fetchClaimsFailure,
+  claimAdded,
 } from './actions'
 
 // Saga handlers
@@ -35,6 +37,41 @@ const fetchAll = function* (action) {
   }
 }
 
+const addClaim = function* (action) {
+  const { text } = action.data
+  const linkMatches = text.match(/(https?:\/\/[^\s]+\.[a-z]+)/g) || []
+  const links = linkMatches.reduce((accumulator, link) => {
+    accumulator.push({ link })
+
+    return accumulator
+  }, [])
+
+  // Prepare  form data
+  const formData = new FormData()
+  formData.append('text', text)
+  formData.append('links', JSON.stringify(links))
+  action.data.files.map(file => formData.append('files', file))
+
+  try {
+    // Get current user's token
+    const token = yield select(state => state.auth.user.token)
+
+    // // API request
+    const response = yield axios.post(`${config.API_ENDPOINT}/claims/`, formData, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+
+    yield put(claimAdded(response.data))
+
+    yield put(redirect('/'))
+  } catch (error) {
+    // @TODO Handle error
+    console.log(`Claim couldn't created.`)
+  }
+}
+
 // Watchers
 const watchFetch = function* () {
   yield takeLatest(FETCH_CLAIM_REQUEST, fetch)
@@ -44,7 +81,12 @@ const watchFetchAll = function* () {
   yield takeLatest(FETCH_ALL_CLAIMS_REQUEST, fetchAll)
 }
 
+const watchAddClaim = function* () {
+  yield takeLatest(ADD_CLAIM_REQUEST, addClaim)
+}
+
 export default [
   fork(watchFetch),
   fork(watchFetchAll),
+  fork(watchAddClaim),
 ]

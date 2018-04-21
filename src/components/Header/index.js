@@ -8,7 +8,7 @@ import MobileSearch from './MobileSearch'
 import AddClaimButton from './AddClaimButton'
 import SignInButton from './SignInButton'
 
-const Header = ({ user, onClickReportButton, onClickSignInButton, hideSignInButton = false }) => (
+const Header = ({ user, onClickClaimButton, onClickSignInButton, hideSignInButton = false }) => (
   <Container justify="center" align="center">
     <Box width={200} ml={10}>
       <Logo />
@@ -28,7 +28,7 @@ const Header = ({ user, onClickReportButton, onClickSignInButton, hideSignInButt
           {user && <Avatar src="images/example-avatar.png" />}
         </Box>
         <Box ml={10}>
-          <AddClaimButton onClick={onClickReportButton} />
+          <AddClaimButton onClick={onClickClaimButton} />
         </Box>
       </Flex>
     </Box>
