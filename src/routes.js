@@ -1,26 +1,35 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { ConnectedRouter as Router } from 'react-router-redux'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import MainPage from 'containers/Pages/MainPage'
-import SignInPage from 'containers/Pages/SignInPage'
-import LogoutPage from 'containers/Pages/LogoutPage'
-import SignupPage from 'containers/Pages/SignupPage'
-import NotFoundPage from 'components/NotFoundPage'
+// Scenes
+import Main from 'scenes/Main'
+import SignIn from 'scenes/SignIn'
+import SignOut from 'scenes/SignOut'
+import SignUp from 'scenes/SignUp'
+import NotFound from 'scenes/NotFound'
+import Global from 'scenes/Global'
 
-export default () => (
-  <Switch>
-    <Route path="/" exact component={MainPage} />
-    <Route path="/sign_in" component={SignInPage} />
-    <PrivateRoute path="/logout" component={LogoutPage} />
-    <Route path="/sign_up" component={SignupPage} />
-    <Route component={NotFoundPage} />
-  </Switch>
+export default ({ history }) => (
+  <Router history={history}>
+    <Fragment>
+      <Switch>
+        <Route path="/" exact component={Main} />
+        <Route path="/sign_in" component={SignIn} />
+        <Route path="/sign_up" component={SignUp} />
+        <PrivateRoute path="/sign_out" component={SignOut} />
+        <Route component={NotFound} />
+      </Switch>
+
+      <Global />
+    </Fragment>
+  </Router>
 )
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
     localStorage.getItem('user')
       ? <Component {...props} />
-      : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+      : <Redirect to={{ pathname: '/sign_in', state: { from: props.location } }} />
   )} />
 )
