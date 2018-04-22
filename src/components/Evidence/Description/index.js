@@ -2,9 +2,9 @@ import React from 'react'
 import Because from './Because'
 import P from './P'
 
-const Description = ({ text, type }) => (
+const Description = ({ status, text }) => (
   <P>
-    <Because>True because: </Because>{text}
+    <Because status={status}/> {text}
   </P>
 )
 

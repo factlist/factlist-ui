@@ -31,9 +31,11 @@ class ClaimScene extends Component {
             {claim && <Claim claim={claim} />}
 
             {/* Evidences */}
-            {claim && claim.evidences.map(evidence => <Evidence
-              key={evidence.id}
-              evidence={evidence} />)}
+            <div>
+              {claim && claim.evidences.map(evidence => <Evidence
+                key={evidence.id}
+                evidence={evidence} />)}
+            </div>
 
             <EvidenceForm claimId={this.claimId} />
           </Center>

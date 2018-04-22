@@ -2,16 +2,23 @@ import { takeLatest, fork, select, put } from 'redux-saga/effects'
 import axios from 'axios'
 import config from 'config'
 import { ADD_EVIDENCE_REQUEST } from './constants'
-import { evidenceAdded, addEvidenceFailure } from './actions'
+import { evidenceAdded, addEvidenceFailure} from './actions'
 
 const addEvidence = function* (action) {
   try {
     const formData = new FormData()
     formData.append('claim', action.claimId)
     formData.append('text', action.payload.text)
-    formData.append('links', action.payload.links)
     formData.append('status', action.payload.status)
     action.payload.files.map(file => formData.append('files', file))
+
+    const links = action.payload.links.reduce((accumulator, link) => {
+      accumulator.push({ link })
+
+      return accumulator
+    }, [])
+
+    formData.append('links', JSON.stringify(links))
 
     // Get current user's token
     const token = yield select(state => state.auth.user.token)
@@ -23,10 +30,9 @@ const addEvidence = function* (action) {
       }
     })
 
-    console.log(response)
+    yield put(evidenceAdded(response.data))
   } catch (error) {
-    // @TODO Handle error
-    console.log(`Evidence couldn't added.`)
+    yield put(addEvidenceFailure())
   }
 }
 

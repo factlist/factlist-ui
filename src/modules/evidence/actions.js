@@ -10,8 +10,9 @@ export const addEvidence = ({ claimId, payload }) => ({
   payload,
 })
 
-export const evidenceAdded = () => ({
-  type: ADD_EVIDENCE_SUCCESS
+export const evidenceAdded = (evidence) => ({
+  type: ADD_EVIDENCE_SUCCESS,
+  evidence
 })
 
 export const addEvidenceFailure = () => ({

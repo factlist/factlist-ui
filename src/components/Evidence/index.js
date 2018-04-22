@@ -14,7 +14,7 @@ const Evidence = ({ evidence }) => (
       <Box>
         <Avatar />
         <Profile>
-          <FullName>Şerafettin Yarar</FullName>
+          <FullName>{evidence.user.username}</FullName>
           <Username>@{evidence.user.username}</Username>
         </Profile>
       </Box>
@@ -26,7 +26,7 @@ const Evidence = ({ evidence }) => (
     <Flex column mt={10}>
       <Box ml={50}>
         <Description
-          type={evidence.status}
+          status={evidence.status}
           text={evidence.text} />
       </Box>
     </Flex>

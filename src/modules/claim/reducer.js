@@ -10,6 +10,10 @@ import {
   ADD_CLAIM_FAILURE,
 } from './constants'
 
+import {
+  ADD_EVIDENCE_SUCCESS
+} from 'modules/evidence/constants'
+
 const initialState = {
   requesting: false,
   error: false,
@@ -77,6 +81,15 @@ export default (state = initialState, action) => {
 
     case ADD_CLAIM_FAILURE:
       return state
+
+    case ADD_EVIDENCE_SUCCESS:
+      return {
+        ...state,
+        selectedClaim: {
+          ...state.selectedClaim,
+          evidences: state.selectedClaim.evidences.concat(action.evidence),
+        }
+      }
 
     default:
       return state
