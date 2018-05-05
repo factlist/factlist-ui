@@ -1,48 +1,54 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import colors from 'core/colors'
+import Container from './Container'
 import Choice from './Choice'
 
-class Status extends Component {
-  onChange = this.onChange.bind(this)
+export default class Status extends Component {
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired,
+  }
 
-  onChange(event) {
-    const { value } = event.target
+  state = {
+    status: null
+  }
+
+  select = this.select.bind(this)
+
+  select(status) {
     const { onSelect } = this.props
 
-    onSelect(value)
+    this.setState({ status })
+
+    onSelect(status)
   }
 
   render() {
+    const { status } = this.state
+
     return (
-      <div>
+      <Container>
         <Choice
-          id="true"
-          name="status"
-          value="true"
-          label="True"
-          color="#4CAF50"
-          onChange={this.onChange}
-        />
+          active={status === 'true'}
+          onClick={() => this.select('true')}
+          color={colors.status['true']}>
+          True
+        </Choice>
 
         <Choice
-          id="inconclusive"
-          name="status"
-          value="inconclusive"
-          label="Inconclusive"
-          color="#FFB747"
-          onChange={this.onChange}
-        />
+          active={status === 'inconclusive'}
+          onClick={() => this.select('inconclusive')}
+          color={colors.status['inconclusive']}>
+          Inconclusive
+        </Choice>
 
         <Choice
-          id="false"
-          name="status"
-          value="false"
-          label="False"
-          color="#FF6947"
-          onChange={this.onChange}
-        />
-      </div>
+          active={status === 'false'}
+          onClick={() => this.select('false')}
+          color={colors.status['false']}>
+          False
+        </Choice>
+      </Container>
     )
   }
 }
-
-export default Status

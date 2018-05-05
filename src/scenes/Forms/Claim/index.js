@@ -6,7 +6,6 @@ import P from './P'
 import Textarea from './Textarea'
 import Button from './Button'
 import StyledDropzone from './StyledDropzone'
-import FilePreview from 'components/FilePreview'
 import Container from './Container'
 
 class ClaimForm extends Component {
@@ -63,8 +62,6 @@ class ClaimForm extends Component {
   }
 
   render() {
-    const { files } = this.state
-
     return (
       <Container>
         <H2>Add Claim</H2>
@@ -77,10 +74,6 @@ class ClaimForm extends Component {
             value={this.state.text}
             onChange={this.handleTextChange}
           />
-
-          <FilePreview
-            files={files}
-            onRemove={this.onRemoveFile} />
 
           <StyledDropzone
             accept={this.acceptedFiles.join(',')}

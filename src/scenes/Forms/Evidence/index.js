@@ -1,82 +1,75 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addEvidence } from 'modules/evidence/actions'
 import { Flex, Box } from 'grid-styled'
-import Container from './Container'
-import Textarea from './Textarea'
 import Button from './Button'
+import { addEvidence } from 'modules/evidence/actions'
+import Form from './Form'
 import Label from './Label'
 import Upload from './Upload'
 import Status from './Status'
+import MultimediaInput from 'scenes/MultimediaInput'
 
 class EvidenceForm extends Component {
   state = {
     text: '',
+    attachments: [],
     files: [],
     links: [],
     status: null
   }
 
-  handleOnSubmit = this.handleOnSubmit.bind(this)
+  handleSubmit = this.handleSubmit.bind(this)
   onStatusSelect = this.onStatusSelect.bind(this)
-  onTextChange = this.onTextChange.bind(this)
   onSelectFiles = this.onSelectFiles.bind(this)
+  onLinks = this.onLinks.bind(this)
+
+  onLinks(links) {
+    this.setState({ links })
+  }
 
   onStatusSelect(status) {
     this.setState({ status })
   }
 
   onSelectFiles(files) {
-    this.setState({ files })
+    this.setState((prevState) => ({
+      files: prevState.files.concat(files),
+    }))
   }
 
-  onTextChange(event) {
-    const { value } = event.target
-
-    const links = value.match(/(https?:\/\/[^\s]+\.[a-z]+)/g) || []
-    this.setState({
-      text: value,
-      links
-    })
-  }
-
-  handleOnSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault()
 
     const { addEvidence, claimId } = this.props
+    const payload = this.state
 
-    addEvidence({
-      claimId,
-      payload: this.state,
-    })
+    addEvidence({ claimId, payload })
   }
 
   render() {
+    // const { links, files } = this.state
+    // const attachments = links.concat(files)
+
     return (
-      <Container>
-        <form onSubmit={this.handleOnSubmit}>
-          <Flex column>
-            <Box mb={30}>
-              <Label>This report is:</Label>
-              <Status onSelect={this.onStatusSelect} />
-            </Box>
-            <Box mb={15}>
-              <Label>Because:</Label>
-              <Textarea
-                placeholder="Description or URL"
-                onChange={this.onTextChange}
-                value={this.state.text}
-              />
-            </Box>
-            <Box mb={20}>
-              <Upload onSelect={this.onSelectFiles} />
-            </Box>
-            <Box>
-              <Button>ADD EVIDENCE</Button>
-            </Box>
-          </Flex>
-        </form>
-      </Container>
+      <Form onSubmit={this.handleSubmit}>
+        <Flex column>
+          <Box mb={30}>
+            <Label>This report is:</Label>
+            <Status onSelect={this.onStatusSelect} />
+          </Box>
+          <Box mb={15}>
+            <Label>Because:</Label>
+            <MultimediaInput />
+          </Box>
+          <Box mb={20}>
+            <Upload onSelect={this.onSelectFiles} />
+          </Box>
+
+          <Box>
+            <Button>ADD EVIDENCE</Button>
+          </Box>
+        </Flex>
+      </Form>
     )
   }
 }

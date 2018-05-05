@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 const Label = styled.label`
+  display: block;
   font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  color: #000000;
-  display: inline-block;
-  margin-bottom: 20px;
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(0,0,0,0.60);
+  margin-bottom: 10px;
 `
 
 export default Label

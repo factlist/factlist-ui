@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Textarea = styled.textarea`
+const StyledTextarea = styled.textarea`
   width: 100%;
   height: 90px;
   min-height: 90px;
@@ -17,4 +17,4 @@ const Textarea = styled.textarea`
   outline: none;
 `
 
-export default Textarea
+export default StyledTextarea

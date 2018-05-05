@@ -9,7 +9,7 @@ import Evidence from 'components/Evidence'
 import EvidenceForm from 'scenes/Forms/Evidence'
 
 class ClaimScene extends Component {
-  claimId = this.props.match.params.id
+  claimId = parseInt(this.props.match.params.id, 10)
 
   componentWillMount() {
     const { fetchClaim } = this.props
