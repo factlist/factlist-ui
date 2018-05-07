@@ -5,7 +5,6 @@ import Button from './Button'
 import { addEvidence } from 'modules/evidence/actions'
 import Form from './Form'
 import Label from './Label'
-import Upload from './Upload'
 import Status from './Status'
 import MultimediaInput from 'scenes/MultimediaInput'
 
@@ -13,14 +12,12 @@ class EvidenceForm extends Component {
   state = {
     text: '',
     attachments: [],
-    files: [],
     links: [],
     status: null
   }
 
   handleSubmit = this.handleSubmit.bind(this)
   onStatusSelect = this.onStatusSelect.bind(this)
-  onSelectFiles = this.onSelectFiles.bind(this)
   onLinks = this.onLinks.bind(this)
 
   onLinks(links) {
@@ -29,12 +26,6 @@ class EvidenceForm extends Component {
 
   onStatusSelect(status) {
     this.setState({ status })
-  }
-
-  onSelectFiles(files) {
-    this.setState((prevState) => ({
-      files: prevState.files.concat(files),
-    }))
   }
 
   handleSubmit(event) {
@@ -47,22 +38,16 @@ class EvidenceForm extends Component {
   }
 
   render() {
-    // const { links, files } = this.state
-    // const attachments = links.concat(files)
-
     return (
       <Form onSubmit={this.handleSubmit}>
         <Flex column>
           <Box mb={30}>
-            <Label>This report is:</Label>
+            <Label>Claim is:</Label>
             <Status onSelect={this.onStatusSelect} />
           </Box>
           <Box mb={15}>
             <Label>Because:</Label>
             <MultimediaInput />
-          </Box>
-          <Box mb={20}>
-            <Upload onSelect={this.onSelectFiles} />
           </Box>
 
           <Box>

@@ -2,15 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Domain = styled.p`
-  font-size: 12px;
+  font-size: 11px;
   margin: 0;
-  margin-top: 5px;
+  margin-top: 2px;
   opacity: 0.5;
 `
 
-export default ({ domain }) => {
-  const temp = document.createElement('a')
-  temp.href = domain
+const TEXT_LIMIT = 24
 
-  return <Domain>{temp.hostname}</Domain>
+export default ({ url }) => {
+  const temp = document.createElement('a')
+  temp.href = url
+
+  return <Domain>{temp.hostname.substr(0, TEXT_LIMIT)}</Domain>
 }

@@ -1,8 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import config from 'config'
+import axios from 'axios'
 import Container from './Container'
 import Editor from './Editor'
-import getEmbed from './getEmbed'
 import EmbedPreview from './EmbedPreview'
+import Seperator from './Seperator'
+import Label from './Label'
 
 class MultimediaInput extends Component {
   state = {
@@ -26,25 +29,50 @@ class MultimediaInput extends Component {
       return null
     }
 
-    embeds[url] = { url, requesting: true, data: null }
+    embeds[url] = { requesting: true, data: null }
     this.setState({ embeds })
 
-    getEmbed(url).then(data => {
-      embeds[url] = { requesting: false, data }
+    this.embedRequest(url).then(data => {
+      embeds[url] = {
+        requesting: false,
+        error: data ? false : true,
+        data,
+      }
 
       this.setState({ embeds })
     })
   }
 
-  render() {
-    const { embeds } = this.state
+  embedRequest(url) {
+    return new Promise(resolve => {
+      axios
+        .get(`${config.API_ENDPOINT}/embed/?link=${url}`)
+        .then(response => response.data)
+        .then(data => resolve(data))
+        .catch(() => resolve(null))
+    })
+  }
 
-    console.log('@@', embeds)
+  render() {
+    let { embeds, urls } = this.state
+    embeds = urls
+      .map(url => embeds[url])
+      .filter(embed => typeof embed !== 'undefined')
 
     return (
       <Container>
         <Editor onLinks={this.onUrls} />
-        <EmbedPreview embeds={embeds} />
+
+        <Seperator />
+
+        {embeds.length > 0 && (
+          <Fragment>
+            <Label>Links:</Label>
+            <EmbedPreview embeds={embeds} />
+          </Fragment>
+        )}
+
+        <Label>Attachments:</Label>
       </Container>
     )
   }
