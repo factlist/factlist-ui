@@ -9,6 +9,4 @@ const Title = styled.h2`
   word-wrap: break-word;
 `
 
-const TEXT_LIMIT = 44
-
-export default ({ title }) => <Title>{title.substr(0, TEXT_LIMIT)}</Title>
+export default Title

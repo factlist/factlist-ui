@@ -5,12 +5,16 @@ import Content from './Content'
 import Title from './Title'
 import Domain from './Domain'
 
+const MAX_TITLE_LENGTH = 44
+
 const Card = ({ url, image, title }) => (
   <A href={url} target="_blank">
     <Image src={image} />
 
     <Content>
-      <Title title={title} />
+      {title
+        ? <Title>{title.substr(0, MAX_TITLE_LENGTH)}</Title>
+        : <Title>{url}</Title>}
       <Domain url={url} />
     </Content>
   </A>
