@@ -4,6 +4,7 @@ import axios from 'axios'
 import Container from './Container'
 import Editor from './Editor'
 import EmbedPreview from './EmbedPreview'
+import FileSelector from './FileSelector'
 import Seperator from './Seperator'
 import Label from './Label'
 
@@ -73,6 +74,7 @@ class MultimediaInput extends Component {
         )}
 
         <Label>Attachments:</Label>
+        <FileSelector />
       </Container>
     )
   }
