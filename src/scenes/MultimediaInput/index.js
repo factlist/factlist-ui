@@ -16,6 +16,7 @@ class MultimediaInput extends Component {
 
   onUrls = this.onUrls.bind(this)
   getEmbed = this.getEmbed.bind(this)
+  onEmbedRemove = this.onEmbedRemove.bind(this)
 
   onUrls(urls) {
     this.setState({ urls })
@@ -30,11 +31,12 @@ class MultimediaInput extends Component {
       return null
     }
 
-    embeds[url] = { requesting: true, data: null }
+    embeds[url] = { url, requesting: true, data: null }
     this.setState({ embeds })
 
     this.embedRequest(url).then(data => {
       embeds[url] = {
+        url,
         requesting: false,
         error: data ? false : true,
         data,
@@ -54,6 +56,13 @@ class MultimediaInput extends Component {
     })
   }
 
+  // @TODO Remove given url from editor.
+  onEmbedRemove(embed) {
+    const urls = this.state.urls.filter(url => embed.url !== url)
+
+    this.setState({ urls })
+  }
+
   render() {
     let { embeds, urls } = this.state
     embeds = urls
@@ -69,7 +78,7 @@ class MultimediaInput extends Component {
         {embeds.length > 0 && (
           <Fragment>
             <Label>Links:</Label>
-            <EmbedPreview embeds={embeds} />
+            <EmbedPreview embeds={embeds} onRemove={this.onEmbedRemove} />
           </Fragment>
         )}
 
