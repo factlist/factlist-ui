@@ -36,7 +36,7 @@ export default class FileSelector extends Component {
     return (
       <Flex wrap={true} >
         {files.map(file => (
-          <Box mr={5} key={_.randomId()}>
+          <Box mr={7} key={_.randomId()}>
             <File file={file} onRemove={this.onRemove} />
           </Box>
         ))}
