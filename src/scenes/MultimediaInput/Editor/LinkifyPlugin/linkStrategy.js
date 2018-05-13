@@ -1,19 +1,14 @@
-import getUrls from 'get-urls'
-import escapeStringRegexp from 'escape-string-regexp'
+import urlRegex from 'url-regex'
 
 export default (contentBlock, callback) => {
-  const text = contentBlock.get('text')
-  const urls = Array.from(getUrls(text, {
-    stripWWW: false,
-    stripFragment: false,
-  }))
+  const text = contentBlock.getText()
+  const regex = urlRegex()
 
-  urls.forEach(url => {
-    const regExp = new RegExp(escapeStringRegexp(url), 'g')
+  let matchArr
+  while ((matchArr = regex.exec(text)) !== null) {
+    const start = matchArr.index
+    const end = start + matchArr[0].length
 
-    let match = ''
-    while ((match = regExp.exec(text)) !== null) {
-      callback(match.index, match.index + url.length)
-    }
-  })
+    callback(start, end)
+  }
 }

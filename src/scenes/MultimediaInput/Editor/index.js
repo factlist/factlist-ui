@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import Container from './Container'
 import Editor from 'draft-js-plugins-editor'
-import { EditorState } from 'draft-js'
-import LinkifyPlugin from './LinkifyPlugin'
+import { EditorState, ContentState } from 'draft-js'
 import _ from 'utils/_'
-import getUrls from 'get-urls'
+import LinkifyPlugin from './LinkifyPlugin'
+import { getUniqueUrls, getUrlsWithIndex } from './getUrls'
 
 import 'draft-js/dist/Draft.css'
 
 export default class Input extends Component {
   state = {
     editorState: EditorState.createEmpty(),
-    plainText: '',
-    urls: []
+    urls: [],
   }
 
   onChange = this.onChange.bind(this)
@@ -20,26 +19,40 @@ export default class Input extends Component {
   catchUrls = _.debounce(this.catchUrls, 500)
 
   onChange(editorState) {
-    this.setState({
-      editorState,
-      plainText: editorState.getCurrentContent().getPlainText(),
-    })
+    this.setState({ editorState })
 
+    // It will catch unique urls with debounce
     this.catchUrls()
   }
 
   catchUrls(content) {
     const { onLinks } = this.props
-    const { urls, plainText } = this.state
-    const matchedUrls = Array.from(getUrls(plainText, {
-      stripWWW: false,
-      stripFragment: false,
-    }))
+    const { urls, editorState } = this.state
+    const plainText = editorState.getCurrentContent().getPlainText()
+    const uniqueUrls = getUniqueUrls(plainText)
 
-    if (!_.isEqual(matchedUrls, urls)) {
-      this.setState({ urls: matchedUrls })
-      onLinks(matchedUrls)
+    if (!_.isEqual(uniqueUrls, urls)) {
+      this.setState({ urls: uniqueUrls })
+      onLinks(uniqueUrls)
     }
+  }
+
+  removeURL(url) {
+    const { editorState } = this.state
+
+    let text = editorState.getCurrentContent().getPlainText()
+    const urls = getUrlsWithIndex(text)
+      .filter(urlRange => urlRange.url === url)
+      .reverse()
+      .forEach(url => {
+        text = text.substring(0, url.start) + text.substring(url.end)
+      })
+
+    const contentState = ContentState.createFromText(text)
+
+    this.setState({
+      editorState: EditorState.push(editorState, contentState)
+    })
   }
 
   focus() {
