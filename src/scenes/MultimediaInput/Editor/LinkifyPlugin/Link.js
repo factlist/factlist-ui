@@ -35,7 +35,7 @@ export default class Link extends Component {
       target,
       rel,
       className,
-    };
+    }
 
     return <A {...props} /> // eslint-disable-line jsx-a11y/anchor-has-content
   }

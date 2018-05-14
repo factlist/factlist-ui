@@ -41,14 +41,15 @@ export default class Input extends Component {
     const { editorState } = this.state
 
     let text = editorState.getCurrentContent().getPlainText()
-    const urls = getUrlsWithIndex(text)
+
+    getUrlsWithIndex(text)
       .filter(urlRange => urlRange.url === url)
       .reverse()
       .forEach(url => {
         text = text.substring(0, url.start) + text.substring(url.end)
       })
 
-    const contentState = ContentState.createFromText(text)
+    const contentState = ContentState.createFromText(text.trim())
 
     this.setState({
       editorState: EditorState.push(editorState, contentState)

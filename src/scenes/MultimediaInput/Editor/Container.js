@@ -9,6 +9,7 @@ const Container = styled.div`
   cursor: text;
   color: #14171A;
   font-size: 13px;
+  margin-bottom: 15px;
 `
 
 export default Container
