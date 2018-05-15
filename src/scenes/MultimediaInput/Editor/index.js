@@ -68,6 +68,7 @@ export default class Input extends Component {
         <Editor
           placeholder={placeholder}
           ref={node =>  this.editor = node }
+          stripPastedStyles={true}
           editorState={this.state.editorState}
           onChange={this.onChange}
           plugins={[ LinkifyPlugin() ]} />
