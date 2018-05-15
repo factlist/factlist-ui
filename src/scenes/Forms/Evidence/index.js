@@ -47,7 +47,7 @@ class EvidenceForm extends Component {
           </Box>
           <Box mb={15}>
             <Label>Because:</Label>
-            <MultimediaInput />
+            <MultimediaInput placeholder="Start explaning your evidence here." />
           </Box>
 
           <Box>

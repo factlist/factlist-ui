@@ -10,6 +10,10 @@ import Label from './Label'
 import FileSwitch from './FileSwitch'
 
 class MultimediaInput extends Component {
+  static defaultProps = {
+    placeholder: '',
+  }
+
   state = {
     urls: [],
     files: [],
@@ -79,6 +83,7 @@ class MultimediaInput extends Component {
   }
 
   render() {
+    const { placeholder } = this.props
     let { embeds, urls, files } = this.state
     embeds = urls
       .map(url => embeds[url])
@@ -87,10 +92,13 @@ class MultimediaInput extends Component {
     return (
       <Container>
         <Editor
+          placeholder={placeholder}
           ref={ref => this.editor = ref}
           onLinks={this.onUrls} />
 
-        {embeds.length === 0 && files.length === 0 && <FileSwitch onClick={this.showFileSelector} />}
+        {embeds.length === 0 &&
+          files.length === 0 &&
+          <FileSwitch onClick={this.showFileSelector} />}
 
         {(files.length > 0 || embeds.length > 0) && <Seperator />}
 

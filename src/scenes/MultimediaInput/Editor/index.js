@@ -61,10 +61,12 @@ export default class Input extends Component {
   }
 
   render() {
+    const { placeholder } = this.props
+
     return (
       <Container onClick={this.focus}>
         <Editor
-          placeholder="Description or URL"
+          placeholder={placeholder}
           ref={node =>  this.editor = node }
           editorState={this.state.editorState}
           onChange={this.onChange}

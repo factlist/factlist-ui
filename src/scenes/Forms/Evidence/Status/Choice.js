@@ -6,9 +6,9 @@ const Choice = styled.label`
   font-weight: 400;
   font-size: 12px;
   cursor: pointer;
-  line-height: 28px;
+  line-height: 25px;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 18px;
   border-right: 1px solid #D8D8D8;
   user-select: none;
 
