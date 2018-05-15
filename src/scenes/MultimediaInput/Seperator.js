@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 
 const Seperator = styled.div`
-  border-top: 1px solid #E0E0E0;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-bottom: 15px;
+  border-top: 1px solid #f0f0f0;
+  margin: 15px -15px;
 `
 
 export default Seperator

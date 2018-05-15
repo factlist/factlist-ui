@@ -7,10 +7,12 @@ import EmbedPreview from './EmbedPreview'
 import FileSelector from './FileSelector'
 import Seperator from './Seperator'
 import Label from './Label'
+import FileSwitch from './FileSwitch'
 
 class MultimediaInput extends Component {
   state = {
     urls: [],
+    files: [],
     embeds: {},
   }
 
@@ -19,6 +21,8 @@ class MultimediaInput extends Component {
   onUrls = this.onUrls.bind(this)
   getEmbed = this.getEmbed.bind(this)
   onEmbedRemove = this.onEmbedRemove.bind(this)
+  onFilesChange = this.onFilesChange.bind(this)
+  showFileSelector = this.showFileSelector.bind(this)
 
   onUrls(urls) {
     this.setState({ urls })
@@ -66,8 +70,16 @@ class MultimediaInput extends Component {
     this.editor.removeURL(embed.url)
   }
 
+  onFilesChange(files) {
+    this.setState({ files })
+  }
+
+  showFileSelector() {
+    this.fileSelector.open()
+  }
+
   render() {
-    let { embeds, urls } = this.state
+    let { embeds, urls, files } = this.state
     embeds = urls
       .map(url => embeds[url])
       .filter(embed => typeof embed !== 'undefined')
@@ -78,7 +90,9 @@ class MultimediaInput extends Component {
           ref={ref => this.editor = ref}
           onLinks={this.onUrls} />
 
-        <Seperator />
+        {embeds.length === 0 && files.length === 0 && <FileSwitch onClick={this.showFileSelector} />}
+
+        {(files.length > 0 || embeds.length > 0) && <Seperator />}
 
         {embeds.length > 0 && (
           <Fragment>
@@ -89,8 +103,11 @@ class MultimediaInput extends Component {
           </Fragment>
         )}
 
-        <Label>Attachments:</Label>
-        <FileSelector />
+        <FileSelector
+          show={embeds.length > 0 || files.length > 0}
+          ref={node => this.fileSelector = node}
+          onChange={this.onFilesChange} />
+
       </Container>
     )
   }

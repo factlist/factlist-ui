@@ -4,9 +4,9 @@ const Choice = styled.label`
   display: inline-block;
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
-  line-height: 30px;
+  line-height: 28px;
   text-align: center;
   padding: 0 20px;
   border-right: 1px solid #D8D8D8;

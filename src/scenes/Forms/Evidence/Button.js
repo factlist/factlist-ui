@@ -6,7 +6,7 @@ const Button = styled.button`
 
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 11px;
   color: #FFFFFF;
 
   padding: 12px 16px;

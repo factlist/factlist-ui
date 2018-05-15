@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Span = styled.span`
   width: 14px;
   height: 14px;
-  background-color: #B9B9B9;
+  background-color: #000000;
   border-radius: 100%;
   color: #FFF;
   cursor: pointer;
