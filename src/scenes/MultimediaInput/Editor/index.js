@@ -16,6 +16,7 @@ export default class Input extends Component {
 
   onChange = this.onChange.bind(this)
   focus = this.focus.bind(this)
+  reset = this.reset.bind(this)
   catchUrls = _.debounce(this.catchUrls, 500)
 
   onChange(editorState) {
@@ -61,6 +62,12 @@ export default class Input extends Component {
 
   focus() {
     this.editor.focus()
+  }
+
+  reset() {
+    this.setState({
+      editorState: EditorState.createEmpty()
+    })
   }
 
   render() {

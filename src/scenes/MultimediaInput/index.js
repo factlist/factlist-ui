@@ -35,6 +35,7 @@ class MultimediaInput extends Component {
   onEmbedRemove = this.onEmbedRemove.bind(this)
   onFilesChange = this.onFilesChange.bind(this)
   showFileSelector = this.showFileSelector.bind(this)
+  reset = this.reset.bind(this)
 
   onUrlsChange(urls) {
     const { onUrlsChange } = this.props
@@ -99,6 +100,11 @@ class MultimediaInput extends Component {
 
   showFileSelector() {
     this.fileSelector.open()
+  }
+
+  reset() {
+    this.editor.reset()
+    this.fileSelector.reset()
   }
 
   render() {

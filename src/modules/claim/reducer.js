@@ -83,6 +83,10 @@ export default (state = initialState, action) => {
       return state
 
     case ADD_EVIDENCE_SUCCESS:
+      // Update selected claim's status
+      const selectedClaim = state.selectedClaim
+      selectedClaim[`${action.evidence.status}_count`] += 1
+
       return {
         ...state,
         selectedClaim: {

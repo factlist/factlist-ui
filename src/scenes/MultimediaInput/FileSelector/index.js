@@ -20,6 +20,7 @@ export default class FileSelector extends Component {
   handleOnDrop = this.handleOnDrop.bind(this)
   onRemove = this.onRemove.bind(this)
   open = this.open.bind(this)
+  reset = this.reset.bind(this)
 
   handleOnDrop(files) {
     const { onChange } = this.props
@@ -28,9 +29,7 @@ export default class FileSelector extends Component {
       prevState => ({
         files: prevState.files.concat(files).slice(0, MAX_FILES_ALLOWED)
       }),
-      () => {
-        onChange(this.state.files)
-      }
+      () => onChange(this.state.files)
     )
   }
 
@@ -45,6 +44,13 @@ export default class FileSelector extends Component {
 
   open() {
     this.dropzone.open()
+  }
+
+  reset() {
+    const { onChange } = this.props
+
+    this.setState({ files: [] })
+    onChange([])
   }
 
   render() {

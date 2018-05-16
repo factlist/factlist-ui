@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Flex, Box } from 'grid-styled'
 import Button from './Button'
-import { addEvidence } from 'modules/evidence/actions'
+import { addEvidence, resetAddEvidenceStates } from 'modules/evidence/actions'
 import Form from './Form'
 import Label from './Label'
 import Status from './Status'
@@ -21,6 +21,21 @@ class EvidenceForm extends Component {
   onUrlsChange = this.onUrlsChange.bind(this)
   onFilesChange = this.onFilesChange.bind(this)
   onTextChange = this.onTextChange.bind(this)
+
+  componentWillReceiveProps(nextProps) {
+    const { resetAddEvidenceStates } = this.props
+
+    if (nextProps.success === true) {
+      resetAddEvidenceStates()
+      this.multimediaInput.reset()
+    }
+  }
+
+  componentWillUnmount() {
+    const { resetAddEvidenceStates } = this.props
+
+    resetAddEvidenceStates()
+  }
 
   onStatusSelect(status) {
     this.setState({ status })
@@ -41,8 +56,6 @@ class EvidenceForm extends Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    console.log(this.state)
-
     const { addEvidence, claimId } = this.props
     const payload = this.state
 
@@ -50,6 +63,8 @@ class EvidenceForm extends Component {
   }
 
   render() {
+    const { requesting } = this.props
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <Flex column>
@@ -60,6 +75,7 @@ class EvidenceForm extends Component {
           <Box mb={15}>
             <Label>Because:</Label>
             <MultimediaInput
+              ref={node => this.multimediaInput = node}
               placeholder="Start explaning your evidence here."
               onUrlsChange={this.onUrlsChange}
               onFilesChange={this.onFilesChange}
@@ -67,7 +83,9 @@ class EvidenceForm extends Component {
           </Box>
 
           <Box>
-            <Button>ADD EVIDENCE</Button>
+            <Button disabled={requesting}>
+              {requesting ? 'Adding...' : 'Add Evidence'}
+            </Button>
           </Box>
         </Flex>
       </Form>
@@ -78,10 +96,12 @@ class EvidenceForm extends Component {
 const mapStateToProps = (state) => ({
   requesting: state.evidence.requesting,
   error: state.evidence.error,
+  success: state.evidence.success,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addEvidence: (data) => dispatch(addEvidence(data))
+  addEvidence: (data) => dispatch(addEvidence(data)),
+  resetAddEvidenceStates: () => dispatch(resetAddEvidenceStates()),
 })
 
 export default connect(

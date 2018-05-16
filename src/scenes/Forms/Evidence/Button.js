@@ -15,7 +15,7 @@ const Button = styled.button`
   user-select: none;
   outline: none;
 
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer' };
 `
 
 export default Button
