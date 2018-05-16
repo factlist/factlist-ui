@@ -11,25 +11,37 @@ import MultimediaInput from 'scenes/MultimediaInput'
 class EvidenceForm extends Component {
   state = {
     text: '',
-    attachments: [],
+    files: [],
     links: [],
-    status: null
+    status: null,
   }
 
   handleSubmit = this.handleSubmit.bind(this)
   onStatusSelect = this.onStatusSelect.bind(this)
-  onLinks = this.onLinks.bind(this)
-
-  onLinks(links) {
-    this.setState({ links })
-  }
+  onUrlsChange = this.onUrlsChange.bind(this)
+  onFilesChange = this.onFilesChange.bind(this)
+  onTextChange = this.onTextChange.bind(this)
 
   onStatusSelect(status) {
     this.setState({ status })
   }
 
+  onUrlsChange(urls) {
+    this.setState({ links:  urls })
+  }
+
+  onFilesChange(files) {
+    this.setState({ files })
+  }
+
+  onTextChange(text) {
+    this.setState({ text })
+  }
+
   handleSubmit(event) {
     event.preventDefault()
+
+    console.log(this.state)
 
     const { addEvidence, claimId } = this.props
     const payload = this.state
@@ -47,7 +59,11 @@ class EvidenceForm extends Component {
           </Box>
           <Box mb={15}>
             <Label>Because:</Label>
-            <MultimediaInput placeholder="Start explaning your evidence here." />
+            <MultimediaInput
+              placeholder="Start explaning your evidence here."
+              onUrlsChange={this.onUrlsChange}
+              onFilesChange={this.onFilesChange}
+              onTextChange={this.onTextChange} />
           </Box>
 
           <Box>

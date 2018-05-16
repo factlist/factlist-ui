@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import propTypes from 'prop-types'
 import config from 'config'
 import axios from 'axios'
 import Container from './Container'
@@ -14,6 +15,13 @@ class MultimediaInput extends Component {
     placeholder: '',
   }
 
+  static propTypes = {
+    placeholder: propTypes.string,
+    onUrlsChange: propTypes.func.isRequired,
+    onFilesChange: propTypes.func.isRequired,
+    onTextChange: propTypes.func.isRequired,
+  }
+
   state = {
     urls: [],
     files: [],
@@ -22,15 +30,19 @@ class MultimediaInput extends Component {
 
   editor = null
 
-  onUrls = this.onUrls.bind(this)
+  onUrlsChange = this.onUrlsChange.bind(this)
   getEmbed = this.getEmbed.bind(this)
   onEmbedRemove = this.onEmbedRemove.bind(this)
   onFilesChange = this.onFilesChange.bind(this)
   showFileSelector = this.showFileSelector.bind(this)
 
-  onUrls(urls) {
+  onUrlsChange(urls) {
+    const { onUrlsChange } = this.props
+
     this.setState({ urls })
     urls.forEach(url => this.getEmbed(url))
+
+    onUrlsChange(urls)
   }
 
   getEmbed(url) {
@@ -67,15 +79,22 @@ class MultimediaInput extends Component {
   }
 
   onEmbedRemove(embed) {
+    const { onUrlsChange } = this.props
     const urls = this.state.urls.filter(url => embed.url !== url)
 
     this.setState({ urls })
 
     this.editor.removeURL(embed.url)
+
+    onUrlsChange(urls)
   }
 
   onFilesChange(files) {
+    const { onFilesChange } = this.props
+
     this.setState({ files })
+
+    onFilesChange(files)
   }
 
   showFileSelector() {
@@ -83,7 +102,7 @@ class MultimediaInput extends Component {
   }
 
   render() {
-    const { placeholder } = this.props
+    const { placeholder, onTextChange } = this.props
     let { embeds, urls, files } = this.state
     embeds = urls
       .map(url => embeds[url])
@@ -94,7 +113,8 @@ class MultimediaInput extends Component {
         <Editor
           placeholder={placeholder}
           ref={ref => this.editor = ref}
-          onLinks={this.onUrls} />
+          onUrlsChange={this.onUrlsChange}
+          onTextChange={onTextChange} />
 
         {embeds.length === 0 &&
           files.length === 0 &&

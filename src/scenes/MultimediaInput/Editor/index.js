@@ -23,17 +23,20 @@ export default class Input extends Component {
 
     // It will catch unique urls with debounce
     this.catchUrls()
+
+    const { onTextChange } = this.props
+    onTextChange(editorState.getCurrentContent().getPlainText())
   }
 
   catchUrls(content) {
-    const { onLinks } = this.props
+    const { onUrlsChange } = this.props
     const { urls, editorState } = this.state
     const plainText = editorState.getCurrentContent().getPlainText()
     const uniqueUrls = getUniqueUrls(plainText)
 
     if (!_.isEqual(uniqueUrls, urls)) {
       this.setState({ urls: uniqueUrls })
-      onLinks(uniqueUrls)
+      onUrlsChange(uniqueUrls)
     }
   }
 
