@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Flex, Box } from 'grid-styled'
+import MultimediaInput from 'scenes/MultimediaInput'
 import Button from './Button'
-import { addEvidence, resetAddEvidenceStates } from 'modules/evidence/actions'
 import Form from './Form'
 import Label from './Label'
 import Status from './Status'
-import MultimediaInput from 'scenes/MultimediaInput'
+import {
+  addEvidence,
+  resetAddEvidenceStates
+} from 'modules/evidence/actions'
 
 class EvidenceForm extends Component {
   state = {
@@ -23,12 +26,20 @@ class EvidenceForm extends Component {
   onTextChange = this.onTextChange.bind(this)
 
   componentWillReceiveProps(nextProps) {
-    const { resetAddEvidenceStates } = this.props
-
-    if (nextProps.success === true) {
-      resetAddEvidenceStates()
-      this.multimediaInput.reset()
+    // Reset states only evidence created successfully.
+    if (nextProps.success !== true) {
+      return
     }
+
+    // Reset "add evidence" reducer.
+    const { resetAddEvidenceStates } = this.props
+    resetAddEvidenceStates()
+
+    // Reset multimedia input
+    this.multimediaInput.reset()
+
+    // Reset evidence conclusion
+    this.setState({ status: null })
   }
 
   componentWillUnmount() {
@@ -42,7 +53,8 @@ class EvidenceForm extends Component {
   }
 
   onUrlsChange(urls) {
-    this.setState({ links:  urls })
+    // @TODO replace all links with urls [API]
+    this.setState({ links: urls })
   }
 
   onFilesChange(files) {
@@ -63,6 +75,7 @@ class EvidenceForm extends Component {
   }
 
   render() {
+    const { status } = this.state
     const { requesting } = this.props
 
     return (
@@ -70,8 +83,11 @@ class EvidenceForm extends Component {
         <Flex column>
           <Box mb={30}>
             <Label>Claim is:</Label>
-            <Status onSelect={this.onStatusSelect} />
+            <Status
+              value={status}
+              onSelect={this.onStatusSelect} />
           </Box>
+
           <Box mb={15}>
             <Label>Because:</Label>
             <MultimediaInput

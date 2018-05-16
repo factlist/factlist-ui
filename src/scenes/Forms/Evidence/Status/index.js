@@ -9,41 +9,35 @@ export default class Status extends Component {
     onSelect: PropTypes.func.isRequired,
   }
 
-  state = {
-    status: null
-  }
-
   select = this.select.bind(this)
 
-  select(status) {
+  select(value) {
     const { onSelect } = this.props
 
-    this.setState({ status })
-
-    onSelect(status)
+    onSelect(value)
   }
 
   render() {
-    const { status } = this.state
+    const { value } = this.props
 
     return (
       <Container>
         <Choice
-          active={status === 'true'}
+          active={value === 'true'}
           onClick={() => this.select('true')}
           color={colors.status['true']}>
           True
         </Choice>
 
         <Choice
-          active={status === 'inconclusive'}
+          active={value === 'inconclusive'}
           onClick={() => this.select('inconclusive')}
           color={colors.status['inconclusive']}>
           Inconclusive
         </Choice>
 
         <Choice
-          active={status === 'false'}
+          active={value === 'false'}
           onClick={() => this.select('false')}
           color={colors.status['false']}>
           False

@@ -16,10 +16,11 @@ export const evidenceAdded = (evidence) => ({
   evidence
 })
 
-export const addEvidenceFailure = () => ({
+export const addEvidenceFailure = (error) => ({
   type: ADD_EVIDENCE_FAILURE,
+  error,
 })
 
 export const resetAddEvidenceStates = () => ({
-  type: ADD_EVIDENCE_RESET,
+  type: ADD_EVIDENCE_RESET
 })

@@ -32,7 +32,7 @@ const addEvidence = function* (action) {
 
     yield put(evidenceAdded(response.data))
   } catch (error) {
-    yield put(addEvidenceFailure())
+    yield put(addEvidenceFailure(error))
   }
 }
 
