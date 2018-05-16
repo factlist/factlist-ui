@@ -1,4 +1,4 @@
-import urlRegex from 'url-regex'
+import urlRegex from 'utils/url-regex'
 
 export default (contentBlock, callback) => {
   const text = contentBlock.getText()

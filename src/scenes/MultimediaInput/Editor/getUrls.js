@@ -1,4 +1,4 @@
-import urlRegex from 'url-regex'
+import urlRegex from 'utils/url-regex'
 
 export const getUniqueUrls = text => {
   const urls = text.match(urlRegex())
