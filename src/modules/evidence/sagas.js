@@ -11,14 +11,7 @@ const addEvidence = function* (action) {
     formData.append('text', action.payload.text)
     formData.append('status', action.payload.status)
     action.payload.files.map(file => formData.append('files', file))
-
-    const links = action.payload.links.reduce((accumulator, link) => {
-      accumulator.push({ link })
-
-      return accumulator
-    }, [])
-
-    formData.append('links', JSON.stringify(links))
+    formData.append('links', JSON.stringify(action.payload.links))
 
     // Get current user's token
     const token = yield select(state => state.auth.user.token)
