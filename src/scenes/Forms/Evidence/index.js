@@ -76,7 +76,7 @@ class EvidenceForm extends Component {
 
   render() {
     const { status } = this.state
-    const { requesting } = this.props
+    const { requesting, user } = this.props
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -92,6 +92,7 @@ class EvidenceForm extends Component {
             <Label>Because:</Label>
             <MultimediaInput
               ref={node => this.multimediaInput = node}
+              user={user}
               placeholder="Start explaning your evidence here."
               onUrlsChange={this.onUrlsChange}
               onFilesChange={this.onFilesChange}
@@ -110,6 +111,7 @@ class EvidenceForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   requesting: state.evidence.requesting,
   error: state.evidence.error,
   success: state.evidence.success,

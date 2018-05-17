@@ -10,13 +10,14 @@ import Seperator from './Seperator'
 import Label from './Label'
 import FileSwitch from './FileSwitch'
 
-class MultimediaInput extends Component {
+export default class MultimediaInput extends Component {
   static defaultProps = {
     placeholder: '',
   }
 
   static propTypes = {
     placeholder: propTypes.string,
+    user: propTypes.object.isRequired,
     onUrlsChange: propTypes.func.isRequired,
     onFilesChange: propTypes.func.isRequired,
     onTextChange: propTypes.func.isRequired,
@@ -54,7 +55,13 @@ class MultimediaInput extends Component {
       return null
     }
 
-    embeds[url] = { url, requesting: true, data: null }
+    // Default embed values
+    embeds[url] = {
+      url,
+      requesting: true,
+      data: null
+    }
+
     this.setState({ embeds })
 
     this.embedRequest(url).then(data => {
@@ -70,9 +77,16 @@ class MultimediaInput extends Component {
   }
 
   embedRequest(url) {
+    const { user } = this.props
+    const { token } = user
+
     return new Promise(resolve => {
       axios
-        .get(`${config.API_ENDPOINT}/embed/?link=${url}`)
+        .get(`${config.API_ENDPOINT}/embed/?link=${url}`, {
+          headers: {
+            Authorization: `Token ${token}`
+          }
+        })
         .then(response => response.data)
         .then(data => resolve(data))
         .catch(() => resolve(null))
@@ -146,5 +160,3 @@ class MultimediaInput extends Component {
     )
   }
 }
-
-export default MultimediaInput
