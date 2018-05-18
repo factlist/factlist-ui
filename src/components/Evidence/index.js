@@ -7,6 +7,7 @@ import Profile from './Profile'
 import FullName from './FullName'
 import Username from './Username'
 import Description from './Description'
+import Attachments from '../Attachments'
 
 const Evidence = ({ evidence }) => (
   <Container>
@@ -26,8 +27,12 @@ const Evidence = ({ evidence }) => (
     <Flex column mt={10}>
       <Box ml={50}>
         <Description
-          status={evidence.status}
+          status={evidence.conclusion}
           text={evidence.text} />
+
+        <Attachments
+          links={evidence.links}
+          files={evidence.files} />
       </Box>
     </Flex>
   </Container>
