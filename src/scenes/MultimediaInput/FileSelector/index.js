@@ -59,7 +59,7 @@ export default class FileSelector extends Component {
 
     return (
       <Container show={show}>
-        <Label>Attachments:</Label>
+        <Label>Files:</Label>
         <Flex wrap={true} >
           {files.map(file => (
             <Box mr={7} key={_.randomId()}>

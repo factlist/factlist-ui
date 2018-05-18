@@ -1,50 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addClaim } from 'modules/claim/actions'
+import MultimediaInput from 'scenes/MultimediaInput'
 import H2 from './H2'
 import P from './P'
-import Textarea from './Textarea'
 import Button from './Button'
-import StyledDropzone from './StyledDropzone'
 import Container from './Container'
 
 class ClaimForm extends Component {
   state = {
     text: '',
-    files: []
+    files: [],
+    links: [],
   }
 
-  acceptedFiles = [
-    'image/jpeg',
-    'image/png'
-  ]
-
-  handleClose = this.handleClose.bind(this)
-  handleOnDrop = this.handleOnDrop.bind(this)
+  onUrlsChange = this.onUrlsChange.bind(this)
+  onFilesChange = this.onFilesChange.bind(this)
+  onTextChange = this.onTextChange.bind(this)
   handleOnSubmit = this.handleOnSubmit.bind(this)
-  handleTextChange = this.handleTextChange.bind(this)
-  onRemoveFile = this.onRemoveFile.bind(this)
 
-  componentDidMount() {
-    this.textInput.focus()
+  onUrlsChange(urls) {
+    this.setState({ links: urls })
   }
 
-  handleClose() {
-    const { onClose } = this.props
-
-    onClose()
-  }
-
-  handleOnDrop(files) {
+  onFilesChange(files) {
     this.setState({ files })
   }
 
-  handleTextChange(event) {
-    const { value } = event.target
-
-    this.setState({
-      text: value
-    })
+  onTextChange(text) {
+    this.setState({ text })
   }
 
   handleOnSubmit(event) {
@@ -55,32 +39,21 @@ class ClaimForm extends Component {
     addClaim(this.state)
   }
 
-  onRemoveFile(file) {
-    this.setState({
-      files: this.state.files.filter(selectedFile => selectedFile.name !== file.name)
-    })
-  }
-
   render() {
+    const { user } = this.props
+
     return (
       <Container>
         <H2>Add Claim</H2>
         <P>Have any doubt on anything? Ask it to Factlist for proof.</P>
 
         <form onSubmit={this.handleOnSubmit}>
-          <Textarea
-            placeholder="Write lorem ipsum dolor sit amet."
-            innerRef={(input) => this.textInput = input}
-            value={this.state.text}
-            onChange={this.handleTextChange}
-          />
-
-          <StyledDropzone
-            accept={this.acceptedFiles.join(',')}
-            onDrop={this.handleOnDrop}
-          >
-            Drag & Drop media files or click to browse your files
-          </StyledDropzone>
+          <MultimediaInput
+            ref={node => this.multimediaInput = node}
+            onUrlsChange={this.onUrlsChange}
+            onFilesChange={this.onFilesChange}
+            onTextChange={this.onTextChange}
+            user={user} />
 
           <Button>Add Claim</Button>
         </form>
@@ -90,6 +63,7 @@ class ClaimForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   loading: state.claim.loading,
   error: state.claim.error
 })

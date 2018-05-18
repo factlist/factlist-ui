@@ -38,19 +38,13 @@ const fetchAll = function* (action) {
 }
 
 const addClaim = function* (action) {
-  const { text } = action.data
-  const linkMatches = text.match(/(https?:\/\/[^\s]+\.[a-z]+)/g) || []
-  const links = linkMatches.reduce((accumulator, link) => {
-    accumulator.push({ link })
-
-    return accumulator
-  }, [])
+  const { text, links, files } = action.data
 
   // Prepare  form data
   const formData = new FormData()
   formData.append('text', text)
   formData.append('links', JSON.stringify(links))
-  action.data.files.map(file => formData.append('files', file))
+  files.map(file => formData.append('files', file))
 
   try {
     // Get current user's token
