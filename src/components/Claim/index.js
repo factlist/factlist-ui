@@ -4,6 +4,7 @@ import Container from './Container'
 import Status from './../Status'
 import Title from './Title'
 import Timeago from 'scenes/Timeago'
+import Attachments from '../Attachments'
 
 const Claim = ({ claim }) => (
   <Container>
@@ -22,6 +23,9 @@ const Claim = ({ claim }) => (
     <Flex column mt={20}>
       <Box>
         <Title>{claim.text}</Title>
+        <Attachments
+          links={claim.links}
+          files={claim.files} />
       </Box>
     </Flex>
   </Container>
