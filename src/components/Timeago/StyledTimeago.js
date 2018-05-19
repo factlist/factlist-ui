@@ -1,14 +1,14 @@
-import { css } from 'styled-components'
+import styled from 'styled-components'
+import Timeago from 'react-timeago'
 
-const timeagoStyles = css`
+const StyledTimeago = styled(Timeago)`
   opacity: 0.5;
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 12px;
   color: #000;
-  cursor: pointer;
   user-select: none;
 `
 
-export default timeagoStyles
+export default StyledTimeago

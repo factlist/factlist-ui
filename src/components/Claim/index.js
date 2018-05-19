@@ -1,11 +1,11 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
+import Timeago from 'components/Timeago'
+import Linkify from 'components/Linkify'
 import Container from './Container'
 import Status from './../Status'
 import Title from './Title'
-import Timeago from 'scenes/Timeago'
 import Attachments from '../Attachments'
-import Linkify from 'components/Linkify'
 
 const Claim = ({ claim }) => (
   <Container>
