@@ -4,8 +4,8 @@ import Files from './Files'
 
 const Attachments = ({ links, files }) => (
   <Fragment>
-    <Links links={links} />
-    <Files files={files} />
+    {links.length > 0 && <Links links={links} />}
+    {files.length > 0 && <Files files={files} />}
   </Fragment>
 )
 
