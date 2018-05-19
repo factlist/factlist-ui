@@ -5,6 +5,8 @@ import {
   IN_CONCLUSIVE
 } from './constants'
 
+import colors from 'core/colors'
+
 const statutes = [
   {
     id: NEEDS_EVIDENCE,
@@ -14,17 +16,17 @@ const statutes = [
   {
     id: APPEARS_TO_BE_TRUE,
     title: 'APPEARS TO BE TRUE',
-    color: '#4CAF50'
+    color: colors.conclusions['true']
   },
   {
     id: SEEMS_FALSE,
     title: 'SEEMS FALSE',
-    color: '#FF6947'
+    color: colors.conclusions['false']
   },
   {
     id: IN_CONCLUSIVE,
     title: 'IN CONCLUSIVE',
-    color: '#FFB747'
+    color: colors.conclusions['inconclusive']
   }
 ]
 

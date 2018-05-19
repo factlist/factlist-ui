@@ -27,7 +27,7 @@ const Evidence = ({ evidence }) => (
     <Flex column mt={10}>
       <Box ml={50}>
         <Description
-          status={evidence.conclusion}
+          conclusion={evidence.conclusion}
           text={evidence.text} />
 
         <Attachments

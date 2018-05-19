@@ -6,6 +6,7 @@ import CloseIcon from './Icons/StyledClose'
 import QuestionIcon from './Icons/StyledQuestion'
 import getStatus from './getStatus'
 import { APPEARS_TO_BE_TRUE } from './constants'
+import colors from 'core/colors'
 
 const Status = ({ trueCount, falseCount, inConclusiveCount }) => {
   const status = getStatus(trueCount, falseCount, inConclusiveCount)
@@ -33,7 +34,7 @@ const Status = ({ trueCount, falseCount, inConclusiveCount }) => {
       {inConclusiveCount > 0 && (
         <span>
           <QuestionIcon />
-          <Count color="#FF6947">{inConclusiveCount}</Count>
+          <Count color={colors.conclusions['inconclusive']}>{inConclusiveCount}</Count>
         </span>
       )}
     </div>

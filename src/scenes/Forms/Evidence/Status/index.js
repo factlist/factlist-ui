@@ -25,21 +25,21 @@ export default class Status extends Component {
         <Choice
           active={value === 'true'}
           onClick={() => this.select('true')}
-          color={colors.status['true']}>
+          color={colors.conclusions['true']}>
           True
         </Choice>
 
         <Choice
           active={value === 'inconclusive'}
           onClick={() => this.select('inconclusive')}
-          color={colors.status['inconclusive']}>
+          color={colors.conclusions['inconclusive']}>
           Inconclusive
         </Choice>
 
         <Choice
           active={value === 'false'}
           onClick={() => this.select('false')}
-          color={colors.status['false']}>
+          color={colors.conclusions['false']}>
           False
         </Choice>
       </Container>
