@@ -5,6 +5,7 @@ import Status from './../Status'
 import Title from './Title'
 import Timeago from 'scenes/Timeago'
 import Attachments from '../Attachments'
+import Linkify from 'components/Linkify'
 
 const Claim = ({ claim }) => (
   <Container>
@@ -22,7 +23,9 @@ const Claim = ({ claim }) => (
 
     <Flex column mt={20}>
       <Box>
-        <Title>{claim.text}</Title>
+        <Title>
+          <Linkify>{claim.text}</Linkify>
+        </Title>
         <Attachments
           links={claim.links}
           files={claim.files} />
