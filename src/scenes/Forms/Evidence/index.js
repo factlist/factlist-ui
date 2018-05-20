@@ -5,7 +5,7 @@ import MultimediaInput from 'scenes/MultimediaInput'
 import Button from './Button'
 import Form from './Form'
 import Label from './Label'
-import Status from './Status'
+import Conclusions from './Conclusions'
 import {
   addEvidence,
   resetAddEvidenceStates
@@ -16,11 +16,11 @@ class EvidenceForm extends Component {
     text: '',
     files: [],
     links: [],
-    status: null,
+    conclusion: null,
   }
 
   handleSubmit = this.handleSubmit.bind(this)
-  onStatusSelect = this.onStatusSelect.bind(this)
+  onConclusionSelect = this.onConclusionSelect.bind(this)
   onUrlsChange = this.onUrlsChange.bind(this)
   onFilesChange = this.onFilesChange.bind(this)
   onTextChange = this.onTextChange.bind(this)
@@ -48,8 +48,8 @@ class EvidenceForm extends Component {
     resetAddEvidenceStates()
   }
 
-  onStatusSelect(status) {
-    this.setState({ status })
+  onConclusionSelect(conclusion) {
+    this.setState({ conclusion })
   }
 
   onUrlsChange(urls) {
@@ -75,7 +75,7 @@ class EvidenceForm extends Component {
   }
 
   render() {
-    const { status } = this.state
+    const { conclusion } = this.state
     const { requesting, user } = this.props
 
     return (
@@ -83,9 +83,9 @@ class EvidenceForm extends Component {
         <Flex column>
           <Box mb={30}>
             <Label>Claim is:</Label>
-            <Status
-              value={status}
-              onSelect={this.onStatusSelect} />
+            <Conclusions
+              value={conclusion}
+              onSelect={this.onConclusionSelect} />
           </Box>
 
           <Box mb={15}>

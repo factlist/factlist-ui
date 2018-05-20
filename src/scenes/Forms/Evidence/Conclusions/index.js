@@ -4,7 +4,7 @@ import colors from 'core/colors'
 import Container from './Container'
 import Choice from './Choice'
 
-export default class Status extends Component {
+export default class Conclusions extends Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired,
   }

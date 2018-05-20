@@ -9,7 +9,7 @@ const addEvidence = function* (action) {
     const formData = new FormData()
     formData.append('claim', action.claimId)
     formData.append('text', action.payload.text)
-    formData.append('conclusion', action.payload.status)
+    formData.append('conclusion', action.payload.conclusion)
     action.payload.files.map(file => formData.append('files', file))
     formData.append('links', JSON.stringify(action.payload.links))
 
