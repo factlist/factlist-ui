@@ -15,7 +15,7 @@ const Evidence = ({ evidence }) => (
       <Box>
         <Avatar />
         <Profile>
-          <FullName>{evidence.user.username}</FullName>
+          <FullName>{evidence.user.name}</FullName>
           <Username>@{evidence.user.username}</Username>
         </Profile>
       </Box>
