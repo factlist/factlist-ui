@@ -2,6 +2,8 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   z-index: 5;
+  border-radius: 2px;
+  overflow: hidden;
 
   // Center
   position: fixed;

@@ -7,7 +7,6 @@ const H2 = styled.h2`
   letter-spacing: 0;
   text-align: center;
   margin: 0;
-  margin-top: 30px;
 `
 
 export default H2

@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-  display: inline-block;
-  background-color: #FFF;
-  padding: 75px 55px 45px 55px;
+  width: 320px;
+  margin: 0 auto;
 `
 
 export default Container
