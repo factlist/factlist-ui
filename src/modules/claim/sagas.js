@@ -12,6 +12,7 @@ import {
   claimsFetched,
   fetchClaimsFailure,
   claimAdded,
+  addClaimFailure,
 } from './actions'
 
 // Saga handlers
@@ -61,8 +62,7 @@ const addClaim = function* (action) {
 
     yield put(redirect('/'))
   } catch (error) {
-    // @TODO Handle error
-    console.log(`Claim couldn't created.`)
+    yield put(addClaimFailure())
   }
 }
 

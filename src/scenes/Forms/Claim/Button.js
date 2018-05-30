@@ -8,12 +8,15 @@ const Button = styled.button`
   border: 0;
   cursor: pointer;
   user-select: none;
-  padding: 13px 30px;
+  padding: 0 30px;
+  line-height: 40px;
   border-radius: 2px;
 
   width: 100%;
   outline: none;
   margin: 10px 0;
+
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
 `
 
 export default Button

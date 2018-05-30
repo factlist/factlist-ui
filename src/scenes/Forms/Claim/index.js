@@ -40,7 +40,7 @@ class ClaimForm extends Component {
   }
 
   render() {
-    const { user } = this.props
+    const { user, adding } = this.props
 
     return (
       <Container>
@@ -55,7 +55,9 @@ class ClaimForm extends Component {
             onTextChange={this.onTextChange}
             user={user} />
 
-          <Button>Add Claim</Button>
+          <Button disabled={adding}>
+            {adding ? 'Adding...' : 'Add Claim'}
+          </Button>
         </form>
       </Container>
     )
@@ -64,8 +66,7 @@ class ClaimForm extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  loading: state.claim.loading,
-  error: state.claim.error
+  adding: state.claim.adding,
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -15,8 +15,10 @@ import {
 } from 'modules/evidence/constants'
 
 const initialState = {
-  requesting: false,
-  error: false,
+  fetching: false,
+  fetchingError: null,
+  adding: false,
+  addingError: null,
   all: [], // All claims
   selectedClaim: null,
 }
@@ -26,53 +28,58 @@ export default (state = initialState, action) => {
     case FETCH_CLAIM_REQUEST:
       return {
         ...state,
-        requesting: true,
-        error: false,
+        fetching: true,
+        fetchingError: false,
       }
 
     case FETCH_CLAIM_SUCCESS:
       return {
         ...state,
-        requesting: false,
-        error: false,
+        fetching: false,
+        fetchingError: false,
         selectedClaim: action.data,
       }
 
     case FETCH_CLAIM_FAILURE:
       return {
         ...state,
-        requesting: false,
+        fetchingError: false,
         error: true
       }
 
     case FETCH_ALL_CLAIMS_REQUEST:
       return {
         ...state,
-        requesting: true,
-        error: false,
+        fetching: true,
+        fetchingError: false,
       }
 
     case FETCH_ALL_CLAIMS_SUCCESS:
       return {
         ...state,
-        requesting: false,
-        error: false,
+        fetching: false,
+        fetchingError: false,
         all: action.claims.data.results,
       }
 
     case FETCH_ALL_CLAIMS_FAILURE:
       return {
         ...state,
-        requesting: false,
-        error: action.error,
+        fetching: false,
+        fetchingError: action.error,
       }
 
     case ADD_CLAIM_REQUEST:
-      return state
+      return {
+        ...state,
+        adding: true,
+      }
 
     case ADD_CLAIM_SUCCESS:
       return {
         ...state,
+        adding: false,
+        addingError: false,
         all: [
           action.data,
           ...state.all
@@ -80,7 +87,11 @@ export default (state = initialState, action) => {
       }
 
     case ADD_CLAIM_FAILURE:
-      return state
+      return {
+        ...state,
+        adding: false,
+        addingError: false,
+      }
 
     case ADD_EVIDENCE_SUCCESS:
       // Update selected claim's status

@@ -17,7 +17,7 @@ class Main extends Component {
   }
 
   render() {
-    const { claims, requesting } = this.props
+    const { claims, fetching } = this.props
 
     return (
       <Fragment>
@@ -27,9 +27,9 @@ class Main extends Component {
           <Left>Popular Topics</Left>
 
           <Center>
-            {requesting && 'Getting claims...'}
+            {fetching && 'Getting claims...'}
 
-            {!requesting && claims.map(claim =>
+            {!fetching && claims.map(claim =>
               <Box mb={30} key={'claim_' + claim.id}>
                 <Claim claim={claim} />
               </Box>
@@ -53,7 +53,7 @@ class Main extends Component {
 const mapStateToProps = state => ({
   user: state.auth.user,
   claims: allClaims(state),
-  requesting: state.claim.requesting,
+  fetching: state.claim.fetching,
 })
 
 const mapDispatchToProps = dispatch => ({
