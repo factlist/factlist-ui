@@ -14,9 +14,13 @@ const parseUrl = url => {
   return parser
 }
 
+// Determine whether the passed value is an Array.
+const isArray = (value) => Object.prototype.toString.call(value) === '[object Array]'
+
 export default {
   isEqual,
   debounce,
   randomId,
   parseUrl,
+  isArray,
 }

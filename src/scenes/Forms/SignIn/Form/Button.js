@@ -9,9 +9,7 @@ const Button = styled.button`
   line-height: 37px;
   padding: 0 25px;
   margin-top: 15px;
-
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
-  opacity: ${props => props.disabled ? 0.7 : 1};
 `
 
 export default Button

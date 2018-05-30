@@ -5,7 +5,7 @@ import {
 } from './constants'
 
 const initialState = {
-  loading: false,
+  requesting: false,
   error: false,
   registered: false,
 }
@@ -15,14 +15,14 @@ export default (state = initialState, action) => {
     case SIGN_UP_REQUEST:
       return {
         ...state,
-        loading: true,
+        requesting: true,
         error: false,
       }
 
     case SIGN_UP_SUCCESS:
       return {
         ...state,
-        loading: false,
+        requesting: false,
         error: false,
         registered: true,
       }
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
     case SIGN_UP_FAILURE:
       return {
         ...state,
-        loading: false,
+        requesting: false,
         error: true,
         registered: false,
       }

@@ -4,12 +4,12 @@ import { Flex, Box } from 'grid-styled'
 import { required, email } from 'utils/validationRules'
 import { TextField } from 'components/Form'
 import Container from './Container'
-import CreateAccountLink from './CreateAccountLink'
-import PasswordResetLink from './PasswordResetLink'
 import Button from './Button'
+import P from './P'
+import A from './A'
 
 const Form = ({
-  handleSubmit, authenticating, invalid, pristine
+  handleSubmit, authenticating, invalid, pristine, onSignUpClick
 }) => (
   <Container>
     <form onSubmit={handleSubmit}>
@@ -35,9 +35,11 @@ const Form = ({
             validate={[ required ]}
             component={TextField} />
         </Box>
-      </Flex>
 
-      <PasswordResetLink />
+        <Box>
+          <A>Forgot password?</A>
+        </Box>
+      </Flex>
 
       <Flex column align="flex-end">
         <Box>
@@ -48,7 +50,9 @@ const Form = ({
           </Button>
         </Box>
         <Box mt={12}>
-          <CreateAccountLink />
+          <P>
+            No account? <A onClick={onSignUpClick}>Create one.</A>
+          </P>
         </Box>
       </Flex>
     </form>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signIn } from 'modules/auth/actions'
+import { showSignUpModal } from 'modules/modal/actions'
 import Container from './Container'
 import H2 from './H2'
 import H4 from './H4'
@@ -19,10 +20,10 @@ class SignInForm extends Component {
   }
 
   render() {
-    const { className, authenticating, error } = this.props
+    const { authenticating, showSignUpModal } = this.props
 
     return (
-      <Container className={className}>
+      <Container>
         <H2>Welcome back, Factchecker!</H2>
         <H4>Login to add suspicious claims or submit evidences.</H4>
 
@@ -32,7 +33,8 @@ class SignInForm extends Component {
 
         <Form
           authenticating={authenticating}
-          onSubmit={this.onSubmit} />
+          onSubmit={this.onSubmit}
+          onSignUpClick={showSignUpModal} />
       </Container>
     )
   }
@@ -40,11 +42,11 @@ class SignInForm extends Component {
 
 const mapStateToProps = state => ({
   authenticating: state.auth.authenticating,
-  error: state.auth.error,
 })
 
 const mapDispatchToProps = dispatch => ({
-  signIn: (params) => dispatch(signIn(params))
+  signIn: (params) => dispatch(signIn(params)),
+  showSignUpModal: () => dispatch(showSignUpModal()),
 })
 
 export default connect(

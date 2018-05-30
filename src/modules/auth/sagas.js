@@ -23,6 +23,7 @@ const signIn = function* ({ email, password }) {
     localStorage.setItem('user', JSON.stringify({
       token
     }))
+
     yield put(redirect('/'))
   } catch (error) {
     yield put(signInFailure(error))

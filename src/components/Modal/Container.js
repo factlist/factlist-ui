@@ -4,6 +4,7 @@ const Container = styled.div`
   z-index: 5;
   border-radius: 2px;
   overflow: hidden;
+  background-color: #FFF;
 
   // Center
   position: fixed;
