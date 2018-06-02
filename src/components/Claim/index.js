@@ -1,16 +1,20 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
+import Timeago from 'components/Timeago'
+import Linkify from 'components/Linkify'
 import Container from './Container'
 import Status from './../Status'
 import Title from './Title'
-import Img from './Img'
-import Timeago from '../../containers/Timeago'
+import Attachments from '../Attachments'
 
 const Claim = ({ claim }) => (
   <Container>
     <Flex justify="space-between" align="center">
       <Box>
-        <Status trueCount={1} falseCount={1} inConclusiveCount={0} />
+        <Status
+          trueCount={claim.true_count}
+          falseCount={claim.false_count}
+          inConclusiveCount={claim.inconclusive_count} />
       </Box>
       <Box>
         <Timeago date={claim.created_at} />
@@ -19,12 +23,12 @@ const Claim = ({ claim }) => (
 
     <Flex column mt={20}>
       <Box>
-        <Title>{claim.text}</Title>
-      </Box>
-      <Box>
-        {claim.files.map(file =>
-          <Img key={'claim_file_' + file.id}src={file.source} />
-        )}
+        <Title>
+          <Linkify>{claim.text}</Linkify>
+        </Title>
+        <Attachments
+          links={claim.links}
+          files={claim.files} />
       </Box>
     </Flex>
   </Container>

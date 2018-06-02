@@ -4,13 +4,13 @@ import Container from './Container'
 import Logo from './Logo'
 import SearchInput from './SearchInput'
 import Avatar from './Avatar'
-import ReportButton from './ReportButton'
 import MobileSearch from './MobileSearch'
-import SignIn from './SignIn'
+import AddClaimButton from './AddClaimButton'
+import SignInButton from './SignInButton'
 
-const Header = ({ user }) => (
+const Header = ({ user, onClickClaimButton, onClickSignInButton, hideSignInButton = false }) => (
   <Container justify="center" align="center">
-    <Box width={165} ml={10}>
+    <Box width={200} ml={10}>
       <Logo />
     </Box>
 
@@ -23,12 +23,12 @@ const Header = ({ user }) => (
         <Box>
           <MobileSearch />
         </Box>
-        <Box ml={10} order={[2, 1]}>
-          {!user && <SignIn />}
-          {user && <Avatar src="images/example-avatar.png" />}
+        <Box ml={10}>
+          {!user && !hideSignInButton && <SignInButton onClick={onClickSignInButton} />}
+          {user && <Avatar src="/images/example-avatar.png" />}
         </Box>
-        <Box ml={10} order={[1, 2]}>
-          <ReportButton>REPORT</ReportButton>
+        <Box ml={10}>
+          <AddClaimButton onClick={onClickClaimButton} />
         </Box>
       </Flex>
     </Box>
