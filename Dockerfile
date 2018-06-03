@@ -1,7 +1,13 @@
 FROM node:8.9.4
 RUN mkdir /factlist-ui
 WORKDIR /factlist-ui
-ENV NODE_PATH src/
+
+ARG NODE_PATH_ARG=src/
+ARG REACT_APP_API_ENDPOINT_ARG=http://alpha.factlist.com:81/api/v1
+
+ENV NODE_PATH=$NODE_PATH_ARG
+ENV REACT_APP_API_ENDPOINT=$REACT_APP_API_ENDPOINT_ARG
+
 COPY . .
 
 RUN yarn install && yarn build
