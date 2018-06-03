@@ -11,5 +11,5 @@ script:
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker push factlist/factlist-api;
+      docker push factlist/factlist-ui;
     fi
