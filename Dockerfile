@@ -1,12 +1,12 @@
 FROM node:8.9.4
 RUN mkdir /factlist-ui
 WORKDIR /factlist-ui
-ADD package.json ./
-ADD yarn.lock ./
 
 COPY . .
+
 RUN yarn install && yarn build
 
-CMD yarn start
 
+RUN npm install -g serve
+CMD serve -s build
 EXPOSE 3000
