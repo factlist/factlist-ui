@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import styles from './styles'
 
-const Input = styled.input`
+const Textarea = styled.textarea`
   ${styles}
+
+  min-height: 80px;
 `
 
-export default Input
+export default Textarea
