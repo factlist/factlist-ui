@@ -40,7 +40,7 @@ class SignUpForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  requesting: state.user.requesting,
+  requesting: state.user.signUp.requesting,
 })
 
 const mapDispatchToProps = (dispatch) => ({

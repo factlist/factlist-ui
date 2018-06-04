@@ -2,8 +2,8 @@ import {
   SIGN_IN_REQUEST,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
-
-  SIGN_OUT_REQUEST
+  SIGN_OUT_REQUEST,
+  SIGN_OUT_SUCCESS,
 } from './constants'
 
 export const signIn = ({ email, password }) => ({
@@ -24,4 +24,8 @@ export const signInFailure = (error) => ({
 
 export const signOut = () => ({
   type: SIGN_OUT_REQUEST
+})
+
+export const signOutSuccess = () => ({
+  type: SIGN_OUT_SUCCESS,
 })

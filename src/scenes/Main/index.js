@@ -51,7 +51,6 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
   claims: allClaims(state),
   fetching: state.claim.fetching,
 })

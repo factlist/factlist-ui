@@ -49,9 +49,9 @@ const addClaim = function* (action) {
 
   try {
     // Get current user's token
-    const token = yield select(state => state.auth.user.token)
+    const token = yield select(state => state.auth.token)
 
-    // // API request
+    // API request
     const response = yield axios.post(`${config.API_ENDPOINT}/claims/`, formData, {
       headers: {
         Authorization: `Token ${token}`

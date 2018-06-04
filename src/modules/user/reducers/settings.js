@@ -1,38 +1,35 @@
 import {
-  SIGN_UP_REQUEST,
-  SIGN_UP_SUCCESS,
-  SIGN_UP_FAILURE
-} from './constants'
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILURE,
+} from '../constants'
 
 const initialState = {
   requesting: false,
-  error: false,
-  registered: false,
+  success: false,
+  error: null,
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SIGN_UP_REQUEST:
+    case UPDATE_USER_REQUEST:
       return {
         ...state,
         requesting: true,
-        error: false,
       }
 
-    case SIGN_UP_SUCCESS:
+    case UPDATE_USER_SUCCESS:
       return {
         ...state,
         requesting: false,
-        error: false,
-        registered: true,
+        success: true,
       }
 
-    case SIGN_UP_FAILURE:
+    case UPDATE_USER_FAILURE:
       return {
-        ...state,
         requesting: false,
+        success: false,
         error: true,
-        registered: false,
       }
 
     default:

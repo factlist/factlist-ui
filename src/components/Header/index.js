@@ -15,7 +15,7 @@ const Header = ({ user, onClickClaimButton, onClickSignInButton, hideSignInButto
     </Box>
 
     <Box width={670} mx={30}>
-      <SearchInput type="text" placeholder="Search | Explosion in Cairo..." />
+      <SearchInput type="text" placeholder="Search" />
     </Box>
 
     <Box width={270} mr={[20, 10]}>

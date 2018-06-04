@@ -17,7 +17,6 @@ export default class MultimediaInput extends Component {
 
   static propTypes = {
     placeholder: propTypes.string,
-    user: propTypes.object.isRequired,
     onUrlsChange: propTypes.func.isRequired,
     onFilesChange: propTypes.func.isRequired,
     onTextChange: propTypes.func.isRequired,

@@ -14,7 +14,7 @@ const addEvidence = function* (action) {
     formData.append('links', JSON.stringify(action.payload.links))
 
     // Get current user's token
-    const token = yield select(state => state.auth.user.token)
+    const token = yield select(state => state.auth.token)
 
     const requestURL = `${config.API_ENDPOINT}/claims/${action.claimId}/evidences/`
     const response = yield axios.post(requestURL, formData, {

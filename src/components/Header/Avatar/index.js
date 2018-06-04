@@ -1,11 +1,11 @@
 import React from 'react'
-import A from './A'
+import Link from './Link'
 import Img from './Img'
 
-const Avatar = ({ src, onClick }) => (
-  <A onClick={onClick}>
+const Avatar = ({ src }) => (
+  <Link to="/settings">
     <Img src={src} />
-  </A>
+  </Link>
 )
 
 export default Avatar

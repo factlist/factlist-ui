@@ -2,6 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Flex, Box } from 'grid-styled'
 import { required, email } from 'utils/validationRules'
+import { SIGN_IN_FORM_NAME } from 'modules/auth/constants'
 import { TextField } from 'components/Form'
 import Container from './Container'
 import Button from './Button'
@@ -60,5 +61,5 @@ const Form = ({
 )
 
 export default reduxForm({
-  form: 'SignInForm'
+  form: SIGN_IN_FORM_NAME
 })(Form)

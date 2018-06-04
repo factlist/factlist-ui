@@ -17,6 +17,10 @@ class ClaimScene extends Component {
     fetchClaim(this.claimId)
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   render() {
     const { claim } = this.props
 

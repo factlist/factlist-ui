@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
+import { Link } from 'react-router-dom'
 import Timeago from 'components/Timeago'
 import Linkify from 'components/Linkify'
 import Container from './Container'
@@ -17,7 +18,9 @@ const Claim = ({ claim }) => (
           inConclusiveCount={claim.inconclusive_count} />
       </Box>
       <Box>
-        <Timeago date={claim.created_at} />
+        <Link to={`/claims/${claim.id}`} style={{ textDecoration: 'none' }}>
+          <Timeago date={claim.created_at} />
+        </Link>
       </Box>
     </Flex>
 
