@@ -21,6 +21,7 @@
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1",
     "sanitize.css": "^5.0.0",
     "styled-components": "^2.4.0",
     "tlds": "^1.203.1"

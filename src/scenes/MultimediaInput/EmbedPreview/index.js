@@ -20,7 +20,8 @@ const EmbedPreview = ({ embeds, onRemove }) => (
             image={embed.data.thumbnail_url}
             url={embed.data.url} />}
 
-        <RemoveButton onClick={() => onRemove(embed)} />
+          {!embed.requesting &&
+           <RemoveButton onClick={() => onRemove(embed)} />}
       </Box>
     ))}
 

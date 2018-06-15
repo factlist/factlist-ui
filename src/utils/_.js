@@ -1,7 +1,10 @@
 import {
-  isEqual,
   debounce,
+  isEqual,
 } from 'lodash'
+
+const lodash = require('lodash')
+window.lodash = lodash
 
 // Random id generator
 const randomId = () => Math.random().toString(36).substr(2, 12).toUpperCase()
@@ -18,8 +21,8 @@ const parseUrl = url => {
 const isArray = (value) => Object.prototype.toString.call(value) === '[object Array]'
 
 export default {
-  isEqual,
   debounce,
+  isEqual,
   randomId,
   parseUrl,
   isArray,

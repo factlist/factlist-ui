@@ -15,36 +15,44 @@ export default class Input extends Component {
   }
 
   onChange = this.onChange.bind(this)
+  getPlainText = this.getPlainText.bind(this)
+  catchUrls = _.debounce(this.catchUrls, 500)
   focus = this.focus.bind(this)
   reset = this.reset.bind(this)
-  catchUrls = _.debounce(this.catchUrls, 500)
+
+  getPlainText() {
+    const { editorState } = this.state
+
+    return editorState.getCurrentContent().getPlainText()
+  }
 
   onChange(editorState) {
-    this.setState({ editorState })
+    const plainText = editorState.getCurrentContent().getPlainText()
 
-    // It will catch unique urls with debounce
-    this.catchUrls()
+    if (this.getPlainText() !== plainText) {
+      this.setState({ editorState })
 
-    const { onTextChange } = this.props
-    onTextChange(editorState.getCurrentContent().getPlainText())
+      // It will catch unique urls with debounce
+      this.catchUrls()
+    }
   }
 
   catchUrls(content) {
     const { onUrlsChange } = this.props
-    const { urls, editorState } = this.state
-    const plainText = editorState.getCurrentContent().getPlainText()
-    const uniqueUrls = getUniqueUrls(plainText)
+    const plainText = this.getPlainText()
+    const urls = getUniqueUrls(plainText)
 
-    if (!_.isEqual(uniqueUrls, urls)) {
-      this.setState({ urls: uniqueUrls })
-      onUrlsChange(uniqueUrls)
+    this.setState({ urls })
+
+    if (this.state.urls.length !== urls.length) {
+      onUrlsChange(urls)
     }
   }
 
   removeURL(url) {
     const { editorState } = this.state
 
-    let text = editorState.getCurrentContent().getPlainText()
+    let text = this.getPlainText()
 
     getUrlsWithIndex(text)
       .filter(urlRange => urlRange.url === url)
@@ -72,6 +80,8 @@ export default class Input extends Component {
 
   render() {
     const { placeholder } = this.props
+
+    console.log('child')
 
     return (
       <Container onClick={this.focus}>

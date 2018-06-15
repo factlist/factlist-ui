@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import propTypes from 'prop-types'
-import config from 'config'
-import axios from 'axios'
+import { createSelector } from 'reselect'
+import { makeSelectAll } from 'modules/embed/selectors'
+import { connect } from 'react-redux'
+import { fetchEmbed, removeEmbed } from 'modules/embed/actions'
 import Container from './Container'
 import Editor from './Editor'
 import EmbedPreview from './EmbedPreview'
@@ -10,7 +12,7 @@ import Seperator from './Seperator'
 import Label from './Label'
 import FileSwitch from './FileSwitch'
 
-export default class MultimediaInput extends Component {
+class MultimediaInput extends Component {
   static defaultProps = {
     placeholder: '',
   }
@@ -19,11 +21,9 @@ export default class MultimediaInput extends Component {
     placeholder: propTypes.string,
     onUrlsChange: propTypes.func.isRequired,
     onFilesChange: propTypes.func.isRequired,
-    onTextChange: propTypes.func.isRequired,
   }
 
   state = {
-    urls: [],
     files: [],
     embeds: {},
   }
@@ -31,76 +31,26 @@ export default class MultimediaInput extends Component {
   editor = null
 
   onUrlsChange = this.onUrlsChange.bind(this)
-  getEmbed = this.getEmbed.bind(this)
   onEmbedRemove = this.onEmbedRemove.bind(this)
   onFilesChange = this.onFilesChange.bind(this)
   showFileSelector = this.showFileSelector.bind(this)
   reset = this.reset.bind(this)
 
+
   onUrlsChange(urls) {
-    const { onUrlsChange } = this.props
+    const { fetchEmbed } = this.props
 
     this.setState({ urls })
-    urls.forEach(url => this.getEmbed(url))
-
-    onUrlsChange(urls)
-  }
-
-  getEmbed(url) {
-    const embeds = this.state.embeds
-    const embed = embeds[url]
-
-    if (embed || (embed && embed.requesting === true)) {
-      return null
-    }
-
-    // Default embed values
-    embeds[url] = {
-      url,
-      requesting: true,
-      data: null
-    }
-
-    this.setState({ embeds })
-
-    this.embedRequest(url).then(data => {
-      embeds[url] = {
-        url,
-        requesting: false,
-        error: data ? false : true,
-        data,
-      }
-
-      this.setState({ embeds })
-    })
-  }
-
-  embedRequest(url) {
-    const { user } = this.props
-    const { token } = user
-
-    return new Promise(resolve => {
-      axios
-        .get(`${config.API_ENDPOINT}/embed/?link=${url}`, {
-          headers: {
-            Authorization: `Token ${token}`
-          }
-        })
-        .then(response => response.data)
-        .then(data => resolve(data))
-        .catch(() => resolve(null))
-    })
+    urls.forEach(url => fetchEmbed(url))
   }
 
   onEmbedRemove(embed) {
-    const { onUrlsChange } = this.props
-    const urls = this.state.urls.filter(url => embed.url !== url)
+    const { removeEmbed } = this.props
 
-    this.setState({ urls })
+    removeEmbed(embed.url)
 
+    // Remove URL from editor
     this.editor.removeURL(embed.url)
-
-    onUrlsChange(urls)
   }
 
   onFilesChange(files) {
@@ -121,19 +71,17 @@ export default class MultimediaInput extends Component {
   }
 
   render() {
-    const { placeholder, onTextChange } = this.props
-    let { embeds, urls, files } = this.state
-    embeds = urls
-      .map(url => embeds[url])
-      .filter(embed => typeof embed !== 'undefined')
+    const { placeholder, embeds } = this.props
+    const { files } = this.state
+
+    console.log('@@', 'parent')
 
     return (
       <Container>
         <Editor
           placeholder={placeholder}
           ref={ref => this.editor = ref}
-          onUrlsChange={this.onUrlsChange}
-          onTextChange={onTextChange} />
+          onUrlsChange={this.onUrlsChange} />
 
         {embeds.length === 0 &&
           files.length === 0 &&
@@ -159,3 +107,18 @@ export default class MultimediaInput extends Component {
     )
   }
 }
+
+const mapStateToProps = createSelector(
+  makeSelectAll(),
+  (embeds) => ({ embeds }),
+)
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchEmbed: (url) => dispatch(fetchEmbed(url)),
+  removeEmbed: (url) => dispatch(removeEmbed(url)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MultimediaInput)
