@@ -1,12 +1,16 @@
 import React from 'react'
-import A from './A'
+import DropzoneHOC from '../Dropzone'
+import StyledDropzone from './StyledDropzone'
+import Container from './Container'
 import Img from './Img'
 
-const FileSwitch = ({ onClick }) => (
-  <A onClick={onClick}>
-    <Img src="/images/icons/image.svg" />
-    Add image or video
-  </A>
+const FileSwitch = ({ acceptedFileTypes, onDrop }) => (
+  <Container>
+    <StyledDropzone accept={acceptedFileTypes} onDrop={onDrop}>
+      <Img src="/images/icons/image.svg" />
+      Add image or video
+    </StyledDropzone>
+  </Container>
 )
 
-export default FileSwitch
+export default DropzoneHOC(FileSwitch)

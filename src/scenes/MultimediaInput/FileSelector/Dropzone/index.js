@@ -3,9 +3,9 @@ import Container from './Container'
 import StyledDropzone from './StyledDropzone'
 import Icon from './Icon'
 
-export default ({ innerRef, ...rest }) => (
+export default ({ ...rest }) => (
   <Container>
-    <StyledDropzone innerRef={node => innerRef(node)} {...rest}>
+    <StyledDropzone {...rest}>
         <Icon />
     </StyledDropzone>
   </Container>

@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import propTypes from 'prop-types'
-import { createSelector } from 'reselect'
-import { makeSelectAll } from 'modules/embed/selectors'
 import { connect } from 'react-redux'
-import { fetchEmbed, removeEmbed } from 'modules/embed/actions'
+import { fetchEmbeds, removeEmbed } from 'modules/embed/actions'
 import Container from './Container'
 import Editor from './Editor'
 import EmbedPreview from './EmbedPreview'
@@ -12,18 +9,15 @@ import Seperator from './Seperator'
 import Label from './Label'
 import FileSwitch from './FileSwitch'
 
+const MAX_EMBEDS_ALLOWED = 6
+
 class MultimediaInput extends Component {
   static defaultProps = {
     placeholder: '',
   }
 
-  static propTypes = {
-    placeholder: propTypes.string,
-    onUrlsChange: propTypes.func.isRequired,
-    onFilesChange: propTypes.func.isRequired,
-  }
-
   state = {
+    urls: [],
     files: [],
     embeds: {},
   }
@@ -33,15 +27,12 @@ class MultimediaInput extends Component {
   onUrlsChange = this.onUrlsChange.bind(this)
   onEmbedRemove = this.onEmbedRemove.bind(this)
   onFilesChange = this.onFilesChange.bind(this)
-  showFileSelector = this.showFileSelector.bind(this)
   reset = this.reset.bind(this)
 
-
   onUrlsChange(urls) {
-    const { fetchEmbed } = this.props
+    const { fetchEmbeds } = this.props
 
-    this.setState({ urls })
-    urls.forEach(url => fetchEmbed(url))
+    fetchEmbeds(urls.slice(0, MAX_EMBEDS_ALLOWED))
   }
 
   onEmbedRemove(embed) {
@@ -61,31 +52,30 @@ class MultimediaInput extends Component {
     onFilesChange(files)
   }
 
-  showFileSelector() {
-    this.fileSelector.open()
-  }
-
   reset() {
     this.editor.reset()
     this.fileSelector.reset()
   }
 
   render() {
-    const { placeholder, embeds } = this.props
-    const { files } = this.state
-
-    console.log('@@', 'parent')
+    const {
+      placeholder,
+      files,
+      embeds,
+      onTextChange,
+    } = this.props
 
     return (
       <Container>
         <Editor
           placeholder={placeholder}
-          ref={ref => this.editor = ref}
-          onUrlsChange={this.onUrlsChange} />
+          ref={node => this.editor = node}
+          onUrlsChange={this.onUrlsChange}
+          onTextChange={onTextChange} />
 
         {embeds.length === 0 &&
           files.length === 0 &&
-          <FileSwitch onClick={this.showFileSelector} />}
+          <FileSwitch />}
 
         {(files.length > 0 || embeds.length > 0) && <Seperator />}
 
@@ -98,24 +88,21 @@ class MultimediaInput extends Component {
           </Fragment>
         )}
 
-        <FileSelector
-          show={embeds.length > 0 || files.length > 0}
-          ref={node => this.fileSelector = node}
-          onChange={this.onFilesChange} />
-
+        {(files.length !== 0 || embeds.length !== 0) &&
+        <FileSelector files={files} />}
       </Container>
     )
   }
 }
 
-const mapStateToProps = createSelector(
-  makeSelectAll(),
-  (embeds) => ({ embeds }),
-)
+const mapStateToProps = (state) => ({
+  embeds: state.embed.all,
+  files: state.file.all,
+})
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchEmbed: (url) => dispatch(fetchEmbed(url)),
-  removeEmbed: (url) => dispatch(removeEmbed(url)),
+  fetchEmbeds: urls => dispatch(fetchEmbeds(urls)),
+  removeEmbed: url => dispatch(removeEmbed(url)),
 })
 
 export default connect(

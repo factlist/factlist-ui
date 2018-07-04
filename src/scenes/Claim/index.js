@@ -35,7 +35,7 @@ class ClaimScene extends Component {
             {claim && <Claim claim={claim} />}
 
             {/* Evidences */}
-            <div>
+            <div style={{ marginBottom: '40px' }}>
               {claim && claim.evidences.map(evidence => <Evidence
                 key={evidence.id}
                 evidence={evidence} />)}

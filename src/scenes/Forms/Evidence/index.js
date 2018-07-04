@@ -1,46 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Flex, Box } from 'grid-styled'
-import MultimediaInput from 'scenes/MultimediaInput'
-import Button from './Button'
-import Form from './Form'
-import Label from './Label'
-import Conclusions from './Conclusions'
 import {
   addEvidence,
   resetAddEvidenceStates
 } from 'modules/evidence/actions'
+import Form from './Form'
 
 class EvidenceForm extends Component {
-  state = {
-    text: '',
-    files: [],
-    links: [],
-    conclusion: null,
-  }
-
-  handleSubmit = this.handleSubmit.bind(this)
-  onConclusionSelect = this.onConclusionSelect.bind(this)
-  onUrlsChange = this.onUrlsChange.bind(this)
-  onFilesChange = this.onFilesChange.bind(this)
-  onTextChange = this.onTextChange.bind(this)
-
-  componentWillReceiveProps(nextProps) {
-    // Reset states only evidence created successfully.
-    if (nextProps.success !== true) {
-      return
-    }
-
-    // Reset "add evidence" reducer.
-    const { resetAddEvidenceStates } = this.props
-    resetAddEvidenceStates()
-
-    // Reset multimedia input
-    this.multimediaInput.reset()
-
-    // Reset evidence conclusion
-    this.setState({ status: null })
-  }
+  onSubmit = this.onSubmit.bind(this)
 
   componentWillUnmount() {
     const { resetAddEvidenceStates } = this.props
@@ -48,71 +15,22 @@ class EvidenceForm extends Component {
     resetAddEvidenceStates()
   }
 
-  onConclusionSelect(conclusion) {
-    this.setState({ conclusion })
-  }
-
-  onUrlsChange(urls) {
-    // @TODO replace all links with urls [API]
-    this.setState({ links: urls })
-  }
-
-  onFilesChange(files) {
-    this.setState({ files })
-  }
-
-  onTextChange(text) {
-    this.setState({ text })
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
-
+  onSubmit(values) {
     const { addEvidence, claimId } = this.props
-    const payload = this.state
 
-    addEvidence({ claimId, payload })
+    addEvidence({
+      claimId,
+      payload: values,
+    })
   }
 
   render() {
-    const { conclusion } = this.state
-    const { requesting, user } = this.props
-
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <Flex column>
-          <Box mb={30}>
-            <Label>Claim is:</Label>
-            <Conclusions
-              value={conclusion}
-              onSelect={this.onConclusionSelect} />
-          </Box>
-
-          <Box mb={15}>
-            <Label>Because:</Label>
-            <MultimediaInput
-              ref={node => this.multimediaInput = node}
-              user={user}
-              placeholder="Start explaning your evidence here."
-              onUrlsChange={this.onUrlsChange}
-              onFilesChange={this.onFilesChange}
-              onTextChange={this.onTextChange} />
-          </Box>
-
-          <Box>
-            <Button disabled={requesting}>
-              {requesting ? 'Adding...' : 'Add Evidence'}
-            </Button>
-          </Box>
-        </Flex>
-      </Form>
-    )
+    return <Form
+      onSubmit={this.onSubmit}/>
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
-  requesting: state.evidence.requesting,
   error: state.evidence.error,
   success: state.evidence.success,
 })

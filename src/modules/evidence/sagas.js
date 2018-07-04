@@ -1,31 +1,61 @@
 import { takeLatest, fork, select, put } from 'redux-saga/effects'
 import axios from 'axios'
 import config from 'config'
-import { ADD_EVIDENCE_REQUEST } from './constants'
+import { stopSubmit, startSubmit } from 'redux-form'
+import formatFormErrors from 'utils/formatFormErrors'
+import { ADD_EVIDENCE_REQUEST, EVIDENCE_FORM } from './constants'
 import { evidenceAdded, addEvidenceFailure} from './actions'
 
 const addEvidence = function* (action) {
   try {
-    const formData = new FormData()
-    formData.append('claim', action.claimId)
-    formData.append('text', action.payload.text)
-    formData.append('conclusion', action.payload.conclusion)
-    action.payload.files.map(file => formData.append('files', file))
-    formData.append('links', JSON.stringify(action.payload.links))
+    const { claimId } = action
+
+    yield put(startSubmit(EVIDENCE_FORM))
+
+    let files = yield select(state => state.file.all)
+    files = files
+      .filter(file => file.success === true)
+      .map(file => file.id)
+
+    let links = yield select(state => state.embed.all)
+    links = links.map(link => link.url)
+
+    // Prepare request data
+    const requestPayload = {
+      claim: claimId,
+      links,
+      files,
+      ...action.payload,
+    }
 
     // Get current user's token
     const token = yield select(state => state.auth.token)
 
-    const requestURL = `${config.API_ENDPOINT}/claims/${action.claimId}/evidences/`
-    const response = yield axios.post(requestURL, formData, {
+    const requestURL = `${config.API_ENDPOINT}/claims/${claimId}/evidences/`
+    const response = yield axios.post(requestURL, requestPayload, {
       headers: {
         Authorization: `Token ${token}`
       }
     })
 
     yield put(evidenceAdded(response.data))
+
+    yield put(stopSubmit(EVIDENCE_FORM))
   } catch (error) {
-    yield put(addEvidenceFailure(error))
+
+    if (error.response.status === 400) {
+      const errors = formatFormErrors(error.response.data)
+
+      if (!errors.text && (errors.files || errors.links)) {
+        errors.text = errors.files || errors.links
+      }
+
+      yield put(stopSubmit(EVIDENCE_FORM, errors))
+    } else {
+      // @TODO Handle general error
+    }
+
+    yield put(addEvidenceFailure())
   }
 }
 

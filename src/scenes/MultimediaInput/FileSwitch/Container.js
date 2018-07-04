@@ -1,11 +1,10 @@
 import styled from 'styled-components'
 
-const A = styled.a`
+const Container = styled.div`
   font-size: 12px;
-  display: block;
   display: flex;
   align-items: center;
   cursor: pointer;
 `
 
-export default A
+export default Container

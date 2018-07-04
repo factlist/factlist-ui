@@ -5,7 +5,7 @@ import RemoveButton from '../../RemoveButton'
 
 const File = ({ file, onRemove }) => (
   <Container>
-    <Img src={file.preview} />
+    <Img src={file.source.preview} />
 
     <RemoveButton onClick={() => onRemove(file)} />
   </Container>

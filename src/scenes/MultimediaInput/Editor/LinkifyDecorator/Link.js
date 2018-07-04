@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { getUniqueUrls } from '../getUrls'
 
 const A = styled.a`
   color: #1B95E0;
@@ -26,8 +25,7 @@ export default class Link extends Component {
       ...otherProps
     } = this.props
 
-    const links = getUniqueUrls(decoratedText)
-    const href = links && links[0] ? links[0] : ''
+    const href = decoratedText
 
     const props = {
       ...otherProps,

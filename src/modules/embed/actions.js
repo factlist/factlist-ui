@@ -2,12 +2,12 @@ import {
   FETCH_EMBED_REQUEST,
   FETCH_EMBED_SUCCESS,
   FETCH_EMBED_FAILURE,
-  REMOVE_EMBED,
+  EMBED_REMOVE,
 } from './constants'
 
-export const fetchEmbed = (url) => ({
+export const fetchEmbeds = (urls) => ({
   type: FETCH_EMBED_REQUEST,
-  url,
+  urls,
 })
 
 export const embedFetched = ({ url, data }) => ({
@@ -22,6 +22,6 @@ export const embedFetchFailure = (url) => ({
 })
 
 export const removeEmbed = (url) => ({
-  type: REMOVE_EMBED,
+  type: EMBED_REMOVE,
   url,
 })

@@ -1,4 +1,4 @@
-import { takeEvery, fork, select, put } from 'redux-saga/effects'
+import { takeEvery, fork, select, put, call, all } from 'redux-saga/effects'
 import config from 'config'
 import axios from 'axios'
 import { FETCH_EMBED_REQUEST } from './constants'
@@ -7,35 +7,36 @@ import {
   embedFetchFailure,
 } from './actions'
 
-const cache = {}
+const fetch = function* (url) {
+  const cache = yield select(state => state.embed.cache)
 
-const fetch = function* (action) {
-  const { url } = action
+  if (cache[url]) {
+    return
+  }
 
   try {
     const token = yield select(state => state.auth.token)
 
-    let response = cache[url]
+    const { data } = yield axios.get(`${config.API_ENDPOINT}/embed/?link=${url}`, {
+      headers: {
+        Authorization: `Token ${token}`,
+      }
+    })
 
-    if (response === undefined) {
-      response = yield axios.get(`${config.API_ENDPOINT}/embed/?link=${url}`, {
-        headers: {
-          Authorization: `Token ${token}`
-        }
-      })
-
-      response = response.data
-      cache[url] = response
-    }
-
-    yield put(embedFetched({ url, data: response }))
+    yield put(embedFetched({ url, data }))
   } catch (error) {
     yield put(embedFetchFailure(url))
   }
 }
 
+const fetchAll = function* (action) {
+  const { urls } = action
+
+  yield all(urls.map(url => call(fetch, url)))
+}
+
 const watch = function* () {
-  yield takeEvery(FETCH_EMBED_REQUEST, fetch)
+  yield takeEvery(FETCH_EMBED_REQUEST, fetchAll)
 }
 
 export default fork(watch)

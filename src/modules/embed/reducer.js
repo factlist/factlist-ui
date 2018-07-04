@@ -2,10 +2,11 @@ import {
   FETCH_EMBED_REQUEST,
   FETCH_EMBED_SUCCESS,
   FETCH_EMBED_FAILURE,
-  REMOVE_EMBED,
+  EMBED_REMOVE,
 } from './constants'
 
 const initialState = {
+  cache: {},
   all: [],
 }
 
@@ -13,61 +14,60 @@ export default (state = initialState, action) => {
   switch (action.type) {
 
     case FETCH_EMBED_REQUEST:
-      const embed = state.all.find(embed => embed.url === action.url)
-
-      if (embed !== undefined) {
-        return state
-      }
-
       return {
         ...state,
-        all: [
-          ...state.all,
-          {
-            url: action.url,
-            requesting: true,
-            fail: false,
-            data: null,
+        all: action.urls.map(url => ({
+          url,
+          requesting: state.cache[url] !== undefined ? false : true,
+          data: state.cache[url] !== undefined ? state.cache[url] : null,
+        }))
+      }
+
+    case FETCH_EMBED_SUCCESS:
+      return {
+        ...state,
+        cache: {
+          ...state.cache,
+          [action.url]: action.data,
+        },
+        all: state.all.map(embed => {
+          if (embed.url === action.url) {
+            embed.requesting = false
+            embed.data = action.data
           }
-        ]
+
+          return embed
+        })
       }
 
-    case FETCH_EMBED_SUCCESS: {
-      const all = state.all.map(embed => {
-        if (embed.url === action.url) {
-          embed.requesting = false
-          embed.data = action.data
-        }
-
-        return embed
-      })
-
+    case FETCH_EMBED_FAILURE:
       return {
         ...state,
-        all,
+        cache: {
+          ...state.cache,
+          [action.url]: {
+            title: action.url,
+            url: action.url,
+          },
+        },
+        all: state.all.map(embed => {
+          if (embed.url === action.url) {
+            embed.data = {
+              title: action.url,
+              url: action.url,
+            }
+
+            embed.requesting = false
+            embed.fail = true
+          }
+
+          return embed
+        })
       }
-    }
 
-    case FETCH_EMBED_FAILURE: {
-      const all = state.all.map(embed => {
-        if (embed.url === action.url) {
-          embed.requesting = false
-          embed.fail = true
-        }
-
-        return embed
-      })
-
+    case EMBED_REMOVE:
       return {
-        ...state,
-        all,
-      }
-    }
-
-    case REMOVE_EMBED:
-      return {
-        ...state,
-        all: state.all.filter(embed => embed.url !== action.url),
+        all: state.all.filter(embed => embed.url !== action.url)
       }
 
     default:
