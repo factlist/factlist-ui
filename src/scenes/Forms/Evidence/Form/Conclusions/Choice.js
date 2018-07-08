@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import colors from 'core/colors'
 
 const Choice = styled.label`
   display: inline-block;
@@ -12,7 +13,7 @@ const Choice = styled.label`
   border-right: 1px solid #D8D8D8;
   user-select: none;
 
-  background-color: ${props => props.active ? props.color : '#FFF'};
+  background-color: ${props => props.active ? colors.conclusions[props.color] : '#FFF'};
   color: ${props => props.active ? '#FFF' : '#000'};
 
   &:last-child {

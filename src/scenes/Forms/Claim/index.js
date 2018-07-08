@@ -1,76 +1,68 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addClaim } from 'modules/claim/actions'
-import MultimediaInput from 'scenes/MultimediaInput'
+import { reset } from 'redux-form'
+import {
+  addClaim,
+  resetAddClaimStates,
+} from 'modules/claim/actions'
+import { resetClaimEmbeds } from 'modules/embed/actions'
+import { resetClaimFiles } from 'modules/file/actions'
+import { CLAIM_FORM } from 'modules/claim/constants'
+import Container from './Container'
 import H2 from './H2'
 import P from './P'
-import Button from './Button'
-import Container from './Container'
+import Form from './Form'
 
 class ClaimForm extends Component {
-  state = {
-    text: '',
-    files: [],
-    links: [],
+  onSubmit = this.onSubmit.bind(this)
+
+  componentDidUpdate() {
+    const { added } = this.props
+
+    // Reset states only the claim created successfully.
+    if (added) {
+      const {
+        reset,
+        resetAddClaimStates,
+        resetClaimEmbeds,
+        resetClaimFiles,
+      } = this.props
+
+      reset()
+      resetAddClaimStates()
+      resetClaimEmbeds()
+      resetClaimFiles()
+    }
   }
 
-  onUrlsChange = this.onUrlsChange.bind(this)
-  onFilesChange = this.onFilesChange.bind(this)
-  onTextChange = this.onTextChange.bind(this)
-  handleOnSubmit = this.handleOnSubmit.bind(this)
-
-  onUrlsChange(urls) {
-    this.setState({ links: urls })
-  }
-
-  onFilesChange(files) {
-    this.setState({ files })
-  }
-
-  onTextChange(text) {
-    this.setState({ text })
-  }
-
-  handleOnSubmit(event) {
-    event.preventDefault()
-
+  onSubmit(values) {
     const { addClaim } = this.props
 
-    addClaim(this.state)
+    addClaim(values)
   }
 
   render() {
-    const { user, adding } = this.props
-
     return (
       <Container>
         <H2>Add Claim</H2>
         <P>Have any doubt on anything? Ask it to Factlist for proof.</P>
 
-        <form onSubmit={this.handleOnSubmit}>
-          <MultimediaInput
-            ref={node => this.multimediaInput = node}
-            onUrlsChange={this.onUrlsChange}
-            onFilesChange={this.onFilesChange}
-            onTextChange={this.onTextChange}
-            user={user} />
-
-          <Button disabled={adding}>
-            {adding ? 'Adding...' : 'Add Claim'}
-          </Button>
-        </form>
+        <Form onSubmit={this.onSubmit} />
       </Container>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
-  adding: state.claim.adding,
+  added: state.claim.added,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addClaim: (data) => dispatch(addClaim(data))
+  addClaim: (data) => dispatch(addClaim(data)),
+  reset: () => dispatch(reset(CLAIM_FORM)),
+  resetAddClaimStates: () => dispatch(resetAddClaimStates()),
+  resetClaimEmbeds: () => dispatch(resetClaimEmbeds()),
+  resetClaimFiles: () => dispatch(resetClaimFiles()),
 })
 
 export default connect(

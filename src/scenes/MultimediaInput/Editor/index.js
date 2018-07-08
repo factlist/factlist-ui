@@ -1,28 +1,38 @@
 import React, { Component } from 'react'
 import Container from './Container'
-import Editor from 'draft-js-plugins-editor'
-import { EditorState, ContentState } from 'draft-js'
+import { Editor, CompositeDecorator, EditorState, ContentState } from 'draft-js'
 import _ from 'utils/_'
-import LinkifyPlugin from './LinkifyPlugin'
-import { getUniqueUrls, getUrlsWithIndex } from './getUrls'
-
+import LinkifyDecorator from './LinkifyDecorator'
+import { extractUrls, extractUrlsWithIndices } from 'twitter-text'
 import 'draft-js/dist/Draft.css'
 
-export default class Input extends Component {
+// Decorators
+const compositeDecorator = new CompositeDecorator([
+  LinkifyDecorator,
+])
+
+export default class CustomEditor extends Component {
   state = {
-    editorState: EditorState.createEmpty(),
+    editorState: EditorState.createEmpty(compositeDecorator),
     urls: [],
   }
 
   onChange = this.onChange.bind(this)
+  getPlainText = this.getPlainText.bind(this)
+  catchUrls = _.debounce(this.catchUrls, 500)
   focus = this.focus.bind(this)
   reset = this.reset.bind(this)
-  catchUrls = _.debounce(this.catchUrls, 500)
+
+  getPlainText() {
+    const { editorState } = this.state
+
+    return editorState.getCurrentContent().getPlainText()
+  }
 
   onChange(editorState) {
     this.setState({ editorState })
 
-    // It will catch unique urls with debounce
+    // Catch unique urls with debounce
     this.catchUrls()
 
     const { onTextChange } = this.props
@@ -31,26 +41,24 @@ export default class Input extends Component {
 
   catchUrls(content) {
     const { onUrlsChange } = this.props
-    const { urls, editorState } = this.state
-    const plainText = editorState.getCurrentContent().getPlainText()
-    const uniqueUrls = getUniqueUrls(plainText)
+    const plainText = this.getPlainText()
+    const urls = _.uniq(extractUrls(plainText))
 
-    if (!_.isEqual(uniqueUrls, urls)) {
-      this.setState({ urls: uniqueUrls })
-      onUrlsChange(uniqueUrls)
+    if (!_.isEqual(urls, this.state.urls)) {
+      this.setState({ urls }, () => onUrlsChange(urls))
     }
   }
 
   removeURL(url) {
     const { editorState } = this.state
 
-    let text = editorState.getCurrentContent().getPlainText()
+    let text = this.getPlainText()
 
-    getUrlsWithIndex(text)
-      .filter(urlRange => urlRange.url === url)
+    extractUrlsWithIndices(text)
+      .filter(extracted => extracted.url === url)
       .reverse()
       .forEach(url => {
-        text = text.substring(0, url.start) + text.substring(url.end)
+        text = text.substring(0, url.indices[0]) + text.substring(url.indices[1])
       })
 
     const contentState = ContentState.createFromText(text.trim())
@@ -71,17 +79,17 @@ export default class Input extends Component {
   }
 
   render() {
+    const { editorState } = this.state
     const { placeholder } = this.props
 
     return (
       <Container onClick={this.focus}>
         <Editor
           placeholder={placeholder}
-          ref={node =>  this.editor = node }
+          ref={node => this.editor = node }
           stripPastedStyles={true}
-          editorState={this.state.editorState}
-          onChange={this.onChange}
-          plugins={[ LinkifyPlugin() ]} />
+          editorState={editorState}
+          onChange={this.onChange} />
       </Container>
     )
   }

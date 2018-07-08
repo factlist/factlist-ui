@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
-import propTypes from 'prop-types'
-import config from 'config'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import { fetchEmbeds, removeEmbed } from 'modules/embed/actions'
+import { fileUpload, removeFile } from 'modules/file/actions'
 import Container from './Container'
 import Editor from './Editor'
 import EmbedPreview from './EmbedPreview'
@@ -10,134 +10,79 @@ import Seperator from './Seperator'
 import Label from './Label'
 import FileSwitch from './FileSwitch'
 
-export default class MultimediaInput extends Component {
+const MAX_EMBEDS_ALLOWED = 6
+const MAX_FILES_ALLOWED = 5
+
+class MultimediaInput extends Component {
   static defaultProps = {
     placeholder: '',
   }
 
-  static propTypes = {
-    placeholder: propTypes.string,
-    onUrlsChange: propTypes.func.isRequired,
-    onFilesChange: propTypes.func.isRequired,
-    onTextChange: propTypes.func.isRequired,
-  }
-
   state = {
     urls: [],
-    files: [],
-    embeds: {},
   }
 
   editor = null
 
   onUrlsChange = this.onUrlsChange.bind(this)
-  getEmbed = this.getEmbed.bind(this)
   onEmbedRemove = this.onEmbedRemove.bind(this)
-  onFilesChange = this.onFilesChange.bind(this)
-  showFileSelector = this.showFileSelector.bind(this)
-  reset = this.reset.bind(this)
+  onFilesDrop = this.onFilesDrop.bind(this)
+  onFileRemove = this.onFileRemove.bind(this)
+
+  onFilesDrop(selectedFiles) {
+    const { uploadFile, id, files } = this.props
+
+    selectedFiles
+      .slice(0, MAX_FILES_ALLOWED - files.length)
+      .forEach(file => uploadFile({ form: id, file }))
+  }
+
+  onFileRemove(file) {
+    const { id, removeFile } = this.props
+
+    removeFile({ form: id, file })
+  }
 
   onUrlsChange(urls) {
-    const { onUrlsChange } = this.props
+    const { id, fetchEmbeds } = this.props
 
-    this.setState({ urls })
-    urls.forEach(url => this.getEmbed(url))
-
-    onUrlsChange(urls)
-  }
-
-  getEmbed(url) {
-    const embeds = this.state.embeds
-    const embed = embeds[url]
-
-    if (embed || (embed && embed.requesting === true)) {
-      return null
-    }
-
-    // Default embed values
-    embeds[url] = {
-      url,
-      requesting: true,
-      data: null
-    }
-
-    this.setState({ embeds })
-
-    this.embedRequest(url).then(data => {
-      embeds[url] = {
-        url,
-        requesting: false,
-        error: data ? false : true,
-        data,
-      }
-
-      this.setState({ embeds })
-    })
-  }
-
-  embedRequest(url) {
-    const { user } = this.props
-    const { token } = user
-
-    return new Promise(resolve => {
-      axios
-        .get(`${config.API_ENDPOINT}/embed/?link=${url}`, {
-          headers: {
-            Authorization: `Token ${token}`
-          }
-        })
-        .then(response => response.data)
-        .then(data => resolve(data))
-        .catch(() => resolve(null))
+    fetchEmbeds({
+      id,
+      urls: urls.slice(0, MAX_EMBEDS_ALLOWED)
     })
   }
 
   onEmbedRemove(embed) {
-    const { onUrlsChange } = this.props
-    const urls = this.state.urls.filter(url => embed.url !== url)
+    const { id, removeEmbed } = this.props
 
-    this.setState({ urls })
+    removeEmbed({
+      id,
+      url: embed.url
+    })
 
+    // Remove URL from editor
     this.editor.removeURL(embed.url)
-
-    onUrlsChange(urls)
-  }
-
-  onFilesChange(files) {
-    const { onFilesChange } = this.props
-
-    this.setState({ files })
-
-    onFilesChange(files)
-  }
-
-  showFileSelector() {
-    this.fileSelector.open()
-  }
-
-  reset() {
-    this.editor.reset()
-    this.fileSelector.reset()
   }
 
   render() {
-    const { placeholder, onTextChange } = this.props
-    let { embeds, urls, files } = this.state
-    embeds = urls
-      .map(url => embeds[url])
-      .filter(embed => typeof embed !== 'undefined')
+    const {
+      placeholder,
+      files,
+      embeds,
+      onTextChange,
+    } = this.props
 
     return (
       <Container>
         <Editor
           placeholder={placeholder}
-          ref={ref => this.editor = ref}
+          ref={node => this.editor = node}
           onUrlsChange={this.onUrlsChange}
           onTextChange={onTextChange} />
 
         {embeds.length === 0 &&
           files.length === 0 &&
-          <FileSwitch onClick={this.showFileSelector} />}
+          <FileSwitch onDrop={this.onFilesDrop} />}
 
         {(files.length > 0 || embeds.length > 0) && <Seperator />}
 
@@ -150,12 +95,34 @@ export default class MultimediaInput extends Component {
           </Fragment>
         )}
 
-        <FileSelector
-          show={embeds.length > 0 || files.length > 0}
-          ref={node => this.fileSelector = node}
-          onChange={this.onFilesChange} />
-
+        {(files.length !== 0 || embeds.length !== 0) && (
+          <Fragment>
+            <Label>Files:</Label>
+            <FileSelector
+              files={files}
+              maxFileAllowed={MAX_FILES_ALLOWED}
+              onDrop={this.onFilesDrop}
+              onRemove={this.onFileRemove} />
+          </Fragment>
+        )}
       </Container>
     )
   }
 }
+
+const mapStateToProps = (state, props) => ({
+  embeds: state.embed[props.id],
+  files: state.file[props.id],
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchEmbeds: urls => dispatch(fetchEmbeds(urls)),
+  removeEmbed: url => dispatch(removeEmbed(url)),
+  uploadFile: ({ form, file }) => dispatch(fileUpload({ form, file })),
+  removeFile: ({ form, file }) => dispatch(removeFile({ form, file })),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MultimediaInput)

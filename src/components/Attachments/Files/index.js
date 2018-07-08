@@ -9,7 +9,7 @@ const Files = ({ files }) => (
         key={file.id}
         width={1/5}
         mr={(index + 1) % 5 === 0 ? 0 : 5}>
-        <File src={file.file} />
+        <File src={file.image} />
       </Box>
     ))}
   </Flex>

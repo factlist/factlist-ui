@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Flex, Box } from 'grid-styled'
 import _ from 'utils/_'
 import Card from './Card'
@@ -15,12 +15,16 @@ const EmbedPreview = ({ embeds, onRemove }) => (
         style={{ position: 'relative' }}>
           {embed.requesting && <EmptyCard />}
 
-          {!embed.requesting && <Card
-            title={embed.data.title}
-            image={embed.data.thumbnail_url}
-            url={embed.data.url} />}
+          {!embed.requesting &&
+            <Fragment>
+              <Card
+                title={embed.data.title}
+                image={embed.data.thumbnail_url}
+                url={embed.data.url} />
 
-        <RemoveButton onClick={() => onRemove(embed)} />
+              <RemoveButton onClick={() => onRemove(embed)} />
+            </Fragment>
+          }
       </Box>
     ))}
 

@@ -5,9 +5,8 @@ import {
   FETCH_ALL_CLAIMS_REQUEST,
   FETCH_ALL_CLAIMS_SUCCESS,
   FETCH_ALL_CLAIMS_FAILURE,
-  ADD_CLAIM_REQUEST,
   ADD_CLAIM_SUCCESS,
-  ADD_CLAIM_FAILURE,
+  RESET_ADD_CLAIM_STATES,
 } from './constants'
 
 import {
@@ -17,10 +16,9 @@ import {
 const initialState = {
   fetching: false,
   fetchingError: null,
-  adding: false,
-  addingError: null,
   all: [], // All claims
   selectedClaim: null,
+  added: false,
 }
 
 export default (state = initialState, action) => {
@@ -69,28 +67,14 @@ export default (state = initialState, action) => {
         fetchingError: action.error,
       }
 
-    case ADD_CLAIM_REQUEST:
+      case ADD_CLAIM_SUCCESS:
       return {
         ...state,
-        adding: true,
-      }
-
-    case ADD_CLAIM_SUCCESS:
-      return {
-        ...state,
-        adding: false,
-        addingError: false,
+        added: true,
         all: [
           action.data,
           ...state.all
         ]
-      }
-
-    case ADD_CLAIM_FAILURE:
-      return {
-        ...state,
-        adding: false,
-        addingError: false,
       }
 
     case ADD_EVIDENCE_SUCCESS:
@@ -104,6 +88,12 @@ export default (state = initialState, action) => {
           ...state.selectedClaim,
           evidences: state.selectedClaim.evidences.concat(action.evidence),
         }
+      }
+
+    case RESET_ADD_CLAIM_STATES:
+      return {
+        ...state,
+        added: false,
       }
 
     default:

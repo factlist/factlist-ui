@@ -9,6 +9,7 @@ import {
   ADD_CLAIM_REQUEST,
   ADD_CLAIM_SUCCESS,
   ADD_CLAIM_FAILURE,
+  RESET_ADD_CLAIM_STATES,
 } from './constants'
 
 export const fetchClaim = ({ id }) => ({
@@ -46,4 +47,8 @@ export const claimAdded = (data) => ({
 
 export const addClaimFailure = () => ({
   type: ADD_CLAIM_FAILURE,
+})
+
+export const resetAddClaimStates = () => ({
+  type: RESET_ADD_CLAIM_STATES,
 })

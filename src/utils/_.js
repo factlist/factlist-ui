@@ -1,6 +1,8 @@
 import {
-  isEqual,
   debounce,
+  uniq,
+  isEqual,
+  indexOf,
 } from 'lodash'
 
 // Random id generator
@@ -17,10 +19,15 @@ const parseUrl = url => {
 // Determine whether the passed value is an Array.
 const isArray = (value) => Object.prototype.toString.call(value) === '[object Array]'
 
+// Search for the specified value within an array and returns true or false.
+const inArray = (array, value) => indexOf(array, value) !== -1
+
 export default {
-  isEqual,
   debounce,
+  isEqual,
+  uniq,
   randomId,
   parseUrl,
   isArray,
+  inArray,
 }
