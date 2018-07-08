@@ -13,38 +13,43 @@ import Form from './Form'
 
 class EvidenceForm extends Component {
   onSubmit = this.onSubmit.bind(this)
+  resetStates = this.resetStates.bind(this)
 
   state = {
     formKey: _.randomId(),
   }
 
   componentWillUnmount() {
-    // @TODO Confirm Box & Reset States
+    this.resetStates()
   }
 
   componentDidUpdate() {
     const { success } = this.props
 
     // Reset states only the evidence created successfully.
+    // We are using key attribute in order to reset all
+    // internal states. This step is necessary to reset draft.js inside redux-form.
+    // Also, Redux-form can't reset its states when key is changed
+    // So we need to initialize evidence form again.
     if (success) {
-      // We are using key attribute in order to reset all
-      // internal states. This step is necessary to reset draft.js inside redux-form.
-      // Also, Redux-form can't reset its states when key is changed
-      // So we need to initialize evidence form again.
-      const {
-        initialize,
-        resetAddEvidenceStates,
-        resetEvidenceEmbeds,
-        resetEvidenceFiles,
-      } = this.props
-
       this.setState({ formKey: _.randomId() })
 
-      initialize()
-      resetAddEvidenceStates()
-      resetEvidenceEmbeds()
-      resetEvidenceFiles()
+      this.resetStates()
     }
+  }
+
+  resetStates() {
+    const {
+      initialize,
+      resetAddEvidenceStates,
+      resetEvidenceEmbeds,
+      resetEvidenceFiles,
+    } = this.props
+
+    initialize()
+    resetAddEvidenceStates()
+    resetEvidenceEmbeds()
+    resetEvidenceFiles()
   }
 
   onSubmit(values) {

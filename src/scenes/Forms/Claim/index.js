@@ -16,23 +16,33 @@ import Form from './Form'
 class ClaimForm extends Component {
   onSubmit = this.onSubmit.bind(this)
 
+  resetStates = this.resetStates.bind(this)
+
+  componentWillUnmount() {
+    this.resetStates()
+  }
+
   componentDidUpdate() {
     const { added } = this.props
 
     // Reset states only the claim created successfully.
     if (added) {
-      const {
-        reset,
-        resetAddClaimStates,
-        resetClaimEmbeds,
-        resetClaimFiles,
-      } = this.props
-
-      reset()
-      resetAddClaimStates()
-      resetClaimEmbeds()
-      resetClaimFiles()
+      this.resetStates()
     }
+  }
+
+  resetStates() {
+    const {
+      reset,
+      resetAddClaimStates,
+      resetClaimEmbeds,
+      resetClaimFiles,
+    } = this.props
+
+    reset()
+    resetAddClaimStates()
+    resetClaimEmbeds()
+    resetClaimFiles()
   }
 
   onSubmit(values) {
