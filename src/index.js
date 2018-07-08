@@ -24,9 +24,6 @@ if (state.auth.token && isSignOutPage) {
   store.dispatch(fetchUser())
 }
 
-// @TODO remove
-window.store = store
-
 ReactDOM.render(
   <Provider store={store}>
     <Fragment>
