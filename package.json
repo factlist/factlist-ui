@@ -23,7 +23,6 @@
     "reselect": "^3.0.1",
     "sanitize.css": "^5.0.0",
     "styled-components": "^2.4.0",
-    "tlds": "^1.203.1",
     "twitter-text": "^2.0.4"
   },
   "devDependencies": {

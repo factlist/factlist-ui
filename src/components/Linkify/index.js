@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import urlRegex from 'utils/url-regex'
+import { extractUrlsWithIndices } from 'twitter-text'
 import _ from 'utils/_'
 import Link from './Link'
 
@@ -21,15 +21,14 @@ export default class Linkify extends Component {
   }
 
   parseText(text) {
-    const elements = []
-    const regex = urlRegex()
+    const extractedUrls = extractUrlsWithIndices(text)
 
-    let match
+    const elements = []
+
     let lastIndex = 0
-    while ((match = regex.exec(text)) !== null) {
-      const url = match[0]
-      const start = match.index
-      const end = start + url.length
+    extractedUrls.forEach(extracted => {
+      const url = extracted.url
+      const [ start, end ] = extracted.indices
 
       if (start > lastIndex) {
         elements.push(text.substring(lastIndex, start))
@@ -38,7 +37,7 @@ export default class Linkify extends Component {
       elements.push(this.getLink(url))
 
       lastIndex = end
-    }
+    })
 
     // Push remaining text if there is any
     if (text.length > lastIndex) {
