@@ -1,18 +1,50 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { initialize } from 'redux-form'
+import _ from 'utils/_'
+import { resetEvidenceEmbeds } from 'modules/embed/actions'
+import { resetEvidenceFiles } from 'modules/file/actions'
+import { EVIDENCE_FORM } from 'modules/evidence/constants'
 import {
   addEvidence,
-  resetAddEvidenceStates
+  resetAddEvidenceStates,
 } from 'modules/evidence/actions'
 import Form from './Form'
 
 class EvidenceForm extends Component {
   onSubmit = this.onSubmit.bind(this)
 
-  componentWillUnmount() {
-    const { resetAddEvidenceStates } = this.props
+  state = {
+    formKey: _.randomId(),
+  }
 
-    resetAddEvidenceStates()
+  componentWillUnmount() {
+    // @TODO Confirm Box & Reset States
+  }
+
+  componentDidUpdate() {
+    const { success } = this.props
+
+    // Reset states only the evidence created successfully.
+    if (success) {
+      // We are using key attribute in order to reset all
+      // internal states. This step is necessary to reset draft.js inside redux-form.
+      // Also, Redux-form can't reset its states when key is changed
+      // So we need to initialize evidence form again.
+      const {
+        initialize,
+        resetAddEvidenceStates,
+        resetEvidenceEmbeds,
+        resetEvidenceFiles,
+      } = this.props
+
+      this.setState({ formKey: _.randomId() })
+
+      initialize()
+      resetAddEvidenceStates()
+      resetEvidenceEmbeds()
+      resetEvidenceFiles()
+    }
   }
 
   onSubmit(values) {
@@ -25,7 +57,10 @@ class EvidenceForm extends Component {
   }
 
   render() {
+    const { formKey } = this.state
+
     return <Form
+      key={formKey}
       onSubmit={this.onSubmit}/>
   }
 }
@@ -38,6 +73,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addEvidence: (data) => dispatch(addEvidence(data)),
   resetAddEvidenceStates: () => dispatch(resetAddEvidenceStates()),
+  initialize: () => dispatch(initialize(EVIDENCE_FORM)),
+  resetEvidenceEmbeds: () => dispatch(resetEvidenceEmbeds()),
+  resetEvidenceFiles: () => dispatch(resetEvidenceFiles()),
 })
 
 export default connect(

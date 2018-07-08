@@ -1,20 +1,17 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { Flex, Box } from 'grid-styled'
 import _ from 'utils/_'
-import DropzoneHOC from '../Dropzone'
-import Dropzone from './Dropzone'
+import UploadButton from './UploadButton'
 import File from './File'
-import Label from '../Label'
+import Dropzone from '../Dropzone'
 
 const FileSelector = ({
+  maxFileAllowed,
   files,
-  acceptedFileTypes,
-  maxFilesAllowed,
   onDrop,
   onRemove,
-}) => (
-  <Fragment>
-    <Label>Files:</Label>
+}) => {
+  return (
     <Flex wrap={true}>
       {files.map(file => (
         <Box mr={7} key={_.randomId()}>
@@ -23,13 +20,13 @@ const FileSelector = ({
       ))}
 
       <Box>
-        {files.length < maxFilesAllowed &&
-         <Dropzone
-          accept={acceptedFileTypes}
-          onDrop={onDrop} />}
+        {files.length < maxFileAllowed &&
+        <Dropzone onDrop={onDrop}>
+          <UploadButton />
+        </Dropzone>}
       </Box>
     </Flex>
-  </Fragment>
-)
+  )
+}
 
-export default DropzoneHOC(FileSelector)
+export default FileSelector

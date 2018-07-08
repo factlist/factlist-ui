@@ -7,7 +7,7 @@ import {
   embedFetchFailure,
 } from './actions'
 
-const fetch = function* (url) {
+const fetch = function* (id, url) {
   const cache = yield select(state => state.embed.cache)
 
   if (cache[url]) {
@@ -23,16 +23,16 @@ const fetch = function* (url) {
       }
     })
 
-    yield put(embedFetched({ url, data }))
+    yield put(embedFetched({ id, url, data }))
   } catch (error) {
-    yield put(embedFetchFailure(url))
+    yield put(embedFetchFailure({ id, url }))
   }
 }
 
 const fetchAll = function* (action) {
-  const { urls } = action
+  const { id, urls } = action
 
-  yield all(urls.map(url => call(fetch, url)))
+  yield all(urls.map(url => call(fetch, id, url)))
 }
 
 const watch = function* () {

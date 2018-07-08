@@ -25,6 +25,7 @@ class Form extends Component {
           <Box mb={15}>
             <Label>Because:</Label>
             <Field
+              id="evidence"
               name="text"
               placeholder="Start explaning your evidence here."
               component={MultimediaInputForm}
@@ -44,4 +45,5 @@ class Form extends Component {
 
 export default reduxForm({
   form: EVIDENCE_FORM,
+  destroyOnUnmount: false,
 })(Form)

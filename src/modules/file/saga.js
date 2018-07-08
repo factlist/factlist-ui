@@ -5,9 +5,11 @@ import { FILE_UPLOAD_REQUEST } from './constants'
 import { fileUploadSuccess } from './actions'
 
 const upload = function* (action) {
+  const { form, file } = action
+
   try {
     const formData = new FormData()
-    formData.append('image', action.file)
+    formData.append('image', file)
 
     // Get current user's token
     const token = yield select(state => state.auth.token)
@@ -16,13 +18,18 @@ const upload = function* (action) {
     const response = yield axios.post(`${config.API_ENDPOINT}/files/`, formData, {
       headers: {
         Authorization: `Token ${token}`
-      }
+      },
     })
 
+    const { id, image } = response.data
+
+    // @TODO API return image instead of url.
+    // API should change this key.
     yield put(fileUploadSuccess({
-      file: action.file,
-      id: response.data.id,
-      url: response.data.image,
+      form,
+      file,
+      id,
+      url: image,
     }))
   } catch (error) {
     // @TODO Handle error

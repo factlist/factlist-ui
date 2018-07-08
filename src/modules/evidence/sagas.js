@@ -12,12 +12,12 @@ const addEvidence = function* (action) {
 
     yield put(startSubmit(EVIDENCE_FORM))
 
-    let files = yield select(state => state.file.all)
+    let files = yield select(state => state.file.evidence)
     files = files
       .filter(file => file.success === true)
       .map(file => file.id)
 
-    let links = yield select(state => state.embed.all)
+    let links = yield select(state => state.embed.evidence)
     links = links.map(link => link.url)
 
     // Prepare request data
@@ -52,7 +52,7 @@ const addEvidence = function* (action) {
 
       yield put(stopSubmit(EVIDENCE_FORM, errors))
     } else {
-      // @TODO Handle general error
+      // @TODO Handle generic error
     }
 
     yield put(addEvidenceFailure())

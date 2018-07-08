@@ -3,10 +3,13 @@ import {
   FILE_UPLOAD_SUCCESS,
   FILE_UPLOAD_FAILURE,
   REMOVE_FILE_REQUEST,
+  RESET_CLAIM_FILES,
+  RESET_EVIDENCE_FILES,
 } from './constants'
 
 const initialState = {
-  all: [],
+  claim: [],
+  evidence: [],
 }
 
 export default (state = initialState, action) => {
@@ -14,11 +17,11 @@ export default (state = initialState, action) => {
     case FILE_UPLOAD_REQUEST:
       return {
         ...state,
-        all: [
-          ...state.all,
+        [action.form]: [
+          ...state[action.form],
           {
             source: action.file,
-            requesting: false,
+            requesting: true,
           }
         ]
       }
@@ -26,8 +29,9 @@ export default (state = initialState, action) => {
     case FILE_UPLOAD_SUCCESS:
       return {
         ...state,
-        all: state.all.map(file => {
+        [action.form]: state[action.form].map(file => {
           if (file.source === action.file) {
+            file.requesting = false
             file.success = true
             file.id = action.id
             file.url = action.url
@@ -40,8 +44,9 @@ export default (state = initialState, action) => {
     case FILE_UPLOAD_FAILURE:
       return {
         ...state,
-        all: state.all.map(file => {
+        [action.form]: state[action.form].map(file => {
           if (file === action.file) {
+            file.requesting = false
             file.success = false
           }
 
@@ -52,7 +57,19 @@ export default (state = initialState, action) => {
     case REMOVE_FILE_REQUEST:
       return {
         ...state,
-        all: state.all.filter(file => file.source !== action.file.source)
+        [action.form]: state[action.form].filter(file => file.source !== action.file.source)
+      }
+
+    case RESET_CLAIM_FILES:
+      return {
+        ...state,
+        claim: [],
+      }
+
+    case RESET_EVIDENCE_FILES:
+      return {
+        ...state,
+        evidence: [],
       }
 
     default:

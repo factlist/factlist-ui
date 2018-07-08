@@ -3,11 +3,14 @@ import {
   FETCH_EMBED_SUCCESS,
   FETCH_EMBED_FAILURE,
   EMBED_REMOVE,
+  RESET_EVIDENCE_EMBEDS,
+  RESET_CLAIM_EMBEDS,
 } from './constants'
 
 const initialState = {
   cache: {},
-  all: [],
+  claim: [],
+  evidence: [],
 }
 
 export default (state = initialState, action) => {
@@ -16,7 +19,7 @@ export default (state = initialState, action) => {
     case FETCH_EMBED_REQUEST:
       return {
         ...state,
-        all: action.urls.map(url => ({
+        [action.id]: action.urls.map(url => ({
           url,
           requesting: state.cache[url] !== undefined ? false : true,
           data: state.cache[url] !== undefined ? state.cache[url] : null,
@@ -30,7 +33,7 @@ export default (state = initialState, action) => {
           ...state.cache,
           [action.url]: action.data,
         },
-        all: state.all.map(embed => {
+        [action.id]: state[action.id].map(embed => {
           if (embed.url === action.url) {
             embed.requesting = false
             embed.data = action.data
@@ -50,7 +53,7 @@ export default (state = initialState, action) => {
             url: action.url,
           },
         },
-        all: state.all.map(embed => {
+        [action.id]: state[action.id].map(embed => {
           if (embed.url === action.url) {
             embed.data = {
               title: action.url,
@@ -67,7 +70,20 @@ export default (state = initialState, action) => {
 
     case EMBED_REMOVE:
       return {
-        all: state.all.filter(embed => embed.url !== action.url)
+        ...state,
+        [action.id]: state[action.id].filter(embed => embed.url !== action.url)
+      }
+
+    case RESET_CLAIM_EMBEDS:
+      return {
+        ...state,
+        claim: [],
+      }
+
+    case RESET_EVIDENCE_EMBEDS:
+      return {
+        ...state,
+        evidence: [],
       }
 
     default:
