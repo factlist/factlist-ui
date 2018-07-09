@@ -21,13 +21,9 @@ class Header extends Component {
   showAddClaimModal(event) {
     event.preventDefault()
 
-    const { showAddClaimModal, showSignInModal, user } = this.props
+    const { showAddClaimModal } = this.props
 
-    if (user) {
-      showAddClaimModal()
-    } else {
-      showSignInModal()
-    }
+    showAddClaimModal()
   }
 
   render() {

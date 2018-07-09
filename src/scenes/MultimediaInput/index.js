@@ -70,6 +70,7 @@ class MultimediaInput extends Component {
       files,
       embeds,
       onTextChange,
+      onFocus,
     } = this.props
 
     return (
@@ -78,7 +79,8 @@ class MultimediaInput extends Component {
           placeholder={placeholder}
           ref={node => this.editor = node}
           onUrlsChange={this.onUrlsChange}
-          onTextChange={onTextChange} />
+          onTextChange={onTextChange}
+          onFocus={onFocus} />
 
         {embeds.length === 0 &&
           files.length === 0 &&

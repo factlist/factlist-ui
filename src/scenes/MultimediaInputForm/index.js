@@ -6,11 +6,18 @@ import Error from './Error'
 // That's how we validate MultimediaInput
 class MultimediaInputForm extends Component {
   onTextChange = this.onTextChange.bind(this)
+  onFocus = this.onFocus.bind(this)
 
   onTextChange(text) {
     const { input: { onChange } } = this.props
 
     onChange(text)
+  }
+
+  onFocus() {
+    const { input: { onFocus } } = this.props
+
+    onFocus()
   }
 
   render() {
@@ -26,7 +33,8 @@ class MultimediaInputForm extends Component {
         <MultimediaInput
           id={id}
           placeholder={placeholder}
-          onTextChange={this.onTextChange} />
+          onTextChange={this.onTextChange}
+          onFocus={this.onFocus} />
       </Fragment>
     )
   }

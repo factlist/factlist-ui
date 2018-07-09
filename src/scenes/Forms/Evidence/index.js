@@ -5,6 +5,7 @@ import _ from 'utils/_'
 import { resetEvidenceEmbeds } from 'modules/embed/actions'
 import { resetEvidenceFiles } from 'modules/file/actions'
 import { EVIDENCE_FORM } from 'modules/evidence/constants'
+import { showSignInModal } from 'modules/modal/actions'
 import {
   addEvidence,
   resetAddEvidenceStates,
@@ -14,6 +15,7 @@ import Form from './Form'
 class EvidenceForm extends Component {
   onSubmit = this.onSubmit.bind(this)
   resetStates = this.resetStates.bind(this)
+  checkUser = this.checkUser.bind(this)
 
   state = {
     formKey: _.randomId(),
@@ -35,6 +37,14 @@ class EvidenceForm extends Component {
       this.setState({ formKey: _.randomId() })
 
       this.resetStates()
+    }
+  }
+
+  checkUser() {
+    const { user, showSignInModal } = this.props
+
+    if (!user) {
+      showSignInModal()
     }
   }
 
@@ -66,11 +76,13 @@ class EvidenceForm extends Component {
 
     return <Form
       key={formKey}
-      onSubmit={this.onSubmit}/>
+      onMultimediaInputFocus={this.checkUser}
+      onSubmit={this.onSubmit} />
   }
 }
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   error: state.evidence.error,
   success: state.evidence.success,
 })
@@ -81,6 +93,7 @@ const mapDispatchToProps = (dispatch) => ({
   initialize: () => dispatch(initialize(EVIDENCE_FORM)),
   resetEvidenceEmbeds: () => dispatch(resetEvidenceEmbeds()),
   resetEvidenceFiles: () => dispatch(resetEvidenceFiles()),
+  showSignInModal: () => dispatch(showSignInModal()),
 })
 
 export default connect(

@@ -80,7 +80,10 @@ export default class CustomEditor extends Component {
 
   render() {
     const { editorState } = this.state
-    const { placeholder } = this.props
+    const {
+      placeholder,
+      onFocus,
+    } = this.props
 
     return (
       <Container onClick={this.focus}>
@@ -89,7 +92,8 @@ export default class CustomEditor extends Component {
           ref={node => this.editor = node }
           stripPastedStyles={true}
           editorState={editorState}
-          onChange={this.onChange} />
+          onChange={this.onChange}
+          onFocus={onFocus} />
       </Container>
     )
   }

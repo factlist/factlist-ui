@@ -12,7 +12,11 @@ const minLength30 = minLength(30)
 
 class Form extends Component {
   render() {
-    const { handleSubmit, submitting } = this.props
+    const {
+      handleSubmit,
+      submitting,
+      onMultimediaInputFocus,
+    } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -29,7 +33,8 @@ class Form extends Component {
               name="text"
               placeholder="Start explaning your evidence here."
               component={MultimediaInputForm}
-              validate={[ required, minLength30 ]}/>
+              validate={[ required, minLength30 ]}
+              onFocus={onMultimediaInputFocus} />
           </Box>
 
           <Box>

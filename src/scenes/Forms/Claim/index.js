@@ -5,6 +5,7 @@ import {
   addClaim,
   resetAddClaimStates,
 } from 'modules/claim/actions'
+import { showSignInModal } from 'modules/modal/actions'
 import { resetClaimEmbeds } from 'modules/embed/actions'
 import { resetClaimFiles } from 'modules/file/actions'
 import { CLAIM_FORM } from 'modules/claim/constants'
@@ -17,6 +18,7 @@ class ClaimForm extends Component {
   onSubmit = this.onSubmit.bind(this)
 
   resetStates = this.resetStates.bind(this)
+  checkUser = this.checkUser.bind(this)
 
   componentWillUnmount() {
     this.resetStates()
@@ -51,19 +53,30 @@ class ClaimForm extends Component {
     addClaim(values)
   }
 
+  checkUser() {
+    const { user, showSignInModal } = this.props
+
+    if (!user) {
+      showSignInModal()
+    }
+  }
+
   render() {
     return (
       <Container>
         <H2>Add Claim</H2>
         <P>Have any doubt on anything? Ask it to Factlist for proof.</P>
 
-        <Form onSubmit={this.onSubmit} />
+        <Form
+          onMultimediaInputFocus={this.checkUser}
+          onSubmit={this.onSubmit} />
       </Container>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
+  user: state.auth.user,
   added: state.claim.added,
 })
 
@@ -73,6 +86,7 @@ const mapDispatchToProps = (dispatch) => ({
   resetAddClaimStates: () => dispatch(resetAddClaimStates()),
   resetClaimEmbeds: () => dispatch(resetClaimEmbeds()),
   resetClaimFiles: () => dispatch(resetClaimFiles()),
+  showSignInModal: () => dispatch(showSignInModal()),
 })
 
 export default connect(
