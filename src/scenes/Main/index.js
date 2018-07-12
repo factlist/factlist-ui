@@ -11,9 +11,11 @@ import { allClaims } from 'modules/claim/selectors'
 
 class Main extends Component {
   componentWillMount() {
-    const { fetchClaims } = this.props
+    const { claims, fetchClaims } = this.props
 
-    fetchClaims()
+    if (claims.length === 0) {
+      fetchClaims()
+    }
   }
 
   render() {

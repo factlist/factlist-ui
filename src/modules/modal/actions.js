@@ -4,6 +4,7 @@ import {
   SIGN_IN_MODAL,
   SIGN_UP_MODAL,
   ADD_CLAIM_MODAL,
+  PASSWORD_RESET_MODAL,
 } from './constants'
 
 export const closeModal = () => ({
@@ -24,4 +25,9 @@ export const showSignUpModal = () => ({
 export const showAddClaimModal = () => ({
   type: SHOW_MODAL,
   name: ADD_CLAIM_MODAL
+})
+
+export const showPasswordResetModal = () => ({
+  type: SHOW_MODAL,
+  name: PASSWORD_RESET_MODAL,
 })

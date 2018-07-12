@@ -9,6 +9,7 @@ import SignOut from 'scenes/SignOut'
 import NotFound from 'scenes/NotFound'
 import Claim from 'scenes/Claim'
 import Settings from 'scenes/Settings'
+import ChangePassword from 'scenes/ChangePassword'
 
 export default ({ history }) => (
   <Router history={history}>
@@ -17,6 +18,7 @@ export default ({ history }) => (
       <Route path="/claims/:id" component={Claim} />
       <PrivateRoute path="/sign_out" component={SignOut} />
       <PrivateRoute path="/settings" component={Settings} />
+      <Route path="/change_password/:key" component={ChangePassword} />
       <Route component={NotFound} />
     </Switch>
   </Router>

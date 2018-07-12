@@ -5,18 +5,21 @@ import {
   SIGN_IN_MODAL,
   SIGN_UP_MODAL,
   ADD_CLAIM_MODAL,
+  PASSWORD_RESET_MODAL,
 } from 'modules/modal/constants'
 
 // Modals
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import AddClaim from './AddClaim'
+import PasswordReset from './PasswordReset'
 
 // Available modals
 const MODAL_COMPONENTS = {
   [SIGN_IN_MODAL]: SignIn,
   [SIGN_UP_MODAL]: SignUp,
   [ADD_CLAIM_MODAL]: AddClaim,
+  [PASSWORD_RESET_MODAL]: PasswordReset,
 }
 
 class Modal extends Component {

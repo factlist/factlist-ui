@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Flex, Box } from 'grid-styled'
-import { required, email } from 'utils/validationRules'
+import { required, email } from 'core/validationRules'
 import { SIGN_IN_FORM_NAME } from 'modules/auth/constants'
 import { TextField } from 'components/Form'
 import Container from './Container'
@@ -10,7 +10,12 @@ import P from './P'
 import A from './A'
 
 const Form = ({
-  handleSubmit, authenticating, invalid, pristine, onSignUpClick
+  handleSubmit,
+  authenticating,
+  invalid,
+  pristine,
+  onSignUpClick,
+  onPasswordResetClick,
 }) => (
   <Container>
     <form onSubmit={handleSubmit}>
@@ -38,7 +43,7 @@ const Form = ({
         </Box>
 
         <Box>
-          <A>Forgot password?</A>
+          <A onClick={onPasswordResetClick}>Forgot password?</A>
         </Box>
       </Flex>
 

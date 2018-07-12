@@ -6,6 +6,10 @@ import {
   UPDATE_USER_SUCCESS,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
 } from './constants'
 
 export const signUp = (data) => ({
@@ -38,4 +42,23 @@ export const fetchUser = () => ({
 export const userFetched = (data) => ({
   type: FETCH_USER_SUCCESS,
   data,
+})
+
+export const createPasswordChangeKey = (email) => ({
+  type: FORGOT_PASSWORD_REQUEST,
+  email,
+})
+
+export const passwordChangeKeySent = () => ({
+  type: FORGOT_PASSWORD_SUCCESS,
+})
+
+export const changePassword = ({ changeKey, password }) => ({
+  type: CHANGE_PASSWORD_REQUEST,
+  changeKey,
+  password,
+})
+
+export const passwordChanged = () => ({
+  type: CHANGE_PASSWORD_SUCCESS,
 })
