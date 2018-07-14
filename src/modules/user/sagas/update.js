@@ -2,6 +2,7 @@ import { select, put } from 'redux-saga/effects'
 import axios from 'axios'
 import { stopSubmit, startSubmit } from 'redux-form'
 import config from 'config'
+import { showNotification } from 'modules/notification/actions'
 import { UPDATE_USER_FORM_NAME } from '../constants'
 import { userUpdated } from '../actions'
 
@@ -33,8 +34,7 @@ const update = function* (action) {
 
     yield put(userUpdated(response.data))
   } catch (error) {
-    // @TODO Handle error
-    console.log(`Error: ${error}`)
+    yield put(showNotification(`We couldn't update your settings. Please try again later.`))
   }
 }
 

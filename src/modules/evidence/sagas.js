@@ -3,6 +3,7 @@ import axios from 'axios'
 import config from 'config'
 import { stopSubmit, startSubmit } from 'redux-form'
 import formatFormErrors from 'utils/formatFormErrors'
+import { showNotification } from 'modules/notification/actions'
 import { ADD_EVIDENCE_REQUEST, EVIDENCE_FORM } from './constants'
 import { evidenceAdded, addEvidenceFailure} from './actions'
 
@@ -52,7 +53,8 @@ const addEvidence = function* (action) {
 
       yield put(stopSubmit(EVIDENCE_FORM, errors))
     } else {
-      // @TODO Handle generic error
+      // Generic API error
+      yield put(showNotification(`We can't add your evidence right now, please try again later.`))
     }
 
     yield put(addEvidenceFailure())

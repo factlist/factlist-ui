@@ -1,3 +1,4 @@
+import { LOCATION_CHANGE } from 'react-router-redux'
 import {
   SHOW_NOTIFICATION_BAR,
   HIDE_NOTIFICATION_BAR,
@@ -17,6 +18,12 @@ export default (state = initialState, action) => {
       }
 
     case HIDE_NOTIFICATION_BAR:
+      return {
+        show: false,
+        message: null,
+      }
+
+    case LOCATION_CHANGE:
       return {
         show: false,
         message: null,

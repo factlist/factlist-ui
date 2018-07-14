@@ -4,6 +4,8 @@ import config from 'config'
 import axios from 'axios'
 import { push as redirect } from 'react-router-redux'
 import formatFormErrors from 'utils/formatFormErrors'
+import { showNotification } from 'modules/notification/actions'
+import { closeModal } from 'modules/modal/actions'
 import { CLAIM_FORM } from '../constants'
 import {
   claimAdded,
@@ -56,7 +58,8 @@ const addClaim = function* (action) {
 
       yield put(stopSubmit(CLAIM_FORM, errors))
     } else {
-      // @TODO Handle generic error
+      yield put(showNotification(`We can't add your claim for now. Please try again later.`))
+      yield put(closeModal())
     }
 
     yield put(addClaimFailure())

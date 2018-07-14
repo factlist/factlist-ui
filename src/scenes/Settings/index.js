@@ -8,7 +8,6 @@ import { showNotification } from 'modules/notification/actions'
 import Form from './Form'
 import H1 from './H1'
 import Avatar from './Avatar'
-import Notification from '../Notification'
 
 class Settings extends Component {
   state = {
@@ -22,10 +21,10 @@ class Settings extends Component {
     // Reset profile state
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { showNotification } = this.props
+  componentDidUpdate() {
+    const { showNotification, updated } = this.props
 
-    if (nextProps.updated) {
+    if (updated) {
       showNotification('User updated successfully.')
     }
   }
@@ -54,7 +53,6 @@ class Settings extends Component {
 
     return (
       <Fragment>
-        <Notification />
         <Header />
 
         <Container>

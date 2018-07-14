@@ -6,8 +6,8 @@ import P from './P'
 import Close from './Close'
 
 class Notification extends Component {
-  componentWillReceiveProps(nextProps) {
-    const { show } = nextProps
+  componentDidUpdate() {
+    const { show } = this.props
 
     if (show) {
       window.scrollTo(0, 0)

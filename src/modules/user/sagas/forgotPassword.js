@@ -3,6 +3,8 @@ import { stopSubmit, startSubmit } from 'redux-form'
 import config from 'config'
 import axios from 'axios'
 import formatFormErrors from 'utils/formatFormErrors'
+import { showNotification } from 'modules/notification/actions'
+import { closeModal } from 'modules/modal/actions'
 import { FORGOT_PASSWORD_FORM } from '../constants'
 import { passwordChangeKeySent } from '../actions'
 
@@ -28,7 +30,9 @@ const forgotPassword = function* (action) {
 
       yield put(stopSubmit(FORGOT_PASSWORD_FORM, errors))
     } else {
-      // @TODO Handle generic error
+      // Generic API error
+      yield put(showNotification(`We can't complete your request. Please try again later.`))
+      yield put(closeModal())
     }
   }
 }

@@ -3,6 +3,7 @@ import { startSubmit, stopSubmit } from 'redux-form'
 import config from 'config'
 import axios from 'axios'
 import formatFormErrors from 'utils/formatFormErrors'
+import { showNotification } from 'modules/notification/actions'
 import { CHANGE_PASSWORD_FORM } from '../constants'
 import { passwordChanged } from '../actions'
 
@@ -30,7 +31,7 @@ const changePassword = function* (action) {
 
       yield put(stopSubmit(CHANGE_PASSWORD_FORM, errors))
     } else {
-      // @TODO Handle generic error
+      yield put(showNotification(`We can't complete your request. Please try again later.`))
     }
   }
 }

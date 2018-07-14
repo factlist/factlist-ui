@@ -3,6 +3,7 @@ import config from 'config'
 import axios from 'axios'
 import { push as redirect } from 'react-router-redux'
 import { userFetched } from 'modules/user/actions'
+import { showNotification } from 'modules/notification/actions'
 import { saveToken } from 'utils/storage'
 import { signInSuccess } from '../actions'
 
@@ -24,7 +25,7 @@ const signInWithToken = function* ({ token }) {
 
     yield put(redirect('/'))
   } catch (error) {
-    // @TODO Handle error
+    yield put(showNotification(`Sorry, we couldn't authenticate. Please try again later.`))
   }
 }
 
