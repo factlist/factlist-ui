@@ -1,5 +1,7 @@
 import {
   SIGN_IN_REQUEST,
+  SIGN_IN_WITH_TWITTER,
+  SIGN_IN_WITH_TOKEN,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
   SIGN_OUT_REQUEST,
@@ -28,4 +30,13 @@ export const signOut = () => ({
 
 export const signOutSuccess = () => ({
   type: SIGN_OUT_SUCCESS,
+})
+
+export const signInWithTwitter = () => ({
+  type: SIGN_IN_WITH_TWITTER,
+})
+
+export const signInWithToken = (token) => ({
+  type: SIGN_IN_WITH_TOKEN,
+  token,
 })

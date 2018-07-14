@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { signIn } from 'modules/auth/actions'
+import { signIn, signInWithTwitter } from 'modules/auth/actions'
 import {
   showSignUpModal,
   showPasswordResetModal,
@@ -14,6 +14,13 @@ import Form from './Form'
 
 class SignInForm extends Component {
   onSubmit = this.onSubmit.bind(this)
+  signInWithTwitter = this.signInWithTwitter.bind(this)
+
+  signInWithTwitter() {
+    const { signInWithTwitter } = this.props
+
+    signInWithTwitter()
+  }
 
   onSubmit(values) {
     const { email, password } = values
@@ -34,7 +41,7 @@ class SignInForm extends Component {
         <H2>Welcome back, Factchecker!</H2>
         <H4>Login to add suspicious claims or submit evidences.</H4>
 
-        <TwitterLogin />
+        <TwitterLogin onClick={this.signInWithTwitter} />
 
         <Seperator />
 
@@ -54,6 +61,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   signIn: (params) => dispatch(signIn(params)),
+  signInWithTwitter: () => dispatch(signInWithTwitter()),
   showSignUpModal: () => dispatch(showSignUpModal()),
   showPasswordResetModal: () => dispatch(showPasswordResetModal()),
 })

@@ -10,6 +10,7 @@ import NotFound from 'scenes/NotFound'
 import Claim from 'scenes/Claim'
 import Settings from 'scenes/Settings'
 import ChangePassword from 'scenes/ChangePassword'
+import SignInWithTwitter from 'scenes/SignInWithTwitter'
 
 export default ({ history }) => (
   <Router history={history}>
@@ -19,6 +20,7 @@ export default ({ history }) => (
       <PrivateRoute path="/sign_out" component={SignOut} />
       <PrivateRoute path="/settings" component={Settings} />
       <Route path="/change_password/:key" component={ChangePassword} />
+      <Route path="/twitter/callback/:token" component={SignInWithTwitter} />
       <Route component={NotFound} />
     </Switch>
   </Router>
