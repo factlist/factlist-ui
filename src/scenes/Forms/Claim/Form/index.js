@@ -16,7 +16,7 @@ const Form = ({
     <Field
       id="claim"
       name="text"
-      placeholder="Start explaning your evidence here."
+      placeholder="Bring out your evidence here."
       component={MultimediaInputForm}
       validate={[ required, minLength30 ]}
       onFocus={onMultimediaInputFocus} />

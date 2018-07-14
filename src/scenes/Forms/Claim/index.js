@@ -65,7 +65,7 @@ class ClaimForm extends Component {
     return (
       <Container>
         <H2>Add Claim</H2>
-        <P>Have any doubt on anything? Ask it to Factlist for proof.</P>
+        <P>Are you suspicious about something? Request evidence from the Factlist.</P>
 
         <Form
           onMultimediaInputFocus={this.checkUser}

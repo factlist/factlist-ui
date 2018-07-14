@@ -38,7 +38,7 @@ class SignInForm extends Component {
 
     return (
       <Container>
-        <H2>Welcome back, Factchecker!</H2>
+        <H2>Welcome back, Fact Checker!</H2>
         <H4>Login to add suspicious claims or submit evidences.</H4>
 
         <TwitterLogin onClick={this.signInWithTwitter} />
