@@ -21,7 +21,7 @@ const Attachments = ({ links, files }) => (
         width={1/2}
         key={file.id}>
         <Card
-          type='image'
+          type='file'
           title={file.name}
           size={file.size}
           image={file.image} />

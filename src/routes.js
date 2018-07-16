@@ -7,7 +7,7 @@ import { getToken } from 'utils/storage'
 import Main from 'scenes/Main'
 import SignOut from 'scenes/SignOut'
 import NotFound from 'scenes/NotFound'
-import Claim from 'scenes/Claim'
+import ClaimWithEvidences from 'scenes/ClaimWithEvidences'
 import Settings from 'scenes/Settings'
 import ChangePassword from 'scenes/ChangePassword'
 import SignInWithTwitter from 'scenes/SignInWithTwitter'
@@ -16,7 +16,7 @@ export default ({ history }) => (
   <Router history={history}>
     <Switch>
       <Route path="/" exact component={Main} />
-      <Route path="/claims/:id" component={Claim} />
+      <Route path="/claims/:id" component={ClaimWithEvidences} />
       <PrivateRoute path="/sign_out" component={SignOut} />
       <PrivateRoute path="/settings" component={Settings} />
       <Route path="/change_password/:key" component={ChangePassword} />

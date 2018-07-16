@@ -8,7 +8,7 @@ import Claim from 'components/Claim'
 import Evidence from 'components/Evidence'
 import EvidenceForm from 'scenes/Forms/Evidence'
 
-class ClaimScene extends Component {
+class ClaimWithEvidences extends Component {
   claimId = parseInt(this.props.match.params.id, 10)
 
   componentWillMount() {
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ClaimScene)
+)(ClaimWithEvidences)
