@@ -2,7 +2,8 @@ import { LOCATION_CHANGE } from 'react-router-redux'
 import { SHOW_MODAL, HIDE_MODAL } from './constants'
 
 const initialState = {
-  name: null
+  name: null,
+  data: null,
 }
 
 export default (state = initialState, action) => {
@@ -10,20 +11,23 @@ export default (state = initialState, action) => {
     case SHOW_MODAL:
       return {
         ...state,
-        name: action.name
+        name: action.name,
+        data: action.data || null,
       }
 
     case HIDE_MODAL:
       return {
         ...state,
-        name: null
+        name: null,
+        data: null,
       }
 
     // Close all modals when route is changed.
     case LOCATION_CHANGE:
       return {
         ...state,
-        name: null
+        name: null,
+        data: null,
       }
 
     default:
