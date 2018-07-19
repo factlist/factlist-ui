@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 
 const Img = styled.img`
@@ -6,4 +7,6 @@ const Img = styled.img`
   border-radius: 25px;
 `
 
-export default Img
+export default ({ src = '/images/example-avatar.png' }) => (
+  <Img src={src} />
+)
