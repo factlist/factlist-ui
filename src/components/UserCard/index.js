@@ -5,13 +5,21 @@ import Name from './Name'
 import Username from './Username'
 import Stats from './Stats'
 
-const UserCard = () => (
+const UserCard = ({
+  avatar,
+  name,
+  username,
+  claims = 0,
+  evidences = 0,
+}) => (
   <Container>
-    <Img src="/images/example-avatar-2.png" />
-    <Name>Şerattin Yarar</Name>
-    <Username>@serafettin</Username>
+    <Img src={avatar} />
+    <Name>{name}</Name>
+    <Username>@{username}</Username>
 
-    <Stats />
+    <Stats
+      claims={claims}
+      evidences={evidences} />
   </Container>
 )
 

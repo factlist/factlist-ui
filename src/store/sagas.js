@@ -5,6 +5,7 @@ import evidenceSagas from 'modules/evidence/sagas'
 import userSagas from 'modules/user/sagas'
 import embedSaga from 'modules/embed/saga'
 import fileSaga from 'modules/file/saga'
+import profileSaga from 'modules/profile/saga'
 
 export default function* sagas() {
   yield all([
@@ -14,5 +15,6 @@ export default function* sagas() {
     ...evidenceSagas,
     embedSaga,
     fileSaga,
+    profileSaga,
   ])
 }

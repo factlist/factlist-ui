@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
+import { Link } from 'react-router-dom'
 import Timeago from 'components/Timeago'
 import Container from './Container'
 import Avatar from './Avatar'
@@ -13,11 +14,13 @@ const Evidence = ({ evidence }) => (
   <Container>
     <Flex justify="space-between">
       <Box>
-        <Avatar />
-        <Profile>
-          <FullName>{evidence.user.name}</FullName>
-          <Username>@{evidence.user.username}</Username>
-        </Profile>
+        <Link to={'/profile/' + evidence.user.username}>
+          <Avatar src={evidence.user.avatar} />
+          <Profile>
+            <FullName>{evidence.user.name}</FullName>
+            <Username>@{evidence.user.username}</Username>
+          </Profile>
+        </Link>
       </Box>
       <Box>
         <Timeago date={evidence.created_at} />
