@@ -4,7 +4,7 @@ import Devider from './Devider'
 import Title from './Title'
 import Count from './Count'
 
-const Stats = ({ claims = 21, reports = 30 }) => (
+const Stats = ({ claims, evidences }) => (
   <Flex justify="space-around" mt={10}>
     <Box>
       <Title>Claims</Title>
@@ -12,8 +12,8 @@ const Stats = ({ claims = 21, reports = 30 }) => (
     </Box>
     <Devider />
     <Box>
-      <Title>Reports</Title>
-      <Count>{reports}</Count>
+      <Title>Evidences</Title>
+      <Count>{evidences}</Count>
     </Box>
   </Flex>
 )

@@ -8,8 +8,8 @@ import Container from './Container'
 import Title from './Title'
 import Attachments from '../Attachments'
 
-const Claim = ({ claim }) => (
-  <Container>
+const Claim = ({ className, claim }) => (
+  <Container className={className}>
     <Flex justify="space-between" align="center">
       <Box>
         <Status
