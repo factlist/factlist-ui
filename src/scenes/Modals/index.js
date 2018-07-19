@@ -6,6 +6,7 @@ import {
   SIGN_UP_MODAL,
   ADD_CLAIM_MODAL,
   PASSWORD_RESET_MODAL,
+  IMAGE_MODAL,
 } from 'modules/modal/constants'
 
 // Modals
@@ -13,6 +14,7 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 import AddClaim from './AddClaim'
 import PasswordReset from './PasswordReset'
+import Image from './Image'
 
 // Available modals
 const MODAL_COMPONENTS = {
@@ -20,6 +22,7 @@ const MODAL_COMPONENTS = {
   [SIGN_UP_MODAL]: SignUp,
   [ADD_CLAIM_MODAL]: AddClaim,
   [PASSWORD_RESET_MODAL]: PasswordReset,
+  [IMAGE_MODAL]: Image,
 }
 
 class Modal extends Component {
@@ -32,7 +35,7 @@ class Modal extends Component {
   }
 
   render() {
-    const { name } = this.props
+    const { name, data } = this.props
 
     if (name === null) {
       return null
@@ -46,12 +49,13 @@ class Modal extends Component {
       return null
     }
 
-    return <SpecificModal onClose={this.onClose} />
+    return <SpecificModal onClose={this.onClose} {...data} />
   }
 }
 
 const mapStateToProps = (state) => ({
   name: state.modal.name,
+  data: state.modal.data,
 })
 
 const mapDispatchToProps = (dispatch) => ({

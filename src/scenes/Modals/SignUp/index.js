@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'components/Modal'
-import SignUpForm from 'scenes/Forms/SignUp'
+import SignUpForm from 'containers/Forms/SignUp'
 
 const SignUpModal = ({ onClose }) => (
   <Modal onClose={onClose}>

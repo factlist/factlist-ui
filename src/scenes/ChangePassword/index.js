@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Header from 'scenes/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
-import Form from 'scenes/Forms/ChangePassword'
+import Form from 'containers/Forms/ChangePassword'
 
 class ChangePassword extends Component {
   state = {
