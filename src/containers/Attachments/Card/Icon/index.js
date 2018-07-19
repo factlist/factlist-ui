@@ -7,8 +7,4 @@ const ICONS = {
   file: <Expand />,
 }
 
-export default ({ type, onClick }) => (
-  <a onClick={onClick}>
-    {ICONS[type]}
-  </a>
-)
+export default ({ type }) => ICONS[type]

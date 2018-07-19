@@ -5,7 +5,7 @@ import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import Claim from 'components/Claim'
+import Claim from 'containers/Claim'
 import { fetchClaims } from 'modules/claim/actions'
 import { allClaims } from 'modules/claim/selectors'
 

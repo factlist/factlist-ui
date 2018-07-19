@@ -4,11 +4,11 @@ import Header from 'scenes/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
 import { fetchClaim } from 'modules/claim/actions'
 import { selectedClaim } from 'modules/claim/selectors'
-import Claim from 'components/Claim'
-import Evidence from 'components/Evidence'
-import EvidenceForm from 'scenes/Forms/Evidence'
+import Claim from 'containers/Claim'
+import Evidence from 'containers/Evidence'
+import EvidenceForm from 'containers/Forms/Evidence'
 
-class ClaimWithEvidences extends Component {
+class ClaimDetail extends Component {
   claimId = parseInt(this.props.match.params.id, 10)
 
   componentWillMount() {
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ClaimWithEvidences)
+)(ClaimDetail)

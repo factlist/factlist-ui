@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-  z-index: 5;
   border-radius: 2px;
   overflow: hidden;
   background-color: #FFF;
+  z-index: 5;
 
   // Center
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   margin-right: -50%;

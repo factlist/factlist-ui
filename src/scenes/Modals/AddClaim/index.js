@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from 'components/Modal'
-import ClaimForm from 'scenes/Forms/Claim'
+import ClaimForm from 'containers/Forms/Claim'
 
 const AddClaimModal = ({ onClose }) => (
   <Modal onClose={onClose}>

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import MultimediaInput from 'scenes/MultimediaInput'
+import MultimediaInput from 'containers/MultimediaInput'
 import Error from './Error'
 
 // MultimediaInput for redux-form

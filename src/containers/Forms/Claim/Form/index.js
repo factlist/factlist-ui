@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { CLAIM_FORM } from 'modules/claim/constants'
-import MultimediaInputForm from 'scenes/MultimediaInputForm'
+import MultimediaInputForm from 'containers/Forms/MultimediaInputForm'
 import { required, minLength } from 'core/validationRules'
 import SubmitButton from './SubmitButton'
 

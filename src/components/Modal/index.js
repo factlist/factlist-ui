@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
+import OuterContainer from './OuterContainer'
+import InnerContainer from './InnerContainer'
 import Overlay from './Overlay'
+import Content from './Content'
 import CloseButton from './CloseButton'
-import Container from './Container'
 
 export default class Modal extends Component {
   listenKeyboard = this.listenKeyboard.bind(this)
@@ -25,15 +27,17 @@ export default class Modal extends Component {
     const { onClose, children } = this.props
 
     return (
-      <Fragment>
+      <OuterContainer>
         <Overlay onClick={onClose} />
 
-        <Container>
-          <CloseButton onClick={onClose} />
+        <InnerContainer>
+          <Content>
+            <CloseButton onClick={onClose} />
 
-          {children}
-        </Container>
-      </Fragment>
+            {children}
+          </Content>
+        </InnerContainer>
+      </OuterContainer>
     )
   }
 }
