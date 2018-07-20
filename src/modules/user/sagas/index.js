@@ -1,7 +1,6 @@
 import { takeLatest, fork } from 'redux-saga/effects'
 import {
   SIGN_UP_REQUEST,
-  FETCH_USER_REQUEST,
   UPDATE_USER_REQUEST,
   FORGOT_PASSWORD_REQUEST,
   CHANGE_PASSWORD_REQUEST,
@@ -9,7 +8,6 @@ import {
 
 // Handlers
 import signUp from './signUp'
-import fetch from './fetch'
 import update from './update'
 import forgotPassword from './forgotPassword'
 import changePassword from './changePassword'
@@ -17,10 +15,6 @@ import changePassword from './changePassword'
 // Watchers
 const watchSignUp = function* () {
   yield takeLatest(SIGN_UP_REQUEST, signUp)
-}
-
-const watchUserFetch = function* () {
-  yield takeLatest(FETCH_USER_REQUEST, fetch)
 }
 
 const watchUpdate = function* () {
@@ -37,7 +31,6 @@ const watchChangePassword = function* () {
 
 export default [
   fork(watchSignUp),
-  fork(watchUserFetch),
   fork(watchUpdate),
   fork(watchForgotPassword),
   fork(watchChangePassword),

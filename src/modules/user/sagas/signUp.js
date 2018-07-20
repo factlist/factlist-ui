@@ -7,7 +7,7 @@ import { stopSubmit, startSubmit } from 'redux-form'
 import { signInSuccess } from 'modules/auth/actions'
 import { saveToken } from 'utils/storage'
 import { SIGN_UP_FORM_NAME } from '../constants'
-import { signUpSuccess, signUpFailure, userFetched } from '../actions'
+import { signUpSuccess, signUpFailure } from '../actions'
 
 const signUp = function* (action) {
   try {
@@ -21,9 +21,10 @@ const signUp = function* (action) {
     // Store user's token in local storage to keep user authenticated
     saveToken(token)
 
-    yield put(signInSuccess({ token }))
-
-    yield put(userFetched(response.data))
+    yield put(signInSuccess({
+      token,
+      user: response.data,
+    }))
 
     yield put(redirect('/'))
   } catch (error) {

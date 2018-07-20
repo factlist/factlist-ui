@@ -11,21 +11,22 @@ import {
 export const signIn = ({ email, password }) => ({
   type: SIGN_IN_REQUEST,
   email,
-  password
+  password,
 })
 
-export const signInSuccess = ({ token }) => ({
+export const signInSuccess = ({ token, user }) => ({
   type: SIGN_IN_SUCCESS,
-  token
+  token,
+  user,
 })
 
 export const signInFailure = (error) => ({
   type: SIGN_IN_FAILURE,
-  error
+  error,
 })
 
 export const signOut = () => ({
-  type: SIGN_OUT_REQUEST
+  type: SIGN_OUT_REQUEST,
 })
 
 export const signOutSuccess = () => ({

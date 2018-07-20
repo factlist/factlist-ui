@@ -5,7 +5,6 @@ import axios from 'axios'
 import { push as redirect } from 'react-router-redux'
 import { saveToken } from 'utils/storage'
 import formatFormErrors from 'utils/formatFormErrors'
-import { userFetched } from 'modules/user/actions'
 import { signInSuccess, signInFailure } from '../actions'
 import { SIGN_IN_FORM_NAME } from '../constants'
 
@@ -19,12 +18,13 @@ const signIn = function* ({ email, password }) {
 
     const token = response.data.token
 
-    yield put(signInSuccess({ token }))
+    yield put(signInSuccess({
+      token,
+      user: response.data,
+    }))
 
     // Store user's token in local storage to keep user authenticated
     saveToken(token)
-
-    yield put(userFetched(response.data))
 
     yield put(redirect('/'))
   } catch (error) {

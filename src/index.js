@@ -3,25 +3,27 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import configureStore from 'store'
-import Routes from './routes'
+import { signInWithToken } from 'modules/auth/actions'
 import Global from 'scenes/Global'
-import { fetchUser } from 'modules/user/actions'
+import Routes from './routes'
 
-// Global Styles
+// Global styles
 import 'sanitize.css/sanitize.css'
 import './globalStyles'
 
-// Create Redux store
+// Create Redux store with history
 const history = createHistory()
 const store = configureStore(history)
 
+// Get token from state
 const state = store.getState()
+const token = state.auth.token
 
-// Fetch user's data if user has a token.
-// Don't fetch user on sign out page.
-const isSignOutPage = window.location.href.indexOf('sign_out') === -1
-if (state.auth.token && isSignOutPage) {
-  store.dispatch(fetchUser())
+// Fetch user's data if client has a token.
+// Don't sign in user on sign out page.
+const isSignOutPage = window.location.href.indexOf('sign_out') !== -1
+if (token && isSignOutPage === false) {
+  store.dispatch(signInWithToken(token))
 }
 
 ReactDOM.render(

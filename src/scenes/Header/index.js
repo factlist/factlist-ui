@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import HeaderComponent from 'components/Header'
 import {
@@ -6,42 +6,23 @@ import {
   showAddClaimModal
 } from 'modules/modal/actions'
 
-class Header extends Component {
-  showSignInModal = this.showSignInModal.bind(this)
-  showAddClaimModal = this.showAddClaimModal.bind(this)
-
-  showSignInModal(event) {
-    event.preventDefault()
-
-    const { showSignInModal } = this.props
-
-    showSignInModal()
-  }
-
-  showAddClaimModal(event) {
-    event.preventDefault()
-
-    const { showAddClaimModal } = this.props
-
-    showAddClaimModal()
-  }
-
-  render() {
-    const { user, hideSignInButton } = this.props
-
-    return (
-      <Fragment>
-        <HeaderComponent
-          user={user}
-          onClickSignInButton={this.showSignInModal}
-          onClickClaimButton={this.showAddClaimModal}
-          hideSignInButton={hideSignInButton} />
-      </Fragment>
-    )
-  }
-}
+const Header = ({
+  authenticating,
+  user,
+  hideSignInButton,
+  showSignInModal,
+  showAddClaimModal,
+}) => (
+  <HeaderComponent
+    user={user}
+    authenticating={authenticating}
+    onClickSignInButton={showSignInModal}
+    onClickClaimButton={showAddClaimModal}
+    hideSignInButton={hideSignInButton} />
+)
 
 const mapStateToProps = state => ({
+  authenticating: state.auth.authenticating,
   user: state.auth.user,
 })
 

@@ -4,9 +4,8 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILURE,
   SIGN_OUT_REQUEST,
+  SIGN_IN_WITH_TOKEN,
 } from './constants'
-
-import { FETCH_USER_SUCCESS } from 'modules/user/constants'
 
 const token = getToken()
 
@@ -14,7 +13,7 @@ const initialState = {
   token: token ? token : null,
   user: null,
   authenticating: false,
-  error: false
+  error: false,
 }
 
 export default (state = initialState, action) => {
@@ -32,6 +31,7 @@ export default (state = initialState, action) => {
         authenticating: false,
         error: false,
         token: action.token,
+        user: action.user,
       }
 
     case SIGN_IN_FAILURE:
@@ -48,10 +48,10 @@ export default (state = initialState, action) => {
         token: null,
       }
 
-    case FETCH_USER_SUCCESS:
+    case SIGN_IN_WITH_TOKEN:
       return {
         ...state,
-        user: action.data,
+        authenticating: true,
       }
 
     default:

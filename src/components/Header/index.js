@@ -8,7 +8,13 @@ import MobileSearch from './MobileSearch'
 import AddClaimButton from './AddClaimButton'
 import SignInButton from './SignInButton'
 
-const Header = ({ user, onClickClaimButton, onClickSignInButton, hideSignInButton = false }) => (
+const Header = ({
+  authenticating,
+  user,
+  onClickClaimButton,
+  onClickSignInButton,
+  hideSignInButton = false,
+}) => (
   <Container justify="center" align="center">
     <Box width={200} ml={10}>
       <Logo />

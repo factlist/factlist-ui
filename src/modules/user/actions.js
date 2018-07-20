@@ -4,8 +4,6 @@ import {
   SIGN_UP_FAILURE,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
-  FETCH_USER_REQUEST,
-  FETCH_USER_SUCCESS,
   FORGOT_PASSWORD_REQUEST,
   FORGOT_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_REQUEST,
@@ -32,15 +30,6 @@ export const updateUser = (data) => ({
 
 export const userUpdated = (data) => ({
   type: UPDATE_USER_SUCCESS,
-  data,
-})
-
-export const fetchUser = () => ({
-  type: FETCH_USER_REQUEST,
-})
-
-export const userFetched = (data) => ({
-  type: FETCH_USER_SUCCESS,
   data,
 })
 
