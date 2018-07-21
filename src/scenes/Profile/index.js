@@ -7,14 +7,12 @@ import Header from 'scenes/Header'
 import StyledClaim from './StyledClaim'
 
 class Profile extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { fetchUserProfile } = this.props
 
     const username = this.props.match.params.username
     fetchUserProfile(username)
-  }
 
-  componentDidMount() {
     window.scrollTo(0, 0)
   }
 

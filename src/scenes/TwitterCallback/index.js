@@ -4,7 +4,8 @@ import { push as redirect } from 'react-router-redux'
 import { signInWithToken } from 'modules/auth/actions'
 
 class SignInWithTwitter extends Component {
-  componentWillMount() {
+
+  componentDidMount() {
     const { signInWithToken } = this.props
     const token = this.props.match.params.token
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Flex, Box } from 'grid-styled'
 import { reduxForm, Field } from 'redux-form'
 import { TextField } from 'components/Form'
 import { required } from 'core/validationRules'
@@ -10,20 +11,25 @@ const ChangePasswordForm = ({
   submitting,
 }) => (
   <form onSubmit={handleSubmit}>
-    <Field
-      type="password"
-      id="password_change_password"
-      name="password"
-      label="Password"
-      autoComplete="password"
-      validate={[ required ]}
-      component={TextField} />
-
-    <Button
-      type="submit"
-      disabled={submitting}>
-      {submitting ? 'Submitting...' : 'Submit'}
-    </Button>
+    <Flex flexDirection="column" width={420}>
+      <Box>
+        <Field
+          type="password"
+          id="password_change_password"
+          name="password"
+          label="Password"
+          autoComplete="password"
+          validate={[ required ]}
+          component={TextField} />
+      </Box>
+      <Box mt={10} alignSelf="flex-end">
+        <Button
+          type="submit"
+          disabled={submitting}>
+          {submitting ? 'Submitting...' : 'Submit'}
+        </Button>
+      </Box>
+    </Flex>
   </form>
 )
 

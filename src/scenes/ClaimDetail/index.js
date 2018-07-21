@@ -11,13 +11,11 @@ import EvidenceForm from 'containers/Forms/Evidence'
 class ClaimDetail extends Component {
   claimId = parseInt(this.props.match.params.id, 10)
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchClaim } = this.props
 
     fetchClaim(this.claimId)
-  }
 
-  componentDidMount() {
     window.scrollTo(0, 0)
   }
 

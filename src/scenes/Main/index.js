@@ -10,7 +10,7 @@ import { fetchClaims } from 'modules/claim/actions'
 import { allClaims } from 'modules/claim/selectors'
 
 class Main extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { claims, fetchClaims } = this.props
 
     if (claims.length === 0) {
