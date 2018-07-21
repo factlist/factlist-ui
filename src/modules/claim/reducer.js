@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
         fetchingError: action.error,
       }
 
-      case ADD_CLAIM_SUCCESS:
+    case ADD_CLAIM_SUCCESS:
       return {
         ...state,
         added: true,
@@ -80,7 +80,7 @@ export default (state = initialState, action) => {
     case ADD_EVIDENCE_SUCCESS:
       // Update selected claim's status
       const selectedClaim = state.selectedClaim
-      selectedClaim[`${action.evidence.status}_count`] += 1
+      selectedClaim[`${action.evidence.conclusion}_count`] += 1
 
       return {
         ...state,
