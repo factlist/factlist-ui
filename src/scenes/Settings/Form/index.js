@@ -10,7 +10,7 @@ const Form = ({
   handleSubmit, requesting, invalid, pristine, onSignUpClick
 }) => (
   <form onSubmit={handleSubmit}>
-    <Flex column>
+    <Flex flexDirection="column">
       <Box>
         <Field
           type="text"

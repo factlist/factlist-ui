@@ -5,7 +5,7 @@ import Title from './Title'
 import Count from './Count'
 
 const Stats = ({ claims, evidences }) => (
-  <Flex justify="space-around" mt={10}>
+  <Flex justifyContent="space-around" mt={10}>
     <Box>
       <Title>Claims</Title>
       <Count>{claims}</Count>

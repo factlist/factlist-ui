@@ -10,7 +10,7 @@ import Attachments from '../Attachments'
 
 const Claim = ({ className, claim }) => (
   <Container className={className}>
-    <Flex justify="space-between" align="center">
+    <Flex justifyContent="space-between" alignItems="center">
       <Box>
         <Status
           trueCount={claim.true_count}
@@ -24,7 +24,7 @@ const Claim = ({ className, claim }) => (
       </Box>
     </Flex>
 
-    <Flex column mt={20}>
+    <Flex flexDirection="column" mt={20}>
       <Box>
         <Title>
           <Linkify>{claim.text}</Linkify>

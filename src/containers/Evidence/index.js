@@ -12,7 +12,7 @@ import Attachments from '../Attachments'
 
 const Evidence = ({ evidence }) => (
   <Container>
-    <Flex justify="space-between">
+    <Flex justifyContent="space-between">
       <Box>
         <Link to={'/profile/' + evidence.user.username}>
           <Avatar src={evidence.user.avatar} />
@@ -27,7 +27,7 @@ const Evidence = ({ evidence }) => (
       </Box>
     </Flex>
 
-    <Flex column mt={10}>
+    <Flex flexDirection="column" mt={10}>
       <Box ml={50}>
         <Description
           conclusion={evidence.conclusion}

@@ -1,12 +1,11 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
+import Button from 'components/Button'
 import Container from './Container'
 import Logo from './Logo'
 import SearchInput from './SearchInput'
 import Avatar from './Avatar'
 import MobileSearch from './MobileSearch'
-import AddClaimButton from './AddClaimButton'
-import SignInButton from './SignInButton'
 
 const Header = ({
   authenticating,
@@ -15,7 +14,7 @@ const Header = ({
   onClickSignInButton,
   hideSignInButton = false,
 }) => (
-  <Container justify="center" align="center">
+  <Container justifyContent="center" alignItems="center">
     <Box width={200} ml={10}>
       <Logo />
     </Box>
@@ -25,16 +24,16 @@ const Header = ({
     </Box>
 
     <Box width={270} mr={[20, 10]}>
-      <Flex justify="flex-end">
+      <Flex justifyContent="flex-end">
         <Box>
           <MobileSearch />
         </Box>
         <Box ml={10}>
-          {!user && !hideSignInButton && <SignInButton onClick={onClickSignInButton} />}
+          {!user && !hideSignInButton && <Button onClick={onClickSignInButton} light>Sign in</Button>}
           {user && <Avatar src="/images/example-avatar.png" />}
         </Box>
         <Box ml={10}>
-          <AddClaimButton onClick={onClickClaimButton} />
+          <Button onClick={onClickClaimButton} primary>Add claim</Button>
         </Box>
       </Flex>
     </Box>

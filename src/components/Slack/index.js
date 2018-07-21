@@ -6,7 +6,7 @@ import A from './A'
 
 const Slack = () => (
   <Container>
-    <Flex justify="center" align="center">
+    <Flex justifyContent="center" alignItems="center">
       <Box>
         <Img src="images/slack.svg" title="Slack" />
       </Box>

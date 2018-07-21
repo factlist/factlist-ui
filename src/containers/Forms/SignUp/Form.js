@@ -5,7 +5,7 @@ import { required, email } from 'core/validationRules'
 import { SIGN_UP_FORM_NAME } from 'modules/user/constants'
 import { TextField } from 'components/Form'
 import Container from '../SignIn/Form/Container'
-import Button from '../SignIn/Form/Button'
+import Button from 'components/Button'
 import A from '../SignIn/Form/A'
 import P from '../SignIn/Form/P'
 
@@ -14,7 +14,7 @@ const Form = ({
 }) => (
   <Container>
     <form onSubmit={handleSubmit}>
-      <Flex column>
+      <Flex flexDirection="column">
         <Box>
           <Field
             type="text"
@@ -60,7 +60,7 @@ const Form = ({
         </Box>
       </Flex>
 
-      <Flex column align="flex-end">
+      <Flex mt={15} flexDirection="column" alignItems="flex-end">
         <Box>
           <Button
             type="submit"

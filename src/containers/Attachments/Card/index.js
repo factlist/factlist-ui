@@ -17,18 +17,18 @@ const Card = ({
   ...props,
 }) => (
   <A {...props}>
-    <StyledFlex ml={10} mb={10} px={5} py={5} align='center'>
+    <StyledFlex p='5px' alignItems='center' mb='5px' mr='5px'>
       <Box>
         <Img src={image} />
       </Box>
-      <Box width={1} ml={10}>
+      <Box width='100%' ml='10px'>
         <Title title={title} />
 
         {type === 'link'
           ? <Domain url={url} />
           : <FileSize size={size} />}
       </Box>
-      <Box mr={5}>
+      <Box mr='5px'>
         <Icon type={type} />
       </Box>
     </StyledFlex>

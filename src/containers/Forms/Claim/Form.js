@@ -1,12 +1,10 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
 import { reduxForm, Field } from 'redux-form'
-import { EVIDENCE_FORM } from 'modules/evidence/constants'
+import { CLAIM_FORM } from 'modules/claim/constants'
 import MultimediaInputForm from 'containers/Forms/MultimediaInputForm'
 import { required, minLength } from 'core/validationRules'
 import Button from 'components/Button'
-import Label from './Label'
-import Conclusions from './Conclusions'
 
 const minLength30 = minLength(30)
 
@@ -17,25 +15,21 @@ const Form = ({
 }) => (
   <form onSubmit={handleSubmit}>
     <Flex flexDirection="column">
-      <Box mb={30}>
-        <Label>Claim is:</Label>
-        <Field name="conclusion" component={Conclusions} validate={[ required ]} />
-      </Box>
-
-      <Box mb={15}>
-        <Label>Because:</Label>
+      <Box>
         <Field
-          id="evidence"
+          id="claim"
           name="text"
-          placeholder="Start explaning your evidence here."
+          placeholder="Bring out your evidence here."
           component={MultimediaInputForm}
           validate={[ required, minLength30 ]}
           onFocus={onMultimediaInputFocus} />
       </Box>
 
-      <Box alignSelf="flex-end">
-        <Button disabled={submitting}>
-          {submitting ? 'Adding...' : 'Add Evidence'}
+      <Box mt={10} alignSelf="flex-end">
+        <Button
+          type="submit"
+          disabled={submitting}>
+          {submitting ? 'Adding...' : 'Add Claim'}
         </Button>
       </Box>
     </Flex>
@@ -43,6 +37,6 @@ const Form = ({
 )
 
 export default reduxForm({
-  form: EVIDENCE_FORM,
+  form: CLAIM_FORM,
   destroyOnUnmount: false,
 })(Form)

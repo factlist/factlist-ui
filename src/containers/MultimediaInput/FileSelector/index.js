@@ -12,9 +12,9 @@ const FileSelector = ({
   onRemove,
 }) => {
   return (
-    <Flex wrap={true}>
+    <Flex flexWrap="wrap">
       {files.map(file => (
-        <Box mr={7} key={_.randomId()}>
+        <Box mr='7px' key={_.randomId()}>
           <File file={file} onRemove={onRemove} />
         </Box>
       ))}

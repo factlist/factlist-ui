@@ -5,7 +5,7 @@ import Img from './Img'
 
 export default ({ onClick }) => (
   <A onClick={onClick}>
-    <Flex justify="center">
+    <Flex justifyContent="center">
       <Box><Img src="/images/icons/twitter.svg" /></Box>
       <Box mx="auto">Login with Twitter</Box>
     </Flex>

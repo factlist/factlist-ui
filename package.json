@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "draft-js": "^0.10.5",
-    "grid-styled": "^2.0.0-11",
+    "grid-styled": "^5.0.2",
     "history": "^4.7.2",
     "lodash": "^4.17.5",
     "moment": "^2.20.1",
@@ -22,7 +22,7 @@
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "sanitize.css": "^5.0.0",
-    "styled-components": "^2.4.0",
+    "styled-components": "^3.3.3",
     "twitter-text": "^2.0.4"
   },
   "devDependencies": {

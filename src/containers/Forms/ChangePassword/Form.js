@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form'
 import { TextField } from 'components/Form'
 import { required } from 'core/validationRules'
 import { CHANGE_PASSWORD_FORM } from 'modules/user/constants'
-import SubmitButton from './SubmitButton'
+import Button from 'components/Button'
 
 const ChangePasswordForm = ({
   handleSubmit,
@@ -19,9 +19,11 @@ const ChangePasswordForm = ({
       validate={[ required ]}
       component={TextField} />
 
-    <SubmitButton disabled={submitting}>
+    <Button
+      type="submit"
+      disabled={submitting}>
       {submitting ? 'Submitting...' : 'Submit'}
-    </SubmitButton>
+    </Button>
   </form>
 )
 

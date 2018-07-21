@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form'
 import { TextField } from 'components/Form'
 import { FORGOT_PASSWORD_FORM } from 'modules/user/constants'
 import { required, email } from 'core/validationRules'
-import SubmitButton from './SubmitButton'
+import Button from 'components/Button'
 
 const PasswordResetForm = ({
   handleSubmit,
@@ -19,9 +19,11 @@ const PasswordResetForm = ({
       validate={[ required, email ]}
       component={TextField} />
 
-    <SubmitButton disabled={submitting}>
+    <Button
+      type='submit'
+      disabled={submitting}>
       {submitting ? 'Submitting...' : 'Submit'}
-    </SubmitButton>
+    </Button>
   </form>
 )
 

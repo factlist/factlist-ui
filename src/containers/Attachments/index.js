@@ -4,7 +4,7 @@ import Links from './Links'
 import Files from './Files'
 
 const Attachments = ({ links, files }) => (
-  <Flex wrap={true} ml={-10} width={0.9}>
+  <Flex flexWrap="wrap" width={0.9}>
     <Links links={links} />
 
     <Files files={files} />
