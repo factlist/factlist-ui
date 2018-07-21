@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
+import { Link } from 'react-router-dom'
 import Button from 'components/Button'
 import Container from './Container'
 import Logo from './Logo'
@@ -30,7 +31,11 @@ const Header = ({
         </Box>
         <Box ml={10}>
           {!user && !hideSignInButton && <Button onClick={onClickSignInButton} light>Sign in</Button>}
-          {user && <Avatar src="/images/example-avatar.png" />}
+          {user && (
+            <Link to={'/@' + user.username}>
+              <Avatar src={user.avatar} />
+            </Link>
+          )}
         </Box>
         <Box ml={10}>
           <Button onClick={onClickClaimButton} primary>Add claim</Button>

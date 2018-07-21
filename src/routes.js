@@ -22,7 +22,7 @@ export default ({ history }) => (
       <PrivateRoute path="/settings" component={Settings} />
       <Route path="/change_password/:key" component={ChangePassword} />
       <Route path="/twitter/callback/:token" component={TwitterCallback} />
-      <Route path="/profile/:username" component={Profile} />
+      <Route path="/@:username" component={Profile} />
       <Route component={NotFound} />
     </Switch>
   </Router>

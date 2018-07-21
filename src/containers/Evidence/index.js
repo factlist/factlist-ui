@@ -14,7 +14,7 @@ const Evidence = ({ evidence }) => (
   <Container>
     <Flex justifyContent="space-between">
       <Box>
-        <Link to={'/profile/' + evidence.user.username}>
+        <Link to={'/@' + evidence.user.username}>
           <Avatar src={evidence.user.avatar} />
           <Profile>
             <FullName>{evidence.user.name}</FullName>
