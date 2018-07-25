@@ -7,6 +7,8 @@ import Logo from './Logo'
 import SearchInput from './SearchInput'
 import Avatar from './Avatar'
 import MobileSearch from './MobileSearch'
+import AvatarLoader from './AvatarLoader'
+import AddClaimLoader from './AddClaimLoader'
 
 const Header = ({
   authenticating,
@@ -30,15 +32,21 @@ const Header = ({
           <MobileSearch />
         </Box>
         <Box ml={10}>
-          {!user && !hideSignInButton && <Button onClick={onClickSignInButton} light>Sign in</Button>}
-          {user && (
+          {authenticating && <AvatarLoader />}
+
+          {!authenticating && !user && !hideSignInButton && <Button onClick={onClickSignInButton} light>Sign in</Button>}
+          {!authenticating && user && (
             <Link to={'/@' + user.username}>
               <Avatar src={user.avatar} />
             </Link>
           )}
         </Box>
         <Box ml={10}>
-          <Button onClick={onClickClaimButton} primary>Add claim</Button>
+          {authenticating ? (
+            <AddClaimLoader />
+          ) : (
+            <Button onClick={onClickClaimButton} primary>Add claim</Button>
+          )}
         </Box>
       </Flex>
     </Box>

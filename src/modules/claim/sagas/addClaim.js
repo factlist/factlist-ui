@@ -6,32 +6,32 @@ import { push as redirect } from 'react-router-redux'
 import formatFormErrors from 'utils/formatFormErrors'
 import { showNotification } from 'modules/notification/actions'
 import { closeModal } from 'modules/modal/actions'
-import { CLAIM_FORM } from '../constants'
+import { ADD_CLAIM_FORM } from '../constants'
 import {
-  claimAdded,
+  addClaimSuccess,
   addClaimFailure,
 } from '../actions'
 
 const addClaim = function* (action) {
-  const { text } = action.data
-
-  let files = yield select(state => state.file.claim)
-  files = files
-    .filter(file => file.success === true)
-    .map(file => file.id)
-
-  let links = yield select(state => state.embed.claim)
-  links = links.map(link => link.url)
-
-  // Prepare request data
-  const requestPayload = {
-    links,
-    files,
-    text,
-  }
-
   try {
-    yield put(startSubmit(CLAIM_FORM))
+    const { text } = action.data
+
+    let files = yield select(state => state.file.claim)
+    files = files
+      .filter(file => file.success === true)
+      .map(file => file.id)
+
+    let links = yield select(state => state.embed.claim)
+    links = links.map(link => link.url)
+
+    // Prepare request data
+    const requestPayload = {
+      links,
+      files,
+      text,
+    }
+
+    yield put(startSubmit(ADD_CLAIM_FORM))
 
     // Get current user's token
     const token = yield select(state => state.auth.token)
@@ -43,11 +43,11 @@ const addClaim = function* (action) {
       }
     })
 
-    yield put(claimAdded(response.data))
+    yield put(addClaimSuccess(response.data))
 
     yield put(redirect('/'))
 
-    yield put(stopSubmit(CLAIM_FORM))
+    yield put(stopSubmit(ADD_CLAIM_FORM))
   } catch (error) {
     if (error.response.status === 400) {
       const errors = formatFormErrors(error.response.data)
@@ -56,7 +56,7 @@ const addClaim = function* (action) {
         errors.text = errors.files || errors.links
       }
 
-      yield put(stopSubmit(CLAIM_FORM, errors))
+      yield put(stopSubmit(ADD_CLAIM_FORM, errors))
     } else {
       yield put(showNotification(`We can't add your claim for now. Please try again later.`))
       yield put(closeModal())

@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Header from 'scenes/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
-import { fetchClaim } from 'modules/claim/actions'
-import { selectedClaim } from 'modules/claim/selectors'
+import { fetchClaimByIdRequest } from 'modules/claim/actions'
 import Claim from 'containers/Claim'
 import Evidence from 'containers/Evidence'
 import EvidenceForm from 'containers/Forms/Evidence'
@@ -12,11 +11,15 @@ class ClaimDetail extends Component {
   claimId = parseInt(this.props.match.params.id, 10)
 
   componentDidMount() {
-    const { fetchClaim } = this.props
+    const { fetchClaimByIdRequest } = this.props
 
-    fetchClaim(this.claimId)
+    fetchClaimByIdRequest(this.claimId)
 
     window.scrollTo(0, 0)
+  }
+
+  componentWillUnmount() {
+    console.log('Remove selected claim.')
   }
 
   render() {
@@ -49,11 +52,11 @@ class ClaimDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  claim: selectedClaim(state),
+  claim: state.claim.fetch.selected,
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchClaim: (id) => dispatch(fetchClaim({ id }))
+  fetchClaimByIdRequest: (id) => dispatch(fetchClaimByIdRequest(id)),
 })
 
 export default connect(

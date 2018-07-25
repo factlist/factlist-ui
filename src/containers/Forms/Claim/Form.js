@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Box } from 'grid-styled'
 import { reduxForm, Field } from 'redux-form'
-import { CLAIM_FORM } from 'modules/claim/constants'
+import { ADD_CLAIM_FORM } from 'modules/claim/constants'
 import MultimediaInputForm from 'containers/Forms/MultimediaInputForm'
 import { required, minLength } from 'core/validationRules'
 import Button from 'components/Button'
@@ -37,6 +37,6 @@ const Form = ({
 )
 
 export default reduxForm({
-  form: CLAIM_FORM,
+  form: ADD_CLAIM_FORM,
   destroyOnUnmount: false,
 })(Form)

@@ -1,22 +1,22 @@
 import { takeLatest, fork } from 'redux-saga/effects'
 import {
-  FETCH_CLAIM_REQUEST,
-  FETCH_ALL_CLAIMS_REQUEST,
+  FETCH_CLAIMS_REQUEST,
+  FETCH_CLAIM_BY_ID_REQUEST,
   ADD_CLAIM_REQUEST,
 } from '../constants'
 
 // Saga handlers
-import fetch from './fetch'
-import fetchAll from './fetchAll'
+import fetchClaimById from './fetchClaimById'
+import fetchClaims from './fetchClaims'
 import addClaim from './addClaim'
 
 // Watchers
-const watchFetch = function* () {
-  yield takeLatest(FETCH_CLAIM_REQUEST, fetch)
+const watchFetchClaimById = function* () {
+  yield takeLatest(FETCH_CLAIM_BY_ID_REQUEST, fetchClaimById)
 }
 
-const watchFetchAll = function* () {
-  yield takeLatest(FETCH_ALL_CLAIMS_REQUEST, fetchAll)
+const watchFetchClaims = function* () {
+  yield takeLatest(FETCH_CLAIMS_REQUEST, fetchClaims)
 }
 
 const watchAddClaim = function* () {
@@ -24,7 +24,7 @@ const watchAddClaim = function* () {
 }
 
 export default [
-  fork(watchFetch),
-  fork(watchFetchAll),
+  fork(watchFetchClaimById),
+  fork(watchFetchClaims),
   fork(watchAddClaim),
 ]

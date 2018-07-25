@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reset } from 'redux-form'
 import {
-  addClaim,
+  addClaimRequest,
   resetAddClaimStates,
 } from 'modules/claim/actions'
 import { showSignInModal } from 'modules/modal/actions'
 import { resetClaimEmbeds } from 'modules/embed/actions'
 import { resetClaimFiles } from 'modules/file/actions'
-import { CLAIM_FORM } from 'modules/claim/constants'
+import { ADD_CLAIM_FORM } from 'modules/claim/constants'
 import Container from './Container'
 import H2 from './H2'
 import P from './P'
@@ -48,9 +48,9 @@ class ClaimForm extends Component {
   }
 
   onSubmit(values) {
-    const { addClaim } = this.props
+    const { addClaimRequest } = this.props
 
-    addClaim(values)
+    addClaimRequest(values)
   }
 
   checkUser() {
@@ -81,8 +81,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addClaim: (data) => dispatch(addClaim(data)),
-  reset: () => dispatch(reset(CLAIM_FORM)),
+  addClaimRequest: (data) => dispatch(addClaimRequest(data)),
+  reset: () => dispatch(reset(ADD_CLAIM_FORM)),
   resetAddClaimStates: () => dispatch(resetAddClaimStates()),
   resetClaimEmbeds: () => dispatch(resetClaimEmbeds()),
   resetClaimFiles: () => dispatch(resetClaimFiles()),

@@ -1,25 +1,31 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Box } from 'grid-styled'
+import { fetchClaimsRequest } from 'modules/claim/actions'
 import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import Claim from 'containers/Claim'
-import { fetchClaims } from 'modules/claim/actions'
-import { allClaims } from 'modules/claim/selectors'
+import ClaimLoader from './ClaimLoader'
+import ClaimList from './ClaimList'
 
 class Main extends Component {
   componentDidMount() {
-    const { claims, fetchClaims } = this.props
+    const { claims, fetchClaimsRequest } = this.props
 
     if (claims.length === 0) {
-      fetchClaims()
+      fetchClaimsRequest()
     }
   }
 
   render() {
-    const { claims, fetching } = this.props
+    const {
+      claims,
+      requesting,
+      hasMore,
+      count,
+      fetchClaimsRequest,
+    } = this.props
 
     return (
       <Fragment>
@@ -29,13 +35,13 @@ class Main extends Component {
           <Left>Popular Topics</Left>
 
           <Center>
-            {fetching && 'Getting claims...'}
+            {requesting && claims.length === 0 && <ClaimLoader />}
 
-            {!fetching && claims.map(claim =>
-              <Box mb={30} key={'claim_' + claim.id}>
-                <Claim claim={claim} />
-              </Box>
-            )}
+            {claims.length !== 0 && <ClaimList
+              claims={claims}
+              count={count}
+              hasMore={hasMore}
+              fetchClaimsRequest={fetchClaimsRequest} />}
           </Center>
 
           <Right>
@@ -53,12 +59,14 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  claims: allClaims(state),
-  fetching: state.claim.fetching,
+  claims: state.claim.fetch.all,
+  requesting: state.claim.fetch.requesting,
+  count: state.claim.fetch.count,
+  hasMore: state.claim.fetch.hasMore,
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchClaims: () => dispatch(fetchClaims())
+  fetchClaimsRequest: () => dispatch(fetchClaimsRequest()),
 })
 
 export default connect(
