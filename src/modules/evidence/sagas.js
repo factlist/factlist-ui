@@ -39,7 +39,10 @@ const addEvidence = function* (action) {
       }
     })
 
-    yield put(evidenceAdded(response.data))
+    yield put(evidenceAdded({
+      claimId,
+      evidence: response.data,
+    }))
 
     yield put(stopSubmit(EVIDENCE_FORM))
   } catch (error) {

@@ -6,6 +6,7 @@ import { fetchClaimByIdRequest } from 'modules/claim/actions'
 import Claim from 'containers/Claim'
 import Evidence from 'containers/Evidence'
 import EvidenceForm from 'containers/Forms/Evidence'
+import { ClaimLoader } from 'components/ContentLoaders'
 
 class ClaimDetail extends Component {
   claimId = parseInt(this.props.match.params.id, 10)
@@ -18,12 +19,8 @@ class ClaimDetail extends Component {
     window.scrollTo(0, 0)
   }
 
-  componentWillUnmount() {
-    console.log('Remove selected claim.')
-  }
-
   render() {
-    const { claim } = this.props
+    const { requesting, claim } = this.props
 
     return (
       <Fragment>
@@ -32,10 +29,10 @@ class ClaimDetail extends Component {
         <Container>
           <Left></Left>
           <Center>
-            {/* Claim */}
+            {requesting && <ClaimLoader />}
+
             {claim && <Claim claim={claim} />}
 
-            {/* Evidences */}
             <div style={{ marginBottom: '40px' }}>
               {claim && claim.evidences.map(evidence => <Evidence
                 key={evidence.id}
@@ -52,7 +49,8 @@ class ClaimDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-  claim: state.claim.fetch.selected,
+  requesting: state.claim.detail.requesting,
+  claim: state.claim.detail.data,
 })
 
 const mapDispatchToProps = dispatch => ({

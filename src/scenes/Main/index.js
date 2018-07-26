@@ -6,7 +6,7 @@ import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import ClaimLoader from './ClaimLoader'
+import { ClaimLoader } from 'components/ContentLoaders'
 import ClaimList from './ClaimList'
 
 class Main extends Component {
@@ -59,10 +59,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
-  claims: state.claim.fetch.all,
-  requesting: state.claim.fetch.requesting,
-  count: state.claim.fetch.count,
-  hasMore: state.claim.fetch.hasMore,
+  claims: state.claim.list.data,
+  requesting: state.claim.list.requesting,
+  count: state.claim.list.count,
+  hasMore: state.claim.list.hasMore,
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import addClaim from './addClaim'
-import fetch from './fetch'
+import list from './list'
+import detail from './detail'
 
 export default combineReducers({
   addClaim,
-  fetch,
+  list,
+  detail,
 })

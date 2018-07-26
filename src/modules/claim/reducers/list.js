@@ -2,21 +2,19 @@ import {
   FETCH_CLAIMS_REQUEST,
   FETCH_CLAIMS_SUCCESS,
   FETCH_CLAIMS_FAILURE,
-
-  FETCH_CLAIM_BY_ID_SUCCESS,
-
   ADD_CLAIM_SUCCESS,
 } from '../constants'
 
-import { ADD_EVIDENCE_SUCCESS } from 'modules/evidence/constants'
+import {
+  ADD_EVIDENCE_SUCCESS,
+} from 'modules/evidence/constants'
 
 const initialState = {
   requesting: false,
-  error: false,
-  all: [],
+  data: [],
   count: 0,
   hasMore: true,
-  selected: null,
+  error: false,
 }
 
 export default (state = initialState, action) => {
@@ -31,7 +29,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         requesting: false,
-        all: state.all.concat(action.claims),
+        data: state.data.concat(action.claims),
         count: action.count,
         hasMore: action.hasMore,
       }
@@ -43,32 +41,25 @@ export default (state = initialState, action) => {
         error: true,
       }
 
-    case FETCH_CLAIM_BY_ID_SUCCESS:
-      return {
-        ...state,
-        selected: action.claim,
-      }
-
     case ADD_CLAIM_SUCCESS:
       return {
         ...state,
-        all: [
+        data: [
           action.claim,
-          ...state.all,
+          ...state.data,
         ]
       }
 
     case ADD_EVIDENCE_SUCCESS:
-      // Update selected claim's status
-      const selected = Object.assign({}, state.selected)
-      selected[`${action.evidence.conclusion}_count`] += 1
-
       return {
         ...state,
-        selected: {
-          ...selected,
-          evidences: state.selected.evidences.concat(action.evidence),
-        }
+        data: state.data.map(claim => {
+          if (claim.id === action.claimId) {
+            claim[`${action.evidence.conclusion}_count`] += 1
+          }
+
+          return claim
+        })
       }
 
     default:

@@ -2,7 +2,7 @@ import React from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Box } from 'grid-styled'
 import Claim from 'containers/Claim'
-import ClaimLoader from './ClaimLoader'
+import { ClaimLoader } from 'components/ContentLoaders'
 
 const ClaimList = ({
   claims,
