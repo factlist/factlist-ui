@@ -1,8 +1,6 @@
 import React from 'react'
-import Link from 'components/Link'
 import Container from './Container'
 import Title from './Title'
-import Author from './Author'
 import Separator from './Separator'
 // import SearchInput from './SearchInput'
 import Filter from './Filter'
@@ -12,42 +10,46 @@ import Avatar from 'containers/Evidence/Avatar'
 import Profile from 'containers/Evidence/Profile'
 import FullName from 'containers/Evidence/FullName'
 import Username from 'containers/Evidence/Username'
+import Link from 'components/Link'
 
-const Topic = ({ title, author, links }) => (
+const Topic = ({ topic }) => (
   <Container>
 
     <Flex mb='15px'>
       <Box>
-        <Title>{title}</Title>
+        <Title>{topic.title}</Title>
       </Box>
       <Box ml="auto">
         <Filter />
       </Box>
     </Flex>
-    
-    {links.map(link => (
-      <div>
-        <Link
-          url={link.url}
-          title={link.title}
-          tags={link.tags} />
 
+    {topic.links.length === 0 && <p>
+      There are no links to show.
+    </p>}
+
+    {topic.links.map(link => (
+      <div key={link.id}>
+        <Link
+          link={link.link}
+          title={link.embed.title}
+          tags={link.tags} />
         <Separator />
       </div>
     ))}
 
     <Flex alignItems="center">
       <Box>
-        
+
           <Avatar src='http://placehold.it/300x300' />
           <Profile>
-            <FullName>Şerafettin Yarar</FullName>
-            <Username>serafettin</Username>
+            <FullName>{topic.user.name}</FullName>
+            <Username>{topic.user.username}</Username>
           </Profile>
-        
+
       </Box>
       <Box ml="auto">
-        <Timeago date='2018-06-06 00:00:00' />
+        <Timeago date={topic.created_at} />
       </Box>
     </Flex>
 

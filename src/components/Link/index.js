@@ -4,14 +4,16 @@ import H3 from './H3'
 import Tag from './Tag'
 import Url from './Url'
 
-const Link = ({ title, url, tags }) => (
+const Link = ({ title, link, tags }) => (
   <a>
     <div>
-      <H3>{title} <Url>{urlMask(url)}</Url></H3>
+      <H3>{title} <Url>{urlMask(link)}</Url></H3>
 
       <div>
         {tags.map(tag => (
-          <Tag>{tag}</Tag>
+          <Tag key={tag.id}>
+            {tag.title}
+          </Tag>
         ))}
       </div>
     </div>

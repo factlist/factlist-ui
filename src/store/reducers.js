@@ -9,7 +9,7 @@ import notificationReducer from 'modules/notification/reducer'
 import embedReducer from 'modules/embed/reducer'
 import fileReducer from 'modules/file/reducer'
 import profileReducer from 'modules/profile/reducer'
-import topicReducer from 'modules/topic/reducer'
+import topicReducers from 'modules/topic/reducers'
 
 export default () => combineReducers({
   form: formReducer,
@@ -22,5 +22,5 @@ export default () => combineReducers({
   embed: embedReducer,
   file: fileReducer,
   profile: profileReducer,
-  topic: topicReducer,
+  topic: topicReducers,
 })
