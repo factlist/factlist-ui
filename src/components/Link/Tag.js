@@ -5,14 +5,12 @@ const Tag = styled.span`
   border-radius: 2px;
   font-size: 12px;
   text-align: center;
-  font-weight: 500;
-
-  padding: 4px 8px;
-  margin-top: 5px;
+  padding: 3px 5px;
+  margin-top: 6px;
   margin-right: 4px;
-
-  background-color: rgb(237, 239, 241);
-  color: rgb(26, 26, 27);
+  background-color: rgba(237, 239, 241, 0.73);
+  color: rgba(26, 26, 27, 0.78);
+  font-weight: bold;
 `
 
 export default Tag

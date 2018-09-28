@@ -44,6 +44,7 @@ class Main extends Component {
                 <Topic
                   id={topic.id}
                   title={topic.title}
+                  author='Serafettin'
                   links={topic.links} />
               </Box>
             )}
