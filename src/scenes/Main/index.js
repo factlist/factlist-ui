@@ -1,31 +1,34 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Box } from 'grid-styled'
 import { fetchClaimsRequest } from 'modules/claim/actions'
 import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import { ClaimLoader } from 'components/ContentLoaders'
-import ClaimList from './ClaimList'
+import Topic from 'components/Topic'
+import { Flex, Box } from 'grid-styled'
+// import { ClaimLoader } from 'components/ContentLoaders'
+// import ClaimList from './ClaimList'
 
 class Main extends Component {
   componentDidMount() {
-    const { claims, fetchClaimsRequest } = this.props
+    // const { claims, fetchClaimsRequest } = this.props
 
-    if (claims.length === 0) {
-      fetchClaimsRequest()
-    }
+    // if (claims.length === 0) {
+    //   fetchClaimsRequest()
+    // }
   }
 
   render() {
-    const {
-      claims,
-      requesting,
-      hasMore,
-      count,
-      fetchClaimsRequest,
-    } = this.props
+    // const {
+    //   claims,
+    //   requesting,
+    //   hasMore,
+    //   count,
+    //   fetchClaimsRequest,
+    // } = this.props
+
+    const { topics } = this.props
 
     return (
       <Fragment>
@@ -35,13 +38,16 @@ class Main extends Component {
           <Left>Popular Topics</Left>
 
           <Center>
-            {requesting && claims.length === 0 && <ClaimLoader />}
-
-            {claims.length !== 0 && <ClaimList
-              claims={claims}
-              count={count}
-              hasMore={hasMore}
-              fetchClaimsRequest={fetchClaimsRequest} />}
+            <Flex flexDirection="column">
+            {topics.map(topic =>
+              <Box key={topic.id} mb='30px'>
+                <Topic
+                  id={topic.id}
+                  title={topic.title}
+                  links={topic.links} />
+              </Box>
+            )}
+            </Flex>
           </Center>
 
           <Right>
@@ -59,6 +65,7 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
+  topics: state.topic.all,
   claims: state.claim.list.data,
   requesting: state.claim.list.requesting,
   count: state.claim.list.count,

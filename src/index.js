@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 import configureStore from 'store'
-import { signInWithToken } from 'modules/auth/actions'
+// import { signInWithToken } from 'modules/auth/actions'
 import Global from 'scenes/Global'
 import Routes from './routes'
 
@@ -23,7 +23,7 @@ const token = state.auth.token
 // Don't sign in user on sign out page.
 const isSignOutPage = window.location.href.indexOf('sign_out') !== -1
 if (token && isSignOutPage === false) {
-  store.dispatch(signInWithToken(token))
+  // store.dispatch(signInWithToken(token))
 }
 
 ReactDOM.render(
