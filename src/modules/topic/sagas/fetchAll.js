@@ -11,8 +11,6 @@ export default function* () {
     const response = yield axios.get(`${config.API_ENDPOINT}/topics`)
     const data = response.data.results
 
-    console.log('@@', data)
-
     yield put(fetchTopicsSuccess({
       data,
     }))

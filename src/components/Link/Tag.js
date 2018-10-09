@@ -5,7 +5,7 @@ const Tag = styled.span`
   border-radius: 2px;
   font-size: 12px;
   text-align: center;
-  padding: 3px 5px;
+  padding: 0 5px;
   margin-top: 6px;
   margin-right: 4px;
   background-color: rgba(237, 239, 241, 0.73);

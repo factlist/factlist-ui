@@ -1,9 +1,4 @@
-import React from 'react'
-import Container from './Container'
-import Title from './Title'
-import Separator from './Separator'
-// import SearchInput from './SearchInput'
-import Filter from './Filter'
+import React, { Component } from 'react'
 import { Flex, Box } from 'grid-styled'
 import Timeago from 'components/Timeago'
 import Avatar from 'containers/Evidence/Avatar'
@@ -11,49 +6,61 @@ import Profile from 'containers/Evidence/Profile'
 import FullName from 'containers/Evidence/FullName'
 import Username from 'containers/Evidence/Username'
 import Link from 'components/Link'
+import Container from './Container'
+import Title from './Title'
+import Separator from './Separator'
+import OptionDropdown from './OptionDropdown'
+import TitleInput from './TitleInput'
 
-const Topic = ({ topic }) => (
-  <Container>
+class Topic extends Component {
+  state = {
+    edit: true,
+  }
 
-    <Flex mb='15px'>
-      <Box>
-        <Title>{topic.title}</Title>
-      </Box>
-      <Box ml="auto">
-        <Filter />
-      </Box>
-    </Flex>
+  render() {
+    const { edit } = this.state
+    const { topic } = this.props
 
-    {topic.links.length === 0 && <p>
-      There are no links to show.
-    </p>}
+    return (
+      <Container>
+        <Flex mb='15px'>
+          <Box width={1}>
+            { edit
+              ? <TitleInput value={topic.title} />
+              : <Title>{topic.title}</Title>}
+          </Box>
+          <Box>
+            <OptionDropdown />
+          </Box>
+        </Flex>
 
-    {topic.links.map(link => (
-      <div key={link.id}>
-        <Link
-          link={link.link}
-          title={link.embed.title}
-          tags={link.tags} />
-        <Separator />
-      </div>
-    ))}
+        {topic.links.map(link => (
+          <div key={link.id}>
+            <Link
+              link={link.link}
+              title={link.embed.title}
+              tags={link.tags} />
 
-    <Flex alignItems="center">
-      <Box>
+            <Separator />
+          </div>
+        ))}
 
-          <Avatar src='http://placehold.it/300x300' />
-          <Profile>
-            <FullName>{topic.user.name}</FullName>
-            <Username>{topic.user.username}</Username>
-          </Profile>
+        <Flex alignItems="center">
+          <Box>
+              <Avatar src='http://placehold.it/300x300' />
+              <Profile>
+                <FullName>{topic.user.name}</FullName>
+                <Username>{topic.user.username}</Username>
+              </Profile>
+          </Box>
+          <Box ml="auto">
+            <Timeago date={topic.created_at} />
+          </Box>
+        </Flex>
 
-      </Box>
-      <Box ml="auto">
-        <Timeago date={topic.created_at} />
-      </Box>
-    </Flex>
-
-  </Container>
-)
+      </Container>
+    )
+  }
+}
 
 export default Topic

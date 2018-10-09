@@ -6,7 +6,7 @@ const Title = styled.h1`
   font-size: 24px;
   color: #000;
   line-height: 32px;
-  margin: 0px 0 5px 0px;
+  margin: 0;
   word-wrap: break-word;
 `
 
