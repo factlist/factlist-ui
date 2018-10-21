@@ -9,7 +9,7 @@ import Avatar from './Avatar'
 import MobileSearch from './MobileSearch'
 import AvatarLoader from './AvatarLoader'
 import AddClaimLoader from './AddClaimLoader'
-
+import { InstantSearch, RefinementList, SearchBox } from 'react-instantsearch-dom';
 const Header = ({
   authenticating,
   user,
@@ -23,6 +23,7 @@ const Header = ({
     </Box>
 
     <Box width={670} mx={30}>
+    <SearchBox />
       <SearchInput type="text" placeholder="Search" />
     </Box>
 

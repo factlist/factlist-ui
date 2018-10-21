@@ -40,7 +40,6 @@ class Topic extends Component {
               link={link.link}
               title={link.embed.title}
               tags={link.tags} />
-
             <Separator />
           </div>
         ))}
