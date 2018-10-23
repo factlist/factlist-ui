@@ -7,7 +7,8 @@ import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Topic from 'components/Topic'
-import { InstantSearch, RefinementList, SearchBox } from 'react-instantsearch-dom';
+import StyledRefinementList  from 'components/Filter/StyledRefinementList'
+import { InstantSearch } from 'react-instantsearch-dom';
 
 
 class Main extends Component {
@@ -24,23 +25,29 @@ class Main extends Component {
 
     return (
       <Fragment>
+
         <InstantSearch appId="latency" apiKey="3d9875e51fbd20c7754e65422f7ce5e1" indexName="bestbuy">
+
         <Header />
 
         <Container>
-          
-          <Left>
-            
-                    
-              <div className="container">
-                <h4>Sources</h4>
-                <RefinementList attribute="type" style={{listStyleType:"none"}}/>
-                <h4>Tags</h4>
-                <RefinementList attribute="category" searchable style={{listStyleType:"none"}}/>
-                <h4>Time</h4>
 
+          <Left>
+
+
+              <div className="container">
+                <div style={{
+                  fontSize: '13px',
+                  opacity: '0.5'
+                }}>SOURCES</div>
+                <StyledRefinementList  attribute="type"  />
+                <div style={{
+                  fontSize: '13px',
+                  opacity: '0.5'
+                }}>TAGS</div>
+                <StyledRefinementList  attribute="category" searchable  />
               </div>
-            
+
           </Left>
 
           <Center>
