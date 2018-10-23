@@ -40,7 +40,7 @@ class Main extends Component {
                   fontSize: '13px',
                   opacity: '0.5'
                 }}>SOURCES</div>
-                <StyledRefinementList  attribute="type"  />
+                <StyledRefinementList  attribute="type"  searchable />
                 <div style={{
                   fontSize: '13px',
                   opacity: '0.5'
