@@ -39,6 +39,28 @@ class Main extends Component {
                 <div style={{
                   fontSize: '13px',
                   opacity: '0.5'
+                }}>FROM</div>
+                <ul style={{
+                listStyle:"none",
+                margin:"0px",
+                padding:"0px"
+                }}>
+                    <li>
+                      <input name="zaa" type="radio" />
+                      <label>All people</label>
+                    </li>
+                  <li>
+                    <input name="zaa" type="radio" />
+                    <label>People you follow</label>
+                  </li>
+
+
+                  </ul>
+
+
+                <div style={{
+                  fontSize: '13px',
+                  opacity: '0.5'
                 }}>SOURCES</div>
                 <StyledRefinementList  attribute="type"  searchable />
                 <div style={{
@@ -46,6 +68,42 @@ class Main extends Component {
                   opacity: '0.5'
                 }}>TAGS</div>
                 <StyledRefinementList  attribute="category" searchable  />
+
+
+                <div style={{
+                  fontSize: '13px',
+                  opacity: '0.5'
+                }}>TIME</div>
+                <ul style={{
+                listStyle:"none",
+                margin:"0px",
+                padding:"0px"
+                }}>
+                <li>
+                  <input name="zaa" type="radio" />
+                  <label>All time</label>
+                </li>
+                <li>
+                  <input name="zaa" type="radio" />
+                  <label>Past Hour</label>
+                </li>
+                <li>
+                  <input name="zaa" type="radio" />
+                  <label>Past Day</label>
+                </li>
+                <li>
+                  <input name="zaa" type="radio" />
+                  <label>Past Week</label>
+                </li>
+                <li>
+                  <input name="zaa" type="radio" />
+                  <label>Past Month</label>
+                </li>
+                <li>
+                  <input name="zaa" type="radio" />
+                  <label>Past Year</label>
+                </li>
+              </ul>
               </div>
 
           </Left>
