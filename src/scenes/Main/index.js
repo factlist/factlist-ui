@@ -6,7 +6,8 @@ import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import Topic from 'components/Topic'
+import Topic from 'components/Topic/'
+import Separator from 'components/Topic/Separator'
 import { StyledRefinementList , RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
 
@@ -38,12 +39,15 @@ class Main extends Component {
               <div className="container">
 
                 <RadioList title="USERS" options={['All People','People you follow']} />
+                <Separator />
 
                 <div style={{fontSize: '13px',opacity: '0.5'}}>SOURCES</div>
                 <StyledRefinementList  attribute="type"  searchable />
-                
+                <Separator />
+
                 <div style={{fontSize: '13px',opacity: '0.5'}}>TAGS</div>
                 <StyledRefinementList  attribute="category" searchable  />
+                <Separator />
 
                 <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} /> 
                 
@@ -59,6 +63,17 @@ class Main extends Component {
                 <Topic topic={topic} />
               </Box>
             )}
+            {topics.map(topic =>
+              <Box key={topic.id} mb='30px'>
+                <Topic topic={topic} />
+              </Box>
+            )}
+            {topics.map(topic =>
+              <Box key={topic.id} mb='30px'>
+                <Topic topic={topic} />
+              </Box>
+            )}
+
             </Flex>
           </Center>
 
