@@ -16,8 +16,8 @@ class RadioList extends Component {
     }}>
     {options.map(option =>
     <li style={{padding:'3px 0px'}}>
-      <input style={{marginRight:'5px'}} name="zaa" type="radio" />
-      <label >{option}</label>
+      <input name="{title}" id={option} style={{marginRight:'5px'}}  type="radio" />
+      <label for={option}>{option}</label>
     </li>
     )}
     </ul>
