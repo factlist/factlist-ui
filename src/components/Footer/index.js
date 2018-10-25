@@ -28,7 +28,7 @@ const Footer = () => (
       </Item>
     </List>
 
-    <Copyright>Factlist 2017</Copyright>
+    <Copyright>Factlist 2018</Copyright>
   </Container>
 )
 
