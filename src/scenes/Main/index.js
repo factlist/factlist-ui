@@ -7,7 +7,7 @@ import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Topic from 'components/Topic'
-import StyledRefinementList  from 'components/Filter/StyledRefinementList'
+import { StyledRefinementList , RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
 
 
@@ -36,74 +36,18 @@ class Main extends Component {
 
 
               <div className="container">
-                <div style={{
-                  fontSize: '13px',
-                  opacity: '0.5'
-                }}>FROM</div>
-                <ul style={{
-                listStyle:"none",
-                margin:"0px",
-                padding:"0px"
-                }}>
-                    <li>
-                      <input name="zaa" type="radio" />
-                      <label>All people</label>
-                    </li>
-                  <li>
-                    <input name="zaa" type="radio" />
-                    <label>People you follow</label>
-                  </li>
 
+                <RadioList title="USERS" options={['All People','People you follow']} />
 
-                  </ul>
-
-
-                <div style={{
-                  fontSize: '13px',
-                  opacity: '0.5'
-                }}>SOURCES</div>
+                <div style={{fontSize: '13px',opacity: '0.5'}}>SOURCES</div>
                 <StyledRefinementList  attribute="type"  searchable />
-                <div style={{
-                  fontSize: '13px',
-                  opacity: '0.5'
-                }}>TAGS</div>
+                
+                <div style={{fontSize: '13px',opacity: '0.5'}}>TAGS</div>
                 <StyledRefinementList  attribute="category" searchable  />
 
-
-                <div style={{
-                  fontSize: '13px',
-                  opacity: '0.5'
-                }}>TIME</div>
-                <ul style={{
-                listStyle:"none",
-                margin:"0px",
-                padding:"0px"
-                }}>
-                <li>
-                  <input name="zaa" type="radio" />
-                  <label>All time</label>
-                </li>
-                <li>
-                  <input name="zaa" type="radio" />
-                  <label>Past Hour</label>
-                </li>
-                <li>
-                  <input name="zaa" type="radio" />
-                  <label>Past Day</label>
-                </li>
-                <li>
-                  <input name="zaa" type="radio" />
-                  <label>Past Week</label>
-                </li>
-                <li>
-                  <input name="zaa" type="radio" />
-                  <label>Past Month</label>
-                </li>
-                <li>
-                  <input name="zaa" type="radio" />
-                  <label>Past Year</label>
-                </li>
-              </ul>
+                <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} /> 
+                
+  
               </div>
 
           </Left>
