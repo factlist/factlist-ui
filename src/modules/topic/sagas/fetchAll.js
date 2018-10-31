@@ -8,7 +8,7 @@ import {
 
 export default function* () {
   try {
-    const response = yield axios.get(`${config.API_ENDPOINT}/topics`)
+    const response = yield axios.get(`${config.API_ENDPOINT}/topics/`)
     const data = response.data.results
 
     yield put(fetchTopicsSuccess({

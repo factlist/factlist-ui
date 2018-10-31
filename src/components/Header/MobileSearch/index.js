@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import StyledIcon from './StyledIcon'
 import Container from './Container'
 import Search from './Search'
-import StyledTopics from './StyledTopics'
 
 export default class MobileSearch extends Component {
   state = { show: false }
@@ -22,8 +21,6 @@ export default class MobileSearch extends Component {
 
         <Container show={this.state.show}>
           <Search type="text" placeholder="Search | Explosion in Cairo..." />
-
-          <StyledTopics title="POPULAR TOPICS" />
         </Container>
       </div>
     )

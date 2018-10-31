@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@rebass/grid": "^6.0.0-4",
     "axios": "^0.18.0",
     "draft-js": "^0.10.5",
     "grid-styled": "^5.0.2",
@@ -11,7 +12,6 @@
     "moment": "^2.20.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
-    "react-click-outside": "tj/react-click-outside",
     "react-content-loader": "^3.1.2",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.8",
@@ -23,10 +23,11 @@
     "react-router-redux": "next",
     "react-textarea-autosize": "^7.0.4",
     "react-timeago": "^3.4.3",
+    "react-tiny-popover": "^3.4.2",
+    "recompose": "^0.30.0",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-saga": "^0.16.0",
-    "reselect": "^3.0.1",
     "sanitize.css": "^5.0.0",
     "styled-components": "^3.3.3",
     "twitter-text": "^2.0.4"

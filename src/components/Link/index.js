@@ -16,7 +16,7 @@ const Input = styled.input`
   width: 100%;
 `
 
-const Link = ({ edit = true, title, link, tags }) => (
+const Link = ({ edit = false, title, link, tags }) => (
   <a>
     <div>
       {!edit && (

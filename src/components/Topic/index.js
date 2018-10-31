@@ -9,12 +9,12 @@ import Link from 'components/Link'
 import Container from './Container'
 import Title from './Title'
 import Separator from './Separator'
-import OptionDropdown from './OptionDropdown'
+// import OptionDropdown from './OptionDropdown'
 import TitleInput from './TitleInput'
 
 class Topic extends Component {
   state = {
-    edit: true,
+    edit: false,
   }
 
   render() {
@@ -30,7 +30,7 @@ class Topic extends Component {
               : <Title>{topic.title}</Title>}
           </Box>
           <Box>
-            <OptionDropdown />
+            {/* <OptionDropdown /> */}
           </Box>
         </Flex>
 
