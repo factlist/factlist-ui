@@ -9,13 +9,24 @@ import { X } from 'react-feather'
 const StyledXIcon = styled(X)`
   width: 12px;
   margin-left: 10px;
+  height:12px;
+  &:hover{
+    background:gray;
+  }
 `
 
 const Input = styled.input`
   border: 0;
-  width: 100%;
-`
+  padding:4px  0px 2px 0px;
+  border-bottom:1px dashed #80808052;
+  
+  resize: horizontal;
+  min-width: 95%;
 
+`
+/*
+
+*/
 const Link = ({ edit = true, title, link, tags }) => (
   <a>
     <div>
@@ -27,7 +38,12 @@ const Link = ({ edit = true, title, link, tags }) => (
 
       {edit && (
         <Fragment>
-          <Input type="text" value={title} />
+          <Fragment>
+            <Input contenteditable="true" type="text" value={title} />
+            <StyledXIcon />
+          </Fragment>
+          
+
           <Url>{urlMask(link)}</Url>
         </Fragment>
       )}
@@ -36,11 +52,11 @@ const Link = ({ edit = true, title, link, tags }) => (
         {tags.map(tag => (
           <Tag key={tag.id}>
             {tag.title}
-
             <StyledXIcon />
           </Tag>
         ))}
       </div>
+
     </div>
   </a>
 )

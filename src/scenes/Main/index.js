@@ -8,7 +8,7 @@ import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Topic from 'components/Topic/'
 import Separator from 'components/Topic/Separator'
-import { StyledRefinementList , RadioList } from 'components/Filter'
+import { StyledRefinementList, RadioList, SortBySelector } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
 
 
@@ -57,7 +57,25 @@ class Main extends Component {
           </Left>
 
           <Center>
+            <Flex justifyContent="space-between">
+                <Box>
+                  
+                  </Box>
+                <Box>
+                  <SortBySelector
+                      defaultRefinement="instant_search"
+                      items={[
+                        { value: 'instant_search', label: 'Featured' },
+                        { value: 'instant_search_price_asc', label: 'Price asc.' },
+                        { value: 'instant_search_price_desc', label: 'Price desc.' },
+                      ]}
+                  />
+                </Box>
+            </Flex>
             <Flex flexDirection="column">
+
+
+
             {topics.map(topic =>
               <Box key={topic.id} mb='30px'>
                 <Topic topic={topic} />
