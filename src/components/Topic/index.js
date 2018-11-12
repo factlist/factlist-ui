@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Flex, Box } from 'grid-styled'
 import Timeago from 'components/Timeago'
 import Avatar from 'containers/Evidence/Avatar'
@@ -9,12 +9,12 @@ import Link from 'components/Link'
 import Container from './Container'
 import Title from './Title'
 import Separator from './Separator'
-// import OptionDropdown from './OptionDropdown'
+import OptionDropdown from './OptionDropdown'
 import TitleInput from './TitleInput'
-
+import SaveButton from './SaveButton'
 class Topic extends Component {
   state = {
-    edit: false,
+    edit: true,
   }
 
   render() {
@@ -30,18 +30,27 @@ class Topic extends Component {
               : <Title>{topic.title}</Title>}
           </Box>
           <Box>
-            {/* <OptionDropdown /> */}
+            {edit && (
+                <Flex style={{width:'120px'}}>
+                  <SaveButton style={{borderRadius:'4px 0px 0px 4px',margin:'0px -1px 0px 0px'}}>Discard</SaveButton>
+                  <SaveButton style={{borderRadius:'0px 4px 4px 0px',margin:'0px 0px 0px 0px'}}>Save</SaveButton>
+                </Flex>
+            )}
+            {!edit && (
+              <OptionDropdown />
+            )}
+            
+            
           </Box>
         </Flex>
 
         {topic.links.map(link => (
-          <div key={link.id}>
+          <div style={{marginBottom:'15px'}} key={link.id}>
             <Link
               link={link.link}
               title={link.embed.title}
               tags={link.tags} />
-
-            <Separator />
+            
           </div>
         ))}
 
