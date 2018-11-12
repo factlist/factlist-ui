@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { showImageModal } from 'modules/modal/actions'
-import { Box } from 'grid-styled'
+import { Box } from '@rebass/grid'
 import Card from './Card'
 
 class Files extends Component {
@@ -27,7 +27,7 @@ class Files extends Component {
       <Fragment>
         {files.map(file => file.image && (
           <Box
-            width={1/2}
+            width={1 / 2}
             key={file.id}>
             <Card
               type='file'

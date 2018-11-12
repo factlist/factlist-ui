@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Flex, Box } from 'grid-styled'
+import { Flex, Box } from '@rebass/grid'
 import Header from 'scenes/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
 import { updateUser } from 'modules/user/actions'

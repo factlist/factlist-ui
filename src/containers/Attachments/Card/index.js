@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from 'grid-styled'
+import { Box } from '@rebass/grid'
 import A from './A'
 import StyledFlex from './StyledFlex'
 import Img from './Img'
@@ -16,23 +16,23 @@ const Card = ({
   image,
   ...props,
 }) => (
-  <A {...props}>
-    <StyledFlex p='5px' alignItems='center' mb='5px' mr='5px'>
-      <Box>
-        <Img src={image} />
-      </Box>
-      <Box width='100%' ml='10px'>
-        <Title title={title} />
+    <A {...props}>
+      <StyledFlex p='5px' alignItems='center' mb='5px' mr='5px'>
+        <Box>
+          <Img src={image} />
+        </Box>
+        <Box width='100%' ml='10px'>
+          <Title title={title} />
 
-        {type === 'link'
-          ? <Domain url={url} />
-          : <FileSize size={size} />}
-      </Box>
-      <Box mr='5px'>
-        <Icon type={type} />
-      </Box>
-    </StyledFlex>
-  </A>
-)
+          {type === 'link'
+            ? <Domain url={url} />
+            : <FileSize size={size} />}
+        </Box>
+        <Box mr='5px'>
+          <Icon type={type} />
+        </Box>
+      </StyledFlex>
+    </A>
+  )
 
 export default Card

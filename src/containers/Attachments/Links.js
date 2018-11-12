@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
-import { Box } from 'grid-styled'
+import { Box } from '@rebass/grid'
 import Card from './Card'
 
 const Links = ({ links, onClick }) => (
   <Fragment>
     {links.map(link => link.embed && (
       <Box
-        width={1/2}
+        width={1 / 2}
         key={link.embed.url}>
         <Card
           type='link'

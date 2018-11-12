@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'grid-styled'
+import { Flex, Box } from '@rebass/grid'
 import _ from 'utils/_'
 import UploadButton from './UploadButton'
 import File from './File'
@@ -21,9 +21,9 @@ const FileSelector = ({
 
       <Box>
         {files.length < maxFileAllowed &&
-        <Dropzone onDrop={onDrop}>
-          <UploadButton />
-        </Dropzone>}
+          <Dropzone onDrop={onDrop}>
+            <UploadButton />
+          </Dropzone>}
       </Box>
     </Flex>
   )

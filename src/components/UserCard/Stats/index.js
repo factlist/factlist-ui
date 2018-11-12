@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'grid-styled'
+import { Flex, Box } from '@rebass/grid'
 import Devider from './Devider'
 import Title from './Title'
 import Count from './Count'

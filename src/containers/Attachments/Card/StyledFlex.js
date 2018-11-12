@@ -1,4 +1,4 @@
-import { Flex } from 'grid-styled'
+import { Flex } from '@rebass/grid'
 import styled from 'styled-components'
 
 const Container = styled(Flex)`

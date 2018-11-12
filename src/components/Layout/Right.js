@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Box } from 'grid-styled'
+import { Box } from '@rebass/grid'
 
 const Right = styled(Box)`
   width: 270px;

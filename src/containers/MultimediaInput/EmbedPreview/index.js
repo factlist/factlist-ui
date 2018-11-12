@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Flex, Box } from 'grid-styled'
+import { Flex, Box } from '@rebass/grid'
 import _ from 'utils/_'
 import Card from './Card'
 import EmptyCard from './EmptyCard'
@@ -10,25 +10,25 @@ const EmbedPreview = ({ embeds, onRemove }) => (
     {embeds.map(embed => (
       <Box
         key={_.randomId()}
-        width={1/3.1}
+        width={1 / 3.1}
         mb='8px'
         style={{ position: 'relative' }}>
-          {embed.requesting && <EmptyCard />}
+        {embed.requesting && <EmptyCard />}
 
-          {!embed.requesting &&
-            <Fragment>
-              <Card
-                title={embed.data.title}
-                image={embed.data.thumbnail_url}
-                url={embed.data.url} />
+        {!embed.requesting &&
+          <Fragment>
+            <Card
+              title={embed.data.title}
+              image={embed.data.thumbnail_url}
+              url={embed.data.url} />
 
-              <RemoveButton onClick={() => onRemove(embed)} />
-            </Fragment>
-          }
+            <RemoveButton onClick={() => onRemove(embed)} />
+          </Fragment>
+        }
       </Box>
     ))}
 
-    {embeds.length % 3 !== 0 && <Box width={1/3.1}/>}
+    {embeds.length % 3 !== 0 && <Box width={1 / 3.1} />}
   </Flex>
 )
 

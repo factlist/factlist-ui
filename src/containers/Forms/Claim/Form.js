@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'grid-styled'
+import { Flex, Box } from '@rebass/grid'
 import { reduxForm, Field } from 'redux-form'
 import { ADD_CLAIM_FORM } from 'modules/claim/constants'
 import MultimediaInputForm from 'containers/Forms/MultimediaInputForm'
@@ -13,28 +13,28 @@ const Form = ({
   submitting,
   onMultimediaInputFocus,
 }) => (
-  <form onSubmit={handleSubmit}>
-    <Flex flexDirection="column">
-      <Box>
-        <Field
-          id="claim"
-          name="text"
-          placeholder="Bring out your evidence here."
-          component={MultimediaInputForm}
-          validate={[ required, minLength30 ]}
-          onFocus={onMultimediaInputFocus} />
-      </Box>
+    <form onSubmit={handleSubmit}>
+      <Flex flexDirection="column">
+        <Box>
+          <Field
+            id="claim"
+            name="text"
+            placeholder="Bring out your evidence here."
+            component={MultimediaInputForm}
+            validate={[required, minLength30]}
+            onFocus={onMultimediaInputFocus} />
+        </Box>
 
-      <Box mt={10} alignSelf="flex-end">
-        <Button
-          type="submit"
-          disabled={submitting}>
-          {submitting ? 'Adding...' : 'Add Claim'}
-        </Button>
-      </Box>
-    </Flex>
-  </form>
-)
+        <Box mt={10} alignSelf="flex-end">
+          <Button
+            type="submit"
+            disabled={submitting}>
+            {submitting ? 'Adding...' : 'Add Claim'}
+          </Button>
+        </Box>
+      </Flex>
+    </form>
+  )
 
 export default reduxForm({
   form: ADD_CLAIM_FORM,

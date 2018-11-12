@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex } from 'grid-styled'
+import { Flex } from '@rebass/grid'
 import Links from './Links'
 import Files from './Files'
 

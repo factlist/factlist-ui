@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'grid-styled'
+import { Flex, Box } from '@rebass/grid'
 import { reduxForm, Field } from 'redux-form'
 import { EVIDENCE_FORM } from 'modules/evidence/constants'
 import MultimediaInputForm from 'containers/Forms/MultimediaInputForm'
@@ -15,32 +15,32 @@ const Form = ({
   submitting,
   onMultimediaInputFocus,
 }) => (
-  <form onSubmit={handleSubmit}>
-    <Flex flexDirection="column">
-      <Box mb={30}>
-        <Label>Claim is:</Label>
-        <Field name="conclusion" component={Conclusions} validate={[ required ]} />
-      </Box>
+    <form onSubmit={handleSubmit}>
+      <Flex flexDirection="column">
+        <Box mb={30}>
+          <Label>Claim is:</Label>
+          <Field name="conclusion" component={Conclusions} validate={[required]} />
+        </Box>
 
-      <Box mb={15}>
-        <Label>Because:</Label>
-        <Field
-          id="evidence"
-          name="text"
-          placeholder="Start explaning your evidence here."
-          component={MultimediaInputForm}
-          validate={[ required, minLength30 ]}
-          onFocus={onMultimediaInputFocus} />
-      </Box>
+        <Box mb={15}>
+          <Label>Because:</Label>
+          <Field
+            id="evidence"
+            name="text"
+            placeholder="Start explaning your evidence here."
+            component={MultimediaInputForm}
+            validate={[required, minLength30]}
+            onFocus={onMultimediaInputFocus} />
+        </Box>
 
-      <Box alignSelf="flex-end">
-        <Button disabled={submitting}>
-          {submitting ? 'Adding...' : 'Add Evidence'}
-        </Button>
-      </Box>
-    </Flex>
-  </form>
-)
+        <Box alignSelf="flex-end">
+          <Button disabled={submitting}>
+            {submitting ? 'Adding...' : 'Add Evidence'}
+          </Button>
+        </Box>
+      </Flex>
+    </form>
+  )
 
 export default reduxForm({
   form: EVIDENCE_FORM,
