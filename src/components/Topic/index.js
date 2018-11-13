@@ -13,7 +13,7 @@ import TitleInput from './TitleInput'
 import SaveButton from './SaveButton'
 class Topic extends Component {
   state = {
-    edit: true,
+    edit: false,
   }
 
   render() {

@@ -6,9 +6,10 @@ import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import Topic from 'components/Topic/'
+import Topic from '../../containers/Topic'
+// import Topic from 'components/Topic/'
 import Separator from 'components/Topic/Separator'
-import { StyledRefinementList, RadioList, SortBySelector } from 'components/Filter'
+import { StyledRefinementList, RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
 
 
@@ -61,7 +62,7 @@ class Main extends Component {
                 <Box>
 
                 </Box>
-                <Box>
+                {/* <Box>
                   <SortBySelector
                     defaultRefinement="instant_search"
                     items={[
@@ -70,7 +71,7 @@ class Main extends Component {
                       { value: 'instant_search_price_desc', label: 'Price desc.' },
                     ]}
                   />
-                </Box>
+                </Box> */}
               </Flex>
               <Flex flexDirection="column">
 

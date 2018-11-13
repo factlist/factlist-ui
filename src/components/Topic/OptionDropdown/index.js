@@ -39,31 +39,31 @@ class OptionDropdown extends Component {
 
     return (
       <Manager>
-          <Reference>
-            {({ ref }) => <Button innerRef={ref} onClick={this.open} />}
-          </Reference>
+        <Reference>
+          {({ ref }) => <Button innerRef={ref} onClick={this.open} />}
+        </Reference>
 
-          {isOpen && (
-            <ClickOutside onClickOutside={this.close}>
-              <Popper
-                placement='bottom'
-                modifiers={{ applyStyle: { enabled: true } }}>
-                {({ ref, style, placement, arrowProps }) => (
-                  <Menu innerRef={ref} style={style} data-placement={placement}>
-                    <A href="">Edit</A>
-                    <A href="">Embed</A>
-                    <A href="">Delete</A>
-                    <A href="">Report</A>
+        {isOpen && (
+          <ClickOutside onClickOutside={this.close}>
+            <Popper
+              placement='bottom'
+              modifiers={{ applyStyle: { enabled: true } }}>
+              {({ ref, style, placement, arrowProps }) => (
+                <Menu innerRef={ref} style={style} data-placement={placement}>
+                  <A href="">Edit</A>
+                  <A href="">Embed</A>
+                  <A href="">Delete</A>
+                  <A href="">Report</A>
 
-                    <Arrow
-                      innerRef={arrowProps.ref}
-                      style={arrowProps.style}
-                      data-placement={placement} />
-                  </Menu>
-                )}
-              </Popper>
-            </ClickOutside>
-          )}
+                  <Arrow
+                    innerRef={arrowProps.ref}
+                    style={arrowProps.style}
+                    data-placement={placement} />
+                </Menu>
+              )}
+            </Popper>
+          </ClickOutside>
+        )}
       </Manager>
     )
   }

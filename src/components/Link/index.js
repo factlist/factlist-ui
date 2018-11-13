@@ -39,10 +39,10 @@ const Link = ({ edit = true, title, link, tags }) => (
       {edit && (
         <Fragment>
           <Fragment>
-            <Input contenteditable="true" type="text" value={title} />
+            <Input contenteditable="true" type="text" defaultValue={title} />
             <StyledXIcon />
           </Fragment>
-          
+
 
           <Url>{urlMask(link)}</Url>
         </Fragment>
