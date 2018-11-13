@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Header from 'scenes/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
 import { fetchClaimByIdRequest } from 'modules/claim/actions'
-import Claim from 'containers/Claim'
 import Evidence from 'containers/Evidence'
 import EvidenceForm from 'containers/Forms/Evidence'
 import { ClaimLoader } from 'components/ContentLoaders'
@@ -30,8 +29,6 @@ class ClaimDetail extends Component {
           <Left></Left>
           <Center>
             {requesting && <ClaimLoader />}
-
-            {claim && <Claim claim={claim} />}
 
             <div style={{ marginBottom: '40px' }}>
               {claim && claim.evidences.map(evidence => <Evidence

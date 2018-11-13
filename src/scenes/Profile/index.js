@@ -4,7 +4,6 @@ import { fetchUserProfile } from 'modules/profile/actions'
 import { Container, Left, Right, Center } from 'components/Layout'
 import UserCard from 'components/UserCard'
 import Header from 'scenes/Header'
-import StyledClaim from './StyledClaim'
 
 class Profile extends Component {
   componentDidMount() {
@@ -17,7 +16,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { user, claims } = this.props
+    const { user } = this.props
 
     return (
       <Fragment>
@@ -28,13 +27,9 @@ class Profile extends Component {
               avatar={user.avatar}
               name={user.name}
               username={user.username}
-              claims={user.claim_count}
               evidences={user.evidence_count} />}
           </Left>
           <Center>
-            {claims.map(claim => <StyledClaim
-                key={claim.id}
-                claim={claim} />)}
           </Center>
           <Right></Right>
         </Container>
