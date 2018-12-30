@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import Textarea from 'react-textarea-autosize'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Textarea from 'react-textarea-autosize';
+
 
 const StyledTextarea = styled(Textarea)`
   font-family: 'Roboto',sans-serif;
@@ -12,43 +13,38 @@ const StyledTextarea = styled(Textarea)`
   width: 100%;
   border: 0;
 
-  color: #000;
+  color: ${props => props.color};
   line-height: 32px;
   resize: none;
-`
+`;
 
 class TitleInput extends Component {
+  state = {
+    color:'#00000030',
+    value: this.props.value
+  };
 
-    state = {
-        defaultValue: this.props.value,
-        value: this.props.value,
-    }
+  onChange = this.onChange.bind(this);
 
-    onChange = this.onChange.bind(this)
-    onBlur = this.onBlur.bind(this)
+  onChange(event) {
+    this.setState({
+      color:'#000',
+      value:event.target.value,
+    });
+  }
 
-    onChange(event) {
-        this.setState({
-            value: event.target.value.replace(/\n|\r/g, '')
-        })
-    }
-
-    onBlur() {
-        const { defaultValue, value } = this.state
-
-        if (defaultValue !== value) {
-            console.log('Saving...')
-        }
-    }
-
-    render() {
-        const { value } = this.state
-
-        return <StyledTextarea
-            value={value}
-            onInput={this.onChange}
-            onBlur={this.onBlur} />
-    }
+  render() {
+    const { value } = this.state;
+    return (
+      <StyledTextarea
+        color={this.state.color}
+        value={value}
+        onInput={this.onChange}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
+      />
+    );
+  }
 }
 
-export default TitleInput
+export default TitleInput;
