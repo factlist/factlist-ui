@@ -5,7 +5,7 @@ export default css`
   font-weight: 500;
   font-size: 20px;
 
-  color: #00000030;
+  color: #000;
   line-height: 32px;
 
   margin: 0;
