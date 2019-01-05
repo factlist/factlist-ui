@@ -24,7 +24,7 @@ const update = function* (action) {
     const token = yield select(state => state.auth.token)
 
     // API request
-    const response = yield axios.patch(`${config.API_ENDPOINT}/users/me/`, formData, {
+    const response = yield axios.patch(`${config.API_ENDPOINT}/auth/me/`, formData, {
       headers: {
         Authorization: `Token ${token}`
       }

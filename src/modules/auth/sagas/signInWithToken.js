@@ -8,7 +8,7 @@ import { signInSuccess, signInFailure } from '../actions'
 const signInWithToken = function* ({ token }) {
   try {
     // Get user's info with token
-    const response = yield axios.get(`${config.API_ENDPOINT}/users/me/`, {
+    const response = yield axios.get(`${config.API_ENDPOINT}/auth/me/`, {
       headers: {
         Authorization: `Token ${token}`,
       }

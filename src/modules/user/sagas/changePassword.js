@@ -13,7 +13,7 @@ const changePassword = function* (action) {
   try {
     yield put(startSubmit(CHANGE_PASSWORD_FORM))
 
-    yield axios.post(`${config.API_ENDPOINT}/users/change_password/`, {
+    yield axios.post(`${config.API_ENDPOINT}/auth/change_password/`, {
       key: changeKey,
       password,
     })
