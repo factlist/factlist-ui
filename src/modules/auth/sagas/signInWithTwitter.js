@@ -7,7 +7,7 @@ import { closeModal } from 'modules/modal/actions'
 const signInWithTwitter = function* () {
   try {
     // Token request with email & password
-    const response = yield axios.get(`${config.API_ENDPOINT}/users/auth/twitter/`)
+    const response = yield axios.get(`${config.API_ENDPOINT}/auth/twitter/`)
     const redirectURL = response.data.redirect_link
 
     // Redirect to Twitter

@@ -14,7 +14,7 @@ const signIn = function* ({ email, password }) {
 
     // Token request with email & password
     const response = yield axios
-      .post(`${config.API_ENDPOINT}/users/login/`, { email, password })
+      .post(`${config.API_ENDPOINT}/auth/login/`, { email, password })
 
     const token = response.data.token
 

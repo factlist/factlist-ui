@@ -13,7 +13,7 @@ const signUp = function* (action) {
   try {
     yield put(startSubmit(SIGN_UP_FORM_NAME))
 
-    const response = yield axios.post(`${config.API_ENDPOINT}/users/register/`, action.data)
+    const response = yield axios.post(`${config.API_ENDPOINT}/auth/register/`, action.data)
     const { token } = response.data
 
     yield put(signUpSuccess())

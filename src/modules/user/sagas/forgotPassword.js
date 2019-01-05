@@ -14,7 +14,7 @@ const forgotPassword = function* (action) {
 
     yield put(startSubmit(FORGOT_PASSWORD_FORM))
 
-    yield axios.post(`${config.API_ENDPOINT}/users/forgot_password/`, {
+    yield axios.post(`${config.API_ENDPOINT}/auth/reset-password/`, {
       user_identifier: email,
     })
 
