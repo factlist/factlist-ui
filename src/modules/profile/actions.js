@@ -8,8 +8,7 @@ export const fetchUserProfile = (username) => ({
   username,
 })
 
-export const userProfileFetched = ({ user, claims }) => ({
+export const userProfileFetched = ({ user }) => ({
   type: FETCH_USER_PROFILE_SUCCESS,
   user,
-  claims,
 })

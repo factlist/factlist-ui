@@ -27,7 +27,7 @@ class Profile extends Component {
               avatar={user.avatar}
               name={user.name}
               username={user.username}
-              evidences={user.evidence_count} />}
+            />}
           </Left>
           <Center>
           </Center>
@@ -41,7 +41,6 @@ class Profile extends Component {
 const mapStateToProps = (state) => ({
   requesting: state.profile.requesting,
   user: state.profile.user,
-  claims: state.profile.claims,
 })
 
 const mapDispatchToProps = (dispatch) => ({

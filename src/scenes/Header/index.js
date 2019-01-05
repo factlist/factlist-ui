@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import HeaderComponent from 'components/Header'
 import {
   showSignInModal,
-  showAddClaimModal
 } from 'modules/modal/actions'
 
 const Header = ({
@@ -11,13 +10,11 @@ const Header = ({
   user,
   hideSignInButton,
   showSignInModal,
-  showAddClaimModal,
 }) => (
   <HeaderComponent
     user={user}
     authenticating={authenticating}
     onClickSignInButton={showSignInModal}
-    onClickClaimButton={showAddClaimModal}
     hideSignInButton={hideSignInButton} />
 )
 
@@ -28,7 +25,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   showSignInModal: () => dispatch(showSignInModal()),
-  showAddClaimModal: () => dispatch(showAddClaimModal()),
 })
 
 export default connect(

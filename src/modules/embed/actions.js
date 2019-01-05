@@ -3,8 +3,6 @@ import {
   FETCH_EMBED_SUCCESS,
   FETCH_EMBED_FAILURE,
   EMBED_REMOVE,
-  RESET_EVIDENCE_EMBEDS,
-  RESET_CLAIM_EMBEDS,
 } from './constants'
 
 export const fetchEmbeds = ({ id, urls }) => ({
@@ -30,12 +28,4 @@ export const removeEmbed = ({ id, url }) => ({
   type: EMBED_REMOVE,
   id,
   url,
-})
-
-export const resetClaimEmbeds = () => ({
-  type: RESET_CLAIM_EMBEDS,
-})
-
-export const resetEvidenceEmbeds = () => ({
-  type: RESET_EVIDENCE_EMBEDS,
 })

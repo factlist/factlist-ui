@@ -3,14 +3,10 @@ import {
   FETCH_EMBED_SUCCESS,
   FETCH_EMBED_FAILURE,
   EMBED_REMOVE,
-  RESET_EVIDENCE_EMBEDS,
-  RESET_CLAIM_EMBEDS,
 } from './constants'
 
 const initialState = {
   cache: {},
-  claim: [],
-  evidence: [],
 }
 
 export default (state = initialState, action) => {
@@ -72,18 +68,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         [action.id]: state[action.id].filter(embed => embed.url !== action.url)
-      }
-
-    case RESET_CLAIM_EMBEDS:
-      return {
-        ...state,
-        claim: [],
-      }
-
-    case RESET_EVIDENCE_EMBEDS:
-      return {
-        ...state,
-        evidence: [],
       }
 
     default:

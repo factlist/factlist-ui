@@ -3,7 +3,6 @@ import {
   HIDE_MODAL,
   SIGN_IN_MODAL,
   SIGN_UP_MODAL,
-  ADD_CLAIM_MODAL,
   PASSWORD_RESET_MODAL,
   IMAGE_MODAL,
 } from './constants'
@@ -21,11 +20,6 @@ export const showSignInModal = () => ({
 export const showSignUpModal = () => ({
   type: SHOW_MODAL,
   name: SIGN_UP_MODAL,
-})
-
-export const showAddClaimModal = () => ({
-  type: SHOW_MODAL,
-  name: ADD_CLAIM_MODAL,
 })
 
 export const showPasswordResetModal = () => ({

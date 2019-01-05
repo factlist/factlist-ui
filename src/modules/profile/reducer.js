@@ -7,7 +7,6 @@ import {
 const initialState = {
   requesting: false,
   user: null,
-  claims: [],
 }
 
 export default (state = initialState, action) => {
@@ -23,7 +22,6 @@ export default (state = initialState, action) => {
         ...state,
         requesting: false,
         user: action.user,
-        claims: action.claims,
       }
 
     case FETCH_USER_PROFILE_FAILURE:

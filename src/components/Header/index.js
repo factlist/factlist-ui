@@ -12,7 +12,6 @@ import AvatarLoader from './AvatarLoader'
 const Header = ({
   authenticating,
   user,
-  onClickClaimButton,
   onClickSignInButton,
   hideSignInButton = false,
 }) => (
@@ -40,13 +39,6 @@ const Header = ({
               </Link>
             )}
           </Box>
-         {/* <Box ml={10}>
-            {authenticating ? (
-              <AddClaimLoader />
-            ) : (
-                <Button onClick={onClickClaimButton} primary>Add claim</Button>
-              )}
-          </Box>*/}
         </Flex>
       </Box>
     </Container>

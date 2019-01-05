@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import { Flex, Box } from '@rebass/grid'
 import Timeago from 'components/Timeago'
-import Avatar from 'containers/Evidence/Avatar'
-import Profile from 'containers/Evidence/Profile'
-import FullName from 'containers/Evidence/FullName'
-import Username from 'containers/Evidence/Username'
 import Link from 'components/Link'
 import Container from './Container'
 import Title from './Title'
@@ -54,13 +50,6 @@ class Topic extends Component {
         ))}
 
         <Flex alignItems="center">
-          <Box>
-            <Avatar src='http://placehold.it/300x300' />
-            <Profile>
-              <FullName>{topic.user.name}</FullName>
-              <Username>{topic.user.username}</Username>
-            </Profile>
-          </Box>
           <Box ml="auto">
             <Timeago date={topic.created_at} />
           </Box>

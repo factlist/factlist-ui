@@ -10,11 +10,9 @@ const fetchProfile = function* (action) {
     const username = action.username
 
     const user = yield axios.get(`${config.API_ENDPOINT}/users/${username}/`)
-    const claims = yield axios.get(`${config.API_ENDPOINT}/claims/?filter=from:${username}`)
 
     yield put(userProfileFetched({
       user: user.data,
-      claims: claims.data.results,
     }))
   } catch (error) {
     if (error.response && error.response.status === 404) {
