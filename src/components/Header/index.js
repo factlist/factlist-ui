@@ -8,7 +8,6 @@ import SearchInput from './SearchInput'
 import Avatar from './Avatar'
 import MobileSearch from './MobileSearch'
 import AvatarLoader from './AvatarLoader'
-import AddClaimLoader from './AddClaimLoader'
 
 const Header = ({
   authenticating,
@@ -41,13 +40,13 @@ const Header = ({
               </Link>
             )}
           </Box>
-          <Box ml={10}>
+         {/* <Box ml={10}>
             {authenticating ? (
               <AddClaimLoader />
             ) : (
                 <Button onClick={onClickClaimButton} primary>Add claim</Button>
               )}
-          </Box>
+          </Box>*/}
         </Flex>
       </Box>
     </Container>

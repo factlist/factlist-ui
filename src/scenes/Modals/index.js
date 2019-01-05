@@ -4,7 +4,6 @@ import { closeModal } from 'modules/modal/actions'
 import {
   SIGN_IN_MODAL,
   SIGN_UP_MODAL,
-  ADD_CLAIM_MODAL,
   PASSWORD_RESET_MODAL,
   IMAGE_MODAL,
 } from 'modules/modal/constants'
@@ -12,7 +11,6 @@ import {
 // Modals
 import SignIn from './SignIn'
 import SignUp from './SignUp'
-import AddClaim from './AddClaim'
 import PasswordReset from './PasswordReset'
 import Image from './Image'
 
@@ -20,7 +18,6 @@ import Image from './Image'
 const MODAL_COMPONENTS = {
   [SIGN_IN_MODAL]: SignIn,
   [SIGN_UP_MODAL]: SignUp,
-  [ADD_CLAIM_MODAL]: AddClaim,
   [PASSWORD_RESET_MODAL]: PasswordReset,
   [IMAGE_MODAL]: Image,
 }
