@@ -1,18 +1,20 @@
 import { fork, takeEvery, put } from 'redux-saga/effects'
 import { push as redirect } from 'react-router-redux'
-import config from 'config'
-import axios from 'axios'
-import { FETCH_USER_PROFILE_REQUEST } from './constants'
 import { userProfileFetched } from 'modules/profile/actions'
+
+import { FETCH_USER_PROFILE_REQUEST } from './constants'
+import client from '../../graphql';
+import GET_USER from '../../graphql/queries/user';
 
 const fetchProfile = function* (action) {
   try {
     const username = action.username
-
-    const user = yield axios.get(`${config.API_ENDPOINT}/users/${username}/`)
-
+    const { data } = yield client.query({
+      query: GET_USER,
+      variables: { username } // Update API to accept username parameter
+    });
     yield put(userProfileFetched({
-      user: user.data,
+      user: data.user,
     }))
   } catch (error) {
     if (error.response && error.response.status === 404) {

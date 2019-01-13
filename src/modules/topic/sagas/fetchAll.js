@@ -1,18 +1,18 @@
 import { put } from 'redux-saga/effects'
-import axios from 'axios'
-import config from 'config'
 import {
   fetchTopicsSuccess,
   fetchTopicsFailure,
 } from '../actions'
+import client from '../../../graphql';
+import GET_ALL_TOPICS from '../../../graphql/queries/topic';
 
 export default function* () {
   try {
-    const response = yield axios.get(`${config.API_ENDPOINT}/topics/`)
-    const data = response.data.results
-
+    const { data } = yield client.query({
+      query: GET_ALL_TOPICS
+    })
     yield put(fetchTopicsSuccess({
-      data,
+      data: data.topics,
     }))
   } catch (error) {
     yield put(fetchTopicsFailure(error))
