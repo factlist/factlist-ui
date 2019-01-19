@@ -1,5 +1,4 @@
 import gql from "graphql-tag";
-import UserFragment from "./user";
 import LinkFragment from './link';
 
 const TopicFragment = gql`fragment TopicContent on Topic {
@@ -7,13 +6,15 @@ const TopicFragment = gql`fragment TopicContent on Topic {
   title,
   user_id,
   user {
-    ...UserInfo
+    id,
+    username,
+    name,
+    email
   },
   links {
     ...LinkContent
   }
 }
-${UserFragment}
 ${LinkFragment}
 `
 
