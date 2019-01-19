@@ -13,6 +13,7 @@ const enhance = withState('isEdit', 'setIsEdit', false)
 
 const Topic = ({ isEdit, setIsEdit, topic }) => (
   <Container>
+
     <Flex justifyContent='space-between'>
       <Box width={1}>
         {
@@ -25,9 +26,9 @@ const Topic = ({ isEdit, setIsEdit, topic }) => (
     </Flex>
 
     <Flex flexDirection='column' mt={30}>
-      {topic.links.map(link => (
+      {!!topic.links && topic.links.map(link => (
         <Box key={link.id}>
-          <Link title={link.embed.title} url={link.link} tags={link.tags} editable={isEdit} />
+          <Link title={link.title} url={link.url} tags={link.tags} editable={isEdit} />
         </Box>
       ))}
     </Flex>
