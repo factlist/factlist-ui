@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
+
 import { Flex, Box } from '@rebass/grid'
 import { fetchTopicsRequest } from 'modules/topic/actions'
 import { Container, Left, Center, Right } from 'components/Layout'
@@ -7,7 +9,7 @@ import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Topic from '../../containers/Topic'
-import Separator from 'components/Topic/Separator'
+import Separator from 'components/Separator'
 import { StyledRefinementList, RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
 
@@ -38,29 +40,15 @@ class Main extends Component {
                 <Separator />
                 <div style={{ fontSize: '13px', opacity: '0.5' }}>TAGS</div>
                 <StyledRefinementList attribute="category" searchable />
-                <Separator />
+              <Separator />
                 <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} />
               </div>
             </Left>
 
             <Center>
-              <Flex justifyContent="space-between">
-                {/* <Box>
-                  <SortBySelector
-                    defaultRefinement="instant_search"
-                    items={[
-                      { value: 'instant_search', label: 'Featured' },
-                      { value: 'instant_search_price_asc', label: 'Price asc.' },
-                      { value: 'instant_search_price_desc', label: 'Price desc.' },
-                    ]}
-                  />
-                </Box> */}
-              </Flex>
               <Flex flexDirection="column">
                 {topics.length && topics.map(topic =>
-                  <Box key={topic.id} mb='30px'>
-                    <Topic topic={topic} />
-                  </Box>
+                  <Topic key={topic.id} topic={topic} />
                 )}
               </Flex>
             </Center>

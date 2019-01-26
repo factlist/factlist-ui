@@ -8,6 +8,7 @@ const Container = styled.div`
   min-width: 375px;
   max-width: 670px;
   padding: 20px;
+  margin: auto;
 
   // Cross browser word wrapping
   overflow-wrap: break-word;

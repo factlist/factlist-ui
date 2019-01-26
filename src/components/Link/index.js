@@ -4,6 +4,8 @@ import urlMask from 'utils/urlMask'
 import H3 from './H3'
 import Tag from './Tag'
 import Url from './Url'
+import New from './New';
+
 import { X } from 'react-feather'
 
 const StyledXIcon = styled(X)`
@@ -19,7 +21,7 @@ const Input = styled.input`
   border: 0;
   padding:4px  0px 2px 0px;
   border-bottom:1px dashed #80808052;
-  
+
   resize: horizontal;
   min-width: 95%;
 
@@ -61,4 +63,4 @@ const Link = ({ edit = true, title, link, tags }) => (
   </a>
 )
 
-export default Link
+export default New as { NewLink };
