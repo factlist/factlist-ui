@@ -31,9 +31,9 @@ const Topic = ({ isEdit, setIsEdit, topic, marginBottom }) => (
         {!!topic.links && topic.links.map(link => (
           <Box key={link.id}>
             <Link title={link.title} url={link.url} tags={link.tags} editable={isEdit} />
+            <NewTag />
           </Box>
         ))}
-        <NewTag />
       </Flex>
 
       <NewLink />

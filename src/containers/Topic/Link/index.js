@@ -5,6 +5,7 @@ import Title from './Title'
 import Input from './Input'
 import LinkIcon from './LinkIcon'
 import MaskedURL from './MaskedURL'
+import Tag from 'components/Tag';
 
 const enhance = withState('title', 'setTitle', props => props.title)
 
@@ -32,6 +33,10 @@ const Link = ({
           <MaskedURL url={url} />
         </StyledLinkContainer>
       </StyledDiv>
+      {tags.map(tag => {
+        console.log(tag, "TAG")
+        return (<Tag>{tag.title}</Tag>)
+      })}
     </Fragment >
   )
 
