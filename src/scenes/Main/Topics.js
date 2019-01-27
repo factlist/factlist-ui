@@ -6,7 +6,7 @@ export default ({ topics }) => (
   <Flex flexDirection="column">
     {topics.map(topic =>
       <Box key={topic.id} mb='30px'>
-        <Topic topic={topic} />
+        <Topic key={topic.id} topic={topic} />
       </Box>
     )}
   </Flex>

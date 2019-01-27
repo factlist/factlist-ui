@@ -7,60 +7,49 @@ import Title from './Title'
 import TitleInput from './TitleInput'
 import Menu from './Menu'
 import Link from './Link'
-import AddIcon from './AddIcon'
+import NewLink from 'components/Link/New'
+import NewTag from 'components/Tag/New'
 
 const enhance = withState('isEdit', 'setIsEdit', false)
 
-const Topic = ({ isEdit, setIsEdit, topic }) => (
-  <Container>
+const Topic = ({ isEdit, setIsEdit, topic, marginBottom }) => (
+  <Box mb={marginBottom}>
+    <Container>
 
-    <Flex justifyContent='space-between'>
-      <Box width={1}>
-        {
-          isEdit ? <TitleInput value={topic.title} /> : <Title title={topic.title} />
-        }
-      </Box>
-      <Box ml={10}>
-        <Menu setIsEdit={setIsEdit} />
-      </Box>
-    </Flex>
-
-    <Flex flexDirection='column' mt={30}>
-      {!!topic.links && topic.links.map(link => (
-        <Box key={link.id}>
-          <Link title={link.title} url={link.url} tags={link.tags} editable={isEdit} />
+      <Flex justifyContent='space-between'>
+        <Box width={1}>
+          {
+            isEdit ? <TitleInput value={topic.title} /> : <Title title={topic.title} />
+          }
         </Box>
-      ))}
-    </Flex>
+        <Box ml={10}>
+          <Menu setIsEdit={setIsEdit} />
+        </Box>
+      </Flex>
 
-    <StyledFlex>
-      <AddIconContainer>
-        <AddIcon />
-      </AddIconContainer>
-      <StyledText>Add a link to your topic</StyledText>
-    </StyledFlex>
+      <Flex flexDirection='column' mt={30}>
+        {!!topic.links && topic.links.map(link => (
+          <Box key={link.id}>
+            <Link title={link.title} url={link.url} tags={link.tags} editable={isEdit} />
+          </Box>
+        ))}
+        <NewTag />
+      </Flex>
 
-  </Container>
+      <NewLink />
+
+    </Container>
+  </Box>
 )
 
 export default enhance(Topic)
 
-const StyledText = styled.p`
-  color: #2C8D16;
-  font-size: 14px;
-  margin: 0px;
-  &.hovered {
-    cursor: pointer;
+Topic.defaultProps = {
+  marginBottom: '30px',
+  topic: {
+    id: null,
+    title: 'Topic title',
+    createdAt: 'created at',
+    links: []
   }
-`
-const AddIconContainer = styled.div`
-  position: absolute;
-  left: -20px;
-  bottom: 0px;
-`
-const StyledFlex = styled(Flex)`
-  position: relative;
-  display: flex;
-  margin-left: 20px;
-  margin-top: 20px;
-`
+};

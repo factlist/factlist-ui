@@ -11,7 +11,6 @@ const Tag = styled.span`
   background-color: rgba(237,239,241,0.73);
   color: rgba(26,26,27,0.78);
   font-weight: bold;
-
 `
 
-export default Tag
+export default Tag;

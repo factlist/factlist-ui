@@ -1,19 +1,20 @@
-import React from 'react'
-import { Flex, Box } from '@rebass/grid'
-import { Link } from 'react-router-dom'
-import Button from 'components/Button'
-import Container from './Container'
-import Logo from './Logo'
-import SearchInput from './SearchInput'
-import Avatar from './Avatar'
-import MobileSearch from './MobileSearch'
-import AvatarLoader from './AvatarLoader'
+import React from 'react';
+import { Flex, Box } from '@rebass/grid';
+import { Link } from 'react-router-dom';
+import Button from 'components/Button';
+import Container from './Container';
+import Logo from './Logo';
+import SearchInput from './SearchInput';
+import Avatar from './Avatar';
+import MobileSearch from './MobileSearch';
+import AvatarLoader from './AvatarLoader';
 
 const Header = ({
   authenticating,
   user,
   onClickSignInButton,
   hideSignInButton = false,
+  onClickNewTopic,
 }) => (
     <Container justifyContent="center" alignItems="center">
       <Box width={200} ml={10}>
@@ -31,17 +32,19 @@ const Header = ({
           </Box>
           <Box ml={10}>
             {authenticating && <AvatarLoader />}
-
-            {!authenticating && !user && !hideSignInButton && <Button onClick={onClickSignInButton} light>Sign in</Button>}
+            {!authenticating && !user && !hideSignInButton &&
+              <Button onClick={onClickSignInButton} primary={false} title="Sign in" />
+            }
             {!authenticating && user && (
               <Link to={'/@' + user.username}>
                 <Avatar src={user.avatar} />
               </Link>
             )}
+            <Button primary to='/topic/new' title="New Topic"/>
           </Box>
         </Flex>
       </Box>
     </Container>
   )
 
-export default Header
+export default Header;

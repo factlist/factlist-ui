@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { ApolloProvider } from "react-apollo";
 import createHistory from 'history/createBrowserHistory'
 import configureStore from 'store'
 // import { signInWithToken } from 'modules/auth/actions'
 import Global from 'scenes/Global'
 import Routes from './routes'
+import client from './graphql';
 
 // Global styles
 import 'sanitize.css/sanitize.css'
@@ -26,12 +28,13 @@ if (token && isSignOutPage === false) {
   // store.dispatch(signInWithToken(token))
 }
 
+// TODO: migrate from redux to apollo
 ReactDOM.render(
   <Provider store={store}>
-    <Fragment>
+    <ApolloProvider client={client}>
       <Global />
       <Routes history={history} />
-    </Fragment>
+    </ApolloProvider>
   </Provider>,
   document.getElementById('root')
 )

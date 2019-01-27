@@ -4,9 +4,7 @@ import styled from 'styled-components'
 import Title from './Title'
 import Input from './Input'
 import LinkIcon from './LinkIcon'
-// import Tags from './Tags'
 import MaskedURL from './MaskedURL'
-import Button from './Button';
 
 const enhance = withState('title', 'setTitle', props => props.title)
 
@@ -33,8 +31,6 @@ const Link = ({
           </StyledLinkIconContainer>
           <MaskedURL url={url} />
         </StyledLinkContainer>
-        {/* <Tags tags={tags} /> */}
-        <Button >+ Add New Tags</Button>
       </StyledDiv>
     </Fragment >
   )
