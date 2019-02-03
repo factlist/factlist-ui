@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Flex } from '@rebass/grid';
@@ -6,33 +6,44 @@ import AddIcon from './AddIcon';
 
 class NewLink extends React.Component {
   render() {
-    const { url, onSave, onChange } = this.props;
+    const { url, onSave, onChange, description } = this.props;
     return (
-      <StyledFlex>
-        <AddIconContainer>
-          <AddIcon />
-        </AddIconContainer>
-        <Input
-          value={url}
-          placeholder="Add a link to your topic"
-          onBlur={() => onSave()}
-          onChange={onChange}
-          onKeyPress={(e) => e.key === 'Enter' && onSave()}
-        />
-      </StyledFlex>
+      <Fragment>
+        <Description>
+          {description}
+        </Description>
+        <StyledFlex>
+          <AddIconContainer>
+            <AddIcon />
+          </AddIconContainer>
+          <Input
+            value={url}
+            placeholder="Add a link to your topic"
+            onBlur={() => onSave()}
+            onChange={onChange}
+            onKeyPress={(e) => e.key === 'Enter' && onSave()}
+          />
+        </StyledFlex>
+      </Fragment>
     )
   }
 }
 
 NewLink.propTypes = {
-  onSave: PropTypes.func
+  onSave: PropTypes.func,
+  description: PropTypes.string
 };
+
+NewLink.defaultProps = {
+  description: ''
+}
 
 const Input = styled.input`
   color: #2C8D16;
   font-size: 14px;
   margin: 0px;
   border: 0;
+  width: 90%;
   &:focus {
     outline: none !important
   };
@@ -40,6 +51,12 @@ const Input = styled.input`
     cursor: pointer;
   };
 `
+
+const Description = styled.p`
+  font-size: 1em;
+  color: #000;
+`;
+
 const AddIconContainer = styled.div`
   position: absolute;
   left: -20px;

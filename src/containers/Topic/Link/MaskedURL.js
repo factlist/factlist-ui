@@ -8,7 +8,7 @@ const Span = styled.span`
 `
 
 const MaskedURL = ({ url }) => (
-  <Span>{urlMask(url)}</Span>
+  <Span>{url}</Span>
 )
 
 export default MaskedURL

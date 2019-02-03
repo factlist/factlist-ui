@@ -33,8 +33,7 @@ const Link = ({
           <MaskedURL url={url} />
         </StyledLinkContainer>
       </StyledDiv>
-      {tags.map(tag => {
-        console.log(tag, "TAG")
+      {tags && tags.map(tag => {
         return (<Tag>{tag.title}</Tag>)
       })}
     </Fragment >
