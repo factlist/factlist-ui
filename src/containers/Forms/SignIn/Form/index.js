@@ -51,9 +51,8 @@ const Form = ({
           <Box>
             <Button
               type="submit"
-              disabled={authenticating || invalid || pristine}>
-              {authenticating ? 'Loading...' : 'Sign In'}
-            </Button>
+              disabled={authenticating || invalid || pristine}
+              title={authenticating ? 'Loading...' : 'Sign In'} />
           </Box>
           <Box mt={12}>
             <P>
