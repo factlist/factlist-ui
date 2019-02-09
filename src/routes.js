@@ -11,7 +11,7 @@ import Settings from 'scenes/Settings'
 import ChangePassword from 'scenes/ChangePassword'
 import TwitterCallback from 'scenes/TwitterCallback'
 import Profile from 'scenes/Profile'
-import TopicPage from 'containers/Topic/New'
+import NewTopicPage from 'containers/Topic/New'
 
 export default ({ history }) => (
   <Router history={history}>
@@ -22,7 +22,7 @@ export default ({ history }) => (
       <Route path="/change_password/:key" component={ChangePassword} />
       <Route path="/twitter/callback/:token" component={TwitterCallback} />
       <Route path="/@:username" component={Profile} />
-      <Route path="/topic/new" component={TopicPage} />
+      <Route path="/topic/new" component={NewTopicPage} />
       <Route component={NotFound} />
     </Switch>
   </Router>

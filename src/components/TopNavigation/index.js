@@ -12,7 +12,13 @@ const TopNavigation = ({ onClickSave }) => (
         alignItems='center'
         justifyContent='center'
   >
-    <Box bg='#FFF'>
+    <Box css={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'flex-end',
+        width: '50%',
+        backgroundColor: '#FFFFFF'
+      }}>
       <Button to="/" redirect style={{marginRight: 20}} primary={false} title="Cancel"/>
       <Button onClick={onClickSave} primary={false} title="Save"/>
     </Box>

@@ -8,7 +8,7 @@ import TitleInput from './TitleInput'
 import Menu from './Menu'
 import Link from './Link'
 import NewLink from 'components/Link/New'
-import NewTag from 'components/Tag/New'
+import NewTag from './Link/Tag/New'
 
 const enhance = withState('isEdit', 'setIsEdit', false)
 
@@ -28,15 +28,20 @@ const Topic = ({ isEdit, setIsEdit, topic, marginBottom }) => (
       </Flex>
 
       <Flex flexDirection='column' mt={30}>
-        {!!topic.links && topic.links.map(link => (
+        {!!topic.links && topic.links.map(link => {
+          return (
           <Box key={link.id}>
-            <Link title={link.title} url={link.url} tags={link.tags} editable={isEdit} />
-            <NewTag />
+            <Link
+              title={link.title}
+              url={link.url}
+              tags={link.tags}
+              editable={isEdit}
+              onSaveTag={() => console.log('saved tag')}
+            />
           </Box>
-        ))}
+        )})}
       </Flex>
 
-      <NewLink />
 
     </Container>
   </Box>
