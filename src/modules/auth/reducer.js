@@ -1,4 +1,4 @@
-import { getToken } from 'utils/storage'
+import { getToken, getUser } from 'utils/storage'
 import {
   SIGN_IN_REQUEST,
   SIGN_IN_SUCCESS,
@@ -7,11 +7,12 @@ import {
   SIGN_IN_WITH_TOKEN,
 } from './constants'
 
-const token = getToken()
+const token = getToken();
+const user = getUser();
 
 const initialState = {
-  token: token ? token : null,
-  user: null,
+  token: token || null,
+  user: JSON.parse(user) || {},
   authenticating: false,
   error: false,
 }

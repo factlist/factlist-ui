@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Title from './Title'
 import Input from './Input'
 import LinkIcon from './LinkIcon'
-import { Span } from './MaskedURL'
+import MaskedURL from './MaskedURL'
 import Tag from './Tag';
 import DELETE_TAG from '../../../graphql/mutations/deleteTag';
 import UPDATE_TAG from '../../../graphql/mutations/updateTag';
@@ -38,7 +38,7 @@ class Link extends React.Component {
             <StyledLinkIconContainer>
               <LinkIcon />
             </StyledLinkIconContainer>
-            <Span url={url} />
+            <MaskedURL url={url} />
           </StyledLinkContainer>
         </StyledDiv>
             <Tag tags={tags}

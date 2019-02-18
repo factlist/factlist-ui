@@ -7,6 +7,7 @@ import {
 
 const Header = ({
   authenticating,
+  token,
   user,
   hideSignInButton,
   showSignInModal,
@@ -14,6 +15,7 @@ const Header = ({
 }) => (
   <HeaderComponent
     user={user}
+    token={token}
     authenticating={authenticating}
     onClickSignInButton={showSignInModal}
     onClickNewTopic={onClickNewTopic}
@@ -22,12 +24,13 @@ const Header = ({
 
 const mapStateToProps = state => ({
   authenticating: state.auth.authenticating,
+  token: state.auth.token,
   user: state.auth.user,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   showSignInModal: () => dispatch(showSignInModal()),
-})
+});
 
 export default connect(
   mapStateToProps,
