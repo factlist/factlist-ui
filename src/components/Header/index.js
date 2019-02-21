@@ -12,6 +12,7 @@ import AvatarLoader from './AvatarLoader';
 const Header = ({
   authenticating,
   user,
+  token,
   onClickSignInButton,
   hideSignInButton = false,
   onClickNewTopic,
@@ -32,10 +33,10 @@ const Header = ({
           </Box>
           <Box ml={10}>
             {authenticating && <AvatarLoader />}
-            {!authenticating && !user && !hideSignInButton &&
+            {!authenticating && !token && !hideSignInButton &&
               <Button onClick={onClickSignInButton} primary={false} title="Sign in" />
             }
-            {!authenticating && user && (
+            {!authenticating && token && (
               <Link to={'/@' + user.username}>
                 <Avatar src={user.avatar} />
               </Link>

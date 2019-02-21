@@ -19,8 +19,6 @@ const StyledTag = styled.span`
 
 class Tag extends React.Component {
   state = {
-  //   value: "",
-  //   tags: ["tag1", "exampleTag", "aa"],
     isVisible: false
   };
 
@@ -36,9 +34,9 @@ class Tag extends React.Component {
 
   renderTags() {
     const { tags } = this.props;
-    return tags && tags.map((tag, i) => {
+    return tags && tags.map((tag) => {
       return (
-        <StyledTag className="item">
+        <StyledTag key={tag.id} className="item">
           {tag.title}
           <span className="remove" onClick={this.onRemove.bind(this)}>
             x

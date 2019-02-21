@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import urlMask from 'utils/urlMask'
 
-export const Span = styled.span`
+const Span = styled.span`
   font-size: 12px;
   color: #2C8D16;
 `

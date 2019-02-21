@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react'
-import { graphql, Mutation, Query } from "react-apollo";
+import { graphql } from "react-apollo";
 import { connect } from 'react-redux'
 import _, { isEqual, uniqueId } from 'lodash';
 import styled from 'styled-components'
 import { Flex, Box } from '@rebass/grid'
-import Title from '../Title'
-import TitleInput from '../TitleInput'
-import Menu from '../Menu'
 import Link from '../Link'
 import Container from '../Container'
 import NewLink from 'components/Link/New'
@@ -92,7 +89,7 @@ class TopicPage extends React.Component {
           }
         });
       default:
-        this.state;
+        return this.state;
     }
   }
 
