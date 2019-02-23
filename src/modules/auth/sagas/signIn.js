@@ -20,22 +20,21 @@ const signIn = function* ({ email, password }) {
       .post(`${config.API_ENDPOINT}/auth/login/`, { email, password })
 
     const { token } = response.data;
+
+    saveToken(token)
+
     const id = jwtDecode(token).sub;
     const { data } = yield client.query({
       query: GET_USER,
       variables: { id }
     });
-    console.log(token, "TOKEN")
-    console.log(id, "ID")
+
+    saveUser(data.getUserById)
 
     yield put(signInSuccess({
       token,
       user: data.getUserById,
     }))
-
-    // Store user's token in local storage to keep user authenticated
-    saveToken(token)
-    saveUser(data.getUserById)
 
     yield put(redirect('/'))
   } catch (error) {

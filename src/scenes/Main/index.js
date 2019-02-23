@@ -15,9 +15,17 @@ import { InstantSearch } from 'react-instantsearch-dom';
 
 class Main extends Component {
   componentDidMount() {
-    const { topics, fetchTopicsRequest } = this.props
+    const { token, fetchTopicsRequest } = this.props
 
-    if (!topics.length) {
+    if (token) {
+      fetchTopicsRequest()
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { token, fetchTopicsRequest } = this.props
+
+    if (prevProps.token !== token) {
       fetchTopicsRequest()
     }
   }
@@ -47,7 +55,7 @@ class Main extends Component {
 
             <Center>
               <Flex flexDirection="column">
-                {topics.length && topics.map(topic =>
+                {topics.length > 0 && topics.map(topic =>
                   <Topic key={topic.id} topic={topic} />
                 )}
               </Flex>
@@ -72,6 +80,7 @@ class Main extends Component {
 const mapStateToProps = state => ({
   requesting: state.topic.all.requesting,
   topics: state.topic.all.data,
+  token: state.auth.token,
 })
 
 const mapDispatchToProps = dispatch => ({
