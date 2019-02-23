@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
 
 import { Flex, Box } from '@rebass/grid'
 import { fetchTopicsRequest } from 'modules/topic/actions'
