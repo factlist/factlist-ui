@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react'
 import { graphql } from "react-apollo";
 import { connect } from 'react-redux'
-import _, { isEqual, uniqueId } from 'lodash';
+import _, { isEqual } from 'lodash';
 import styled from 'styled-components'
 import { Flex, Box } from '@rebass/grid'
 import Link from '../Link'
 import Container from '../Container'
 import NewLink from 'components/Link/New'
-import TopNavigation from 'components/TopNavigation';
-import Topic from '../index'
+import Separator from 'components/Separator'
+import Header from './Header';
 import CREATE_TOPIC from '../../../graphql/mutations/createTopic';
 import GET_PREVIEW_LINK from '../../../graphql/mutations/getPreviewLink';
 
@@ -28,22 +28,10 @@ class TopicPage extends React.Component {
     tags: [],
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { linkInput, topic } = nextState;
-
-    return !(
-      isEqual(topic, this.state.topic) &&
-      isEqual(linkInput, this.state.linkInput)
-    );
-  }
-
   async componentDidUpdate(prevProps, prevState) {
     const { linkInput, topic } = this.state;
 
-    if (
-      !isEqual(linkInput, prevState.linkInput) &&
-      linkInput.url
-    ) {
+    if (prevState.linkInput.url !== linkInput.url && linkInput.url !== '') {
       const { data } = await this.props.mutate({
         variables: { url: linkInput.url },
         mutation: GET_PREVIEW_LINK
@@ -55,7 +43,7 @@ class TopicPage extends React.Component {
         this.setState({
           linkInput: {
             ...linkInput,
-            description,
+            description: description.substring(0, 250).concat('...'),
           }
         });
       }
@@ -66,7 +54,7 @@ class TopicPage extends React.Component {
     }
   }
 
-  handleInputChange = (input) => (e) => {
+  handleInputChange = (input, index) => (e) => {
     switch (input) {
       case 'title':
         return this.setState({
@@ -94,7 +82,7 @@ class TopicPage extends React.Component {
   }
 
   handleRemoveTag = (tag) => {
-    const { tags, topic } = this.state;
+    const { topic } = this.state;
     const newLinks = _.filter(topic.links, (link) => _.find(link.tags, item => item.title !== tag.title ))
 
     this.setState({
@@ -121,16 +109,17 @@ class TopicPage extends React.Component {
     }
   }
 
-  onSaveTag = async () => {
-    const { tagInput, topic } = this.state;
-    if (tagInput) {
+  onSaveTag = (index) => () => { // duzenlenmeli
+    const { tagInput, topic, tags } = this.state;
+    tags.push(tagInput)
+    if (tagInput.title) {
       this.setState({
         topic: {
           ...topic,
-          links: {
+          links: [
             ...topic.links,
-            tags: topic.links.tags.concat(tagInput)
-          },
+            Object.assign(topic.links[index], {tags: tags}),
+          ]
         },
       });
     }
@@ -139,7 +128,7 @@ class TopicPage extends React.Component {
   onSaveTopic = async () => {
     const { topic } = this.state;
 
-    if (topic.links.length) {
+    if (topic.links.length && topic.title) {
       await this.props.mutate({
         variables: {
           title: topic.title,
@@ -154,9 +143,10 @@ class TopicPage extends React.Component {
   }
 
   render() {
+    const { topic } = this.state;
     return (
        <Fragment>
-          <TopNavigation onClickSave={this.onSaveTopic} />
+          <Header onClickSave={this.onSaveTopic} />
           <Box>
             <Container>
               <Flex justifyContent='space-between'>
@@ -164,24 +154,26 @@ class TopicPage extends React.Component {
                   <Input
                     placeholder="New Topic"
                     onChange={this.handleInputChange('title')}
-                    value={this.state.topic.title}
+                    value={topic.title}
                   />
                 </Box>
               </Flex>
               <Flex flexDirection='column' mt={30}>
-                {!!this.state.topic.links && this.state.topic.links.map(link => {
+                {!!topic.links && topic.links.map((link, index) => {
+
                   return (
-                    <Box mb="5px" mt="5px" key={uniqueId()}>
+                    <Box mb="5px" mt="5px" key={index}>
                       <Link
                         title={link.description}
                         url={link.url}
                         tags={link.tags}
 
                         tagInput={this.state.tagInput.title}
-                        onChange={this.handleInputChange('tagInput')}
-                        onSave={this.onSaveTag}
+                        onChangeTag={this.handleInputChange('tagInput')}
+                        onSaveTag={this.onSaveTag(index)}
                         onRemove={this.handleRemoveTag}
                       />
+                      {index !== topic.links.length - 1 && <Separator/>}
                     </Box>
                   )
                 })}
@@ -200,10 +192,17 @@ class TopicPage extends React.Component {
 }
 
 const Input = styled.input`
-  color: #2C8D16;
-  font-size: 14px;
+  color: #000;
+  font-size: 24px;
   margin: 0px;
+  padding-left: 20px;
   border: 0;
+  font-family: 'Roboto',sans-serif;
+  font-weight: 500;
+  line-height: 32px;
+  &:placeholder {
+    opacity: 0.3;
+  };
   &:focus {
     outline: none !important
   };

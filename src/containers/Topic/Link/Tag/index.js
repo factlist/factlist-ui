@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import styled from 'styled-components'
 
 const StyledTag = styled.span`
@@ -7,13 +6,19 @@ const StyledTag = styled.span`
   border-radius: 2px;
   font-size: 12px;
   text-align: center;
-  padding: 2px 3px 2px 5px;
   margin-top: 2px;
   margin-right: 3px;
   background-color: rgba(237,239,241,0.73);
   color: rgba(26,26,27,0.78);
   font-weight: bold;
-`
+`;
+
+const TagsDiv = styled.div`
+  padding-left: 20px;
+`;
+const Input = styled.input`
+  width: 100px;
+`;
 
 //- butona basinca input focus inputa blur olunca input kaybolacak(bossa)
 
@@ -34,9 +39,9 @@ class Tag extends React.Component {
 
   renderTags() {
     const { tags } = this.props;
-    return tags && tags.map((tag) => {
+    return tags && tags.map((tag, index) => {
       return (
-        <StyledTag key={tag.id} className="item">
+        <StyledTag key={index} className="item">
           {tag.title}
           <span className="remove" onClick={this.onRemove.bind(this)}>
             x
@@ -46,27 +51,21 @@ class Tag extends React.Component {
     });
   }
 
-  handleInputOnChange(e) {
-    e.preventDefault();
-    this.props.onChange;
-  }
-
   onSave() {
-    console.log(this.state.isVisible, 'isVisible')
     this.setState({ isVisible: false });
     this.props.onSave();
   }
 
   inputRender() {
     const isVisible = this.state.isVisible ? "" : "hidden";
-    const { value, onChange, onBlur, onKeyPress } = this.props;
+    const { value, onChange } = this.props;
 
     return (
       <StyledTag className={`add-input ${isVisible}`}>
-        <input
+        <Input
           type="text"
           value={value}
-          onChange={this.handleInputOnChange.bind(this)}
+          onChange={onChange}
           onBlur={() => this.onSave()}
           onKeyPress={(e) => e.key === 'Enter' && this.onSave()}
         />
@@ -78,13 +77,13 @@ class Tag extends React.Component {
     return (
       <React.Fragment>
         <div className="wrapper">
-          <div className="tags">
+          <TagsDiv className="tags">
             {this.renderTags()}
             {this.inputRender()}
             <span className="add-btn" onClick={this.handleAddNewTag.bind(this)}>
               +
             </span>
-          </div>
+          </TagsDiv>
         </div>
       </React.Fragment>
     );

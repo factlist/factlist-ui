@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { withState } from 'recompose'
-import { graphql, Mutation, Query } from "react-apollo";
+import { graphql } from "react-apollo";
 import styled from 'styled-components'
 import Title from './Title'
 import Input from './Input'
@@ -19,12 +19,16 @@ class Link extends React.Component {
     tags: []
   }
 
-  render() {
-    const { title, setTitle, url, tags, editable, onSaveTag, onChangeTag, handleRemoveTag } = this.props;
-    const { tagInput } = this.state;
 
+  onChangeTag(e) {
+    this.props.onChangeTag(e)
+  }
+
+  render() {
+    const { title, setTitle, url, tags, editable, onSaveTag, onChangeTag, handleRemoveTag, tagInput } = this.props;
     return (
       <Fragment>
+        <DeleteLink>x</DeleteLink>
         <StyledDiv>
           {
             editable ?
@@ -41,12 +45,12 @@ class Link extends React.Component {
             <MaskedURL url={url} />
           </StyledLinkContainer>
         </StyledDiv>
-            <Tag tags={tags}
-                 value={tagInput}
-                 onSave={() => onSaveTag()}
-                 onChange={() => onChangeTag()}
-                 onRemove={() => handleRemoveTag()}
-            />
+        <Tag tags={tags}
+             value={tagInput}
+             onSave={onSaveTag}
+             onChange={onChangeTag}
+             onRemove={() => handleRemoveTag()}
+        />
       </Fragment>
     )
   }
@@ -67,4 +71,8 @@ const StyledLinkIconContainer = styled.div`
   position: absolute;
   left: -20px;
   padding-bottom: 4px;
+`
+const DeleteLink = styled.span`
+  float: right;
+  padding-right: 10px;
 `

@@ -1,14 +1,12 @@
 import React from 'react'
 import { withState } from 'recompose'
-import styled from 'styled-components'
 import { Flex, Box } from '@rebass/grid'
 import Container from './Container'
 import Title from './Title'
 import TitleInput from './TitleInput'
 import Menu from './Menu'
 import Link from './Link'
-import NewLink from 'components/Link/New'
-import NewTag from './Link/Tag/New'
+import Separator from 'components/Separator'
 
 const enhance = withState('isEdit', 'setIsEdit', false)
 
@@ -28,22 +26,22 @@ const Topic = ({ isEdit, setIsEdit, topic, marginBottom }) => (
       </Flex>
 
       <Flex flexDirection='column' mt={30}>
-        {!!topic.links && topic.links.map(link => {
+        {!!topic.links && topic.links.map((link, index) => {
           return (
           <Box key={link.id}>
             <Link
-              title={link.title}
+              title={link.description}
               url={link.url}
               tags={link.tags}
               editable={isEdit}
               onSaveTag={() => console.log('saved tag')}
             />
+            {index !== topic.links.length - 1 && <Separator />}
           </Box>
         )})}
       </Flex>
-
-
     </Container>
+
   </Box>
 )
 
