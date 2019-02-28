@@ -172,6 +172,7 @@ class TopicPage extends React.Component {
                         onChangeTag={this.handleInputChange('tagInput')}
                         onSaveTag={this.onSaveTag(index)}
                         onRemove={this.handleRemoveTag}
+                        editable={true}
                       />
                       {index !== topic.links.length - 1 && <Separator/>}
                     </Box>

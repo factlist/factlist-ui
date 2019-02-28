@@ -28,8 +28,8 @@ class Link extends React.Component {
     const { title, setTitle, url, tags, editable, onSaveTag, onChangeTag, handleRemoveTag, tagInput } = this.props;
     return (
       <Fragment>
-        <DeleteLink>x</DeleteLink>
-        <StyledDiv>
+        { editable && <DeleteLink>x</DeleteLink> }
+        <StyledDiv editable={editable}>
           {
             editable ?
               <Input
@@ -40,7 +40,7 @@ class Link extends React.Component {
           }
           <StyledLinkContainer>
             <StyledLinkIconContainer>
-              <LinkIcon />
+              {editable && <LinkIcon />}
             </StyledLinkIconContainer>
             <MaskedURL url={url} />
           </StyledLinkContainer>
@@ -50,6 +50,7 @@ class Link extends React.Component {
              onSave={onSaveTag}
              onChange={onChangeTag}
              onRemove={() => handleRemoveTag()}
+             editable={editable}
         />
       </Fragment>
     )
@@ -59,7 +60,7 @@ class Link extends React.Component {
 export default enhance(graphql(DELETE_TAG, UPDATE_TAG)(Link))
 
 const StyledDiv = styled.div`
-  padding-left: 20px;
+  padding-left: ${props => (props.editable ? '20px;' : '0px')};
 `
 const StyledLinkContainer = styled.div`
   display: flex;
