@@ -21,7 +21,7 @@ const Topic = ({ isEdit, setIsEdit, topic, marginBottom }) => (
           }
         </Box>
         <Box ml={10}>
-          <Menu setIsEdit={setIsEdit} />
+          <Menu setIsEdit={setIsEdit} topicId={topic.id} />
         </Box>
       </Flex>
 
@@ -33,8 +33,9 @@ const Topic = ({ isEdit, setIsEdit, topic, marginBottom }) => (
               title={link.description}
               url={link.url}
               tags={link.tags}
-              editable={isEdit}
-              onSaveTag={() => console.log('saved tag')}
+              editable={false}
+              handleRemoveTag={() => alert('remove tag clicked')}
+              onSaveTag={() => console('saved tag')}
             />
             {index !== topic.links.length - 1 && <Separator />}
           </Box>

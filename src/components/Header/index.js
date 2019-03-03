@@ -15,7 +15,6 @@ const Header = ({
   token,
   onClickSignInButton,
   hideSignInButton = false,
-  onClickNewTopic,
 }) => (
     <Container justifyContent="center" alignItems="center">
       <Box width={200} ml={10}>

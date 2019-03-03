@@ -11,14 +11,12 @@ const Header = ({
   user,
   hideSignInButton,
   showSignInModal,
-  onClickNewTopic,
 }) => (
   <HeaderComponent
     user={user}
     token={token}
     authenticating={authenticating}
     onClickSignInButton={showSignInModal}
-    onClickNewTopic={onClickNewTopic}
     hideSignInButton={hideSignInButton} />
 )
 

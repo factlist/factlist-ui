@@ -7,12 +7,12 @@ import styled from 'styled-components'
 
 const enhance = withState('isOpen', 'setIsOpen', false)
 
-const Menu = ({ isOpen, setIsOpen, setIsEdit }) => (
+const Menu = ({ isOpen, setIsOpen, setIsEdit, topicId }) => (
   <Popover
     transitionDuration={-1}
     isOpen={isOpen}
     position='bottom'
-    content={<Nav setIsOpen={setIsOpen} setIsEdit={setIsEdit} />}
+    content={<Nav setIsOpen={setIsOpen} setIsEdit={setIsEdit} topicId={topicId} />}
     onClickOutside={() => setIsOpen(false)}>
     <Button onClick={() => setIsOpen(isOpen => !isOpen)}>
       <MoreHorizontal width={25} />
