@@ -9,7 +9,7 @@ const Container = styled(Flex)`
   margin-right: auto;
   min-width: 375px;
   max-width: 670px;
-  justify-content: flex-end;
+  justify-content: space-between;
 
   @media (max-width: 730px) {
     padding: 20px 0;
