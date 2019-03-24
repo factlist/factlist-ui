@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Flex } from "@rebass/grid";
 import Title from './Title';
 import Wrapper from './Wrapper';
 import Delete from './Delete';
@@ -12,9 +13,11 @@ class LinkList extends React.Component {
     const { title, url } = this.props;
     return (
       <Fragment>
-        <Delete>x</Delete>
         <Wrapper>
-          <Title title={title} />
+          <Flex justifyContent="space-between" alignItems="center">
+            <Title title={title} />
+            <Delete>x</Delete>
+          </Flex>
           <Container>
             <LinkIcon />
             <MaskedURL url={url} />
