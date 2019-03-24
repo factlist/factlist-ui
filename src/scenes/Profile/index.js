@@ -7,7 +7,8 @@ import Header from 'scenes/Header'
 
 class Profile extends Component {
   componentDidMount() {
-    const { fetchUserProfile } = this.props
+    // console.log(this.props);
+    // const { fetchUserProfile } = this.props
 
     const username = this.props.match.params.username
     fetchUserProfile(username)
@@ -19,22 +20,26 @@ class Profile extends Component {
     const { user } = this.props
 
     return (
-      <Fragment>
-        <Header />
-        <Container>
-          <Left>
-            {user && <UserCard
-              avatar={user.avatar}
-              name={user.name}
-              username={user.username}
-            />}
-          </Left>
-          <Center>
-          </Center>
-          <Right></Right>
-        </Container>
-      </Fragment>
+      <div>profile page</div>
     )
+
+    // return (
+    //   <Fragment>
+    //     <Header />
+    //     <Container>
+    //       <Left>
+    //         {user && <UserCard
+    //           avatar={user.avatar}
+    //           name={user.name}
+    //           username={user.username}
+    //         />}
+    //       </Left>
+    //       <Center>
+    //       </Center>
+    //       <Right></Right>
+    //     </Container>
+    //   </Fragment>
+    // )
   }
 }
 
@@ -47,7 +52,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchUserProfile: (username) => dispatch(fetchUserProfile(username)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Profile)
+export default Profile;

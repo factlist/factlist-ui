@@ -6,11 +6,11 @@ import AddIcon from './AddIcon';
 
 class NewLink extends React.Component {
   render() {
-    const { url, onSave, onChange, description } = this.props;
+    const { url, onSave, onChange, title } = this.props;
     return (
       <Fragment>
         <Description>
-          {description}
+          {title}
         </Description>
         <StyledFlex>
           <AddIconContainer>
@@ -35,7 +35,7 @@ NewLink.propTypes = {
 };
 
 NewLink.defaultProps = {
-  description: ''
+  title: ''
 }
 
 const Input = styled.input`
