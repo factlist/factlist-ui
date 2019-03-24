@@ -9,10 +9,11 @@ import LinkForm from '../Link/Form';
 import Separator from 'components/Separator';
 import LinkList from '../Link/LinkList';
 import TagInput from 'components/TagInput';
+import { reduxForm, Field } from 'redux-form';
+import TopicInput from 'components/Topic/Input';
+import LinkInput from 'components/Link/Input';
 
 class TopicPage extends React.Component {
-  handleLinkOnSubmit = this.handleLinkOnSubmit.bind(this);
-
   state = {
     topic: {
       title: '',
@@ -32,7 +33,23 @@ class TopicPage extends React.Component {
     console.log(values);
   }
 
-  handleLinkOnSubmit(values) {
+  renderLinkList() {
+    return (
+      <Flex flexDirection="column" mt={30}>
+        <Box mb="5px" mt="5px" key="aa">
+          <LinkList title="Google" url="http://google.com" />
+          <Separator />
+          <LinkList
+            title="Son dakika: Merkez repo ihalelerine ara verdi - Ekonomi haberleri"
+            url="https://www.sozcu.com.tr/2019/ekonomi/son-dakika-merkez-repo-ihalelerine-ara-verdi-4090680/"
+          />
+        </Box>
+        <TagInput tags={this.state.tags} />
+      </Flex>
+    );
+  }
+
+  onSubmit(values) {
     console.log(values);
   }
 
@@ -42,21 +59,29 @@ class TopicPage extends React.Component {
         <Header />
         <Box>
           <Container>
-            <TopicForm onSubmit={this.onSubmit} />
-            <LinkPage>
-              <LinkForm onSubmit={this.handleLinkOnSubmit} />
-            </LinkPage>
-            <Flex flexDirection="column" mt={30}>
-              <Box mb="5px" mt="5px" key="aa">
-                <LinkList title="Google" url="http://google.com" />
-                <Separator />
-                <LinkList
-                  title="Son dakika: Merkez repo ihalelerine ara verdi - Ekonomi haberleri"
-                  url="https://www.sozcu.com.tr/2019/ekonomi/son-dakika-merkez-repo-ihalelerine-ara-verdi-4090680/"
+            <form onSubmit={this.props.handleSubmit(this.onSubmit.bind(this))}>
+              <Flex flexDirection="column">
+                <Box width={1}>
+                  <Field
+                    type="text"
+                    id="topic"
+                    name="topic"
+                    placeholder="New Topic"
+                    component={TopicInput}
+                  />
+                </Box>
+              </Flex>
+              {this.renderLinkList()}
+              <LinkPage>
+                <Field
+                  id="link"
+                  name="link"
+                  placeholder="Add a link to your topic"
+                  component={LinkInput}
                 />
-              </Box>
-              <TagInput tags={this.state.tags} />
-            </Flex>
+              </LinkPage>
+              <button style={{ display: 'none' }} type="submit" />
+            </form>
           </Container>
         </Box>
       </Fragment>
@@ -74,4 +99,6 @@ TopicPage.defaultProps = {
   }
 };
 
-export default connect(null, null)(TopicPage);
+export default connect(null, null)(
+  reduxForm({ form: 'TOPIC_FORM' })(TopicPage)
+);

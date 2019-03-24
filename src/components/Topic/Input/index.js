@@ -1,6 +1,7 @@
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-const Input = styled.input`
+const StyledInput = styled.input`
   color: #000;
   font-size: 24px;
   margin: 0px;
@@ -19,5 +20,17 @@ const Input = styled.input`
     cursor: pointer;
   };
 `;
+
+const Input = ({ input, placeholder, name, type, id }) => {
+  return (
+    <StyledInput
+      {...input}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      id={id}
+    />
+  );
+};
 
 export default Input;
