@@ -6,7 +6,7 @@ const GET_PREVIEW_LINK = gql`mutation(
   getPreviewLink(data: {
     url: $url,
   }) {
-    description
+    title
   }
 }`;
 
