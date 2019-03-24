@@ -16,6 +16,7 @@ const Container = styled.div`
   word-break: break-all;
   word-break: break-word;
   hyphens: auto;
+  margin-bottom:0px;
 `
 
 export default Container

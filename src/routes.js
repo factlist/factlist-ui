@@ -13,6 +13,7 @@ import TwitterCallback from 'scenes/TwitterCallback'
 import Profile from 'scenes/Profile'
 import NewTopicPage from 'containers/Forms/Topic'
 import LinkPage from 'containers/Forms/Link'
+import TagInput from 'components/TagInput';
 
 export default ({ history }) => (
   <Router history={history}>
@@ -25,6 +26,7 @@ export default ({ history }) => (
       <Route path="/@:username" component={Profile} />
       <Route path="/topic/new" component={NewTopicPage} />
       <Route path="/link" component={LinkPage} />
+      <Route path="/tag" component={TagInput} />
       <Route component={NotFound} />
     </Switch>
   </Router>

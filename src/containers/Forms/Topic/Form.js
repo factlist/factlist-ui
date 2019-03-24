@@ -10,7 +10,7 @@ const TopicForm = ({ handleSubmit }) => (
       <Box width={1}>
         <Field
           id="topic"
-          name="text"
+          name="topic"
           placeholder="New Topic"
           component={Input}
         />

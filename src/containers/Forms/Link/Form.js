@@ -7,7 +7,8 @@ import { ADD_LINK_FORM } from 'modules/link/constant';
 const LinkForm = ({ handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <Field
-      value=""
+      id="link"
+      name="link"
       placeholder="Add a link to your topic"
       component={Input}
     />

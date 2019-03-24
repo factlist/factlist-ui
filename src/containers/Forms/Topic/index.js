@@ -1,15 +1,18 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Flex, Box } from '@rebass/grid';
 import Container from './Container';
 import Header from './Header';
 import TopicForm from './Form';
 import LinkPage from '../Link';
 import LinkForm from '../Link/Form';
-import Link from '../../Topic/Link'
-import Separator from 'components/Separator'
+import Separator from 'components/Separator';
 import LinkList from '../Link/LinkList';
+import TagInput from 'components/TagInput';
 
 class TopicPage extends React.Component {
+  handleLinkOnSubmit = this.handleLinkOnSubmit.bind(this);
+
   state = {
     topic: {
       title: '',
@@ -22,15 +25,15 @@ class TopicPage extends React.Component {
     tagInput: {
       title: ''
     },
-    tags: []
+    tags: ['tag1', 'tag2', 'tag2', 'tag4']
   };
 
-  onSubmit() {
-    alert('submit');
+  onSubmit(values) {
+    console.log(values);
   }
 
-  handleLinkOnSubmit() {
-    alert('aa');
+  handleLinkOnSubmit(values) {
+    console.log(values);
   }
 
   render() {
@@ -47,8 +50,12 @@ class TopicPage extends React.Component {
               <Box mb="5px" mt="5px" key="aa">
                 <LinkList title="Google" url="http://google.com" />
                 <Separator />
-                <LinkList title="Facebook" url="http://facebook.com" />
+                <LinkList
+                  title="Son dakika: Merkez repo ihalelerine ara verdi - Ekonomi haberleri"
+                  url="https://www.sozcu.com.tr/2019/ekonomi/son-dakika-merkez-repo-ihalelerine-ara-verdi-4090680/"
+                />
               </Box>
+              <TagInput tags={this.state.tags} />
             </Flex>
           </Container>
         </Box>
@@ -67,4 +74,4 @@ TopicPage.defaultProps = {
   }
 };
 
-export default TopicPage;
+export default connect(null, null)(TopicPage);
