@@ -8,49 +8,90 @@ import LinkPage from '../Link';
 import LinkForm from '../Link/Form';
 import Separator from 'components/Separator';
 import LinkList from '../Link/LinkList';
-import TagInput from 'components/TagInput';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, formValueSelector, change } from 'redux-form';
 import TopicInput from 'components/Topic/Input';
 import LinkInput from 'components/Link/Input';
 
 class TopicPage extends React.Component {
+  handleLinkOnBlur = this.handleLinkOnBlur.bind(this);
+  handleLinkDelete = this.handleLinkDelete.bind(this);
+  handleAddTag = this.handleAddTag.bind(this);
+
   state = {
     topic: {
-      title: '',
-      links: []
-    },
-    linkInput: {
-      url: '',
       title: ''
     },
+
     tagInput: {
       title: ''
     },
-    tags: ['tag1', 'tag2', 'tag2', 'tag4']
+
+    links: [],
+    tags: [],
+    isOpen: false,
   };
 
-  onSubmit(values) {
-    console.log(values);
+
+  handleLinkDelete(link) {
+    this.setState({
+      links: this.state.links.filter(item => item.url !== link.url)
+    });
+  }
+
+  handleLinkOnBlur() {
+    if (this.props.link) {
+      const topic = {
+        title: this.props.topic
+      };
+
+      const linkInput = {
+        url: this.props.link,
+        title: 'title'
+      };
+
+      this.setState(
+        {
+          topic: topic,
+          links: this.state.links.concat(linkInput)
+        },
+        () => {
+          this.props.updateField('link', '');
+        }
+      );
+    }
+
+  }
+
+  handleAddTag() {
+    this.setState({
+      ...this.state,
+      isOpen: true
+    })
   }
 
   renderLinkList() {
-    return (
-      <Flex flexDirection="column" mt={30}>
-        <Box mb="5px" mt="5px" key="aa">
-          <LinkList title="Google" url="http://google.com" />
-          <Separator />
-          <LinkList
-            title="Son dakika: Merkez repo ihalelerine ara verdi - Ekonomi haberleri"
-            url="https://www.sozcu.com.tr/2019/ekonomi/son-dakika-merkez-repo-ihalelerine-ara-verdi-4090680/"
-          />
-        </Box>
-        <TagInput tags={this.state.tags} />
-      </Flex>
-    );
+    if (this.state.links.length > 0) {
+      return this.state.links.map((link, key) => {
+        return (
+          <Fragment>
+            <LinkList
+              isOpen={this.state.isOpen}
+              onAddTag={() => this.handleAddTag()}
+              onDelete={() => this.handleLinkDelete(link)}
+              key={key}
+              title={link.title}
+              url={link.url}
+              tags={this.state.tags}
+            />
+            <Separator />
+          </Fragment>
+        );
+      });
+    }
   }
 
-  onSubmit(values) {
-    console.log(values);
+  onSubmit() {
+    this.handleLinkOnBlur();
   }
 
   render() {
@@ -71,9 +112,14 @@ class TopicPage extends React.Component {
                   />
                 </Box>
               </Flex>
-              {this.renderLinkList()}
+              <Flex flexDirection="column" mt={30}>
+                <Box mb="5px" mt="5px">
+                  {this.renderLinkList()}
+                </Box>
+              </Flex>
               <LinkPage>
                 <Field
+                  onBlur={this.handleLinkOnBlur}
                   id="link"
                   name="link"
                   placeholder="Add a link to your topic"
@@ -99,6 +145,23 @@ TopicPage.defaultProps = {
   }
 };
 
-export default connect(null, null)(
+const selector = formValueSelector('TOPIC_FORM');
+
+const mapStateToProps = state => {
+  const link = selector(state, 'link');
+  const topic = selector(state, 'topic');
+  const tag = selector(state, 'tag');
+  return {
+    link,
+    topic,
+    tag
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  updateField: (field, data) => dispatch(change('TOPIC_FORM', field, data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({ form: 'TOPIC_FORM' })(TopicPage)
 );

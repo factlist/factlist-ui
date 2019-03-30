@@ -1,4 +1,4 @@
-import style from 'styled-components';
+import styled from 'styled-components';
 
 const Input = styled.input`
 height: 19px;
