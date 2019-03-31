@@ -16,6 +16,7 @@ class TopicPage extends React.Component {
   handleLinkOnBlur = this.handleLinkOnBlur.bind(this);
   handleLinkDelete = this.handleLinkDelete.bind(this);
   handleAddTag = this.handleAddTag.bind(this);
+  handleTagOnBlur = this.handleTagOnBlur.bind(this);
 
   state = {
     topic: {
@@ -28,9 +29,8 @@ class TopicPage extends React.Component {
 
     links: [],
     tags: [],
-    isOpen: false,
+    isOpen: false
   };
-
 
   handleLinkDelete(link) {
     this.setState({
@@ -59,13 +59,27 @@ class TopicPage extends React.Component {
         }
       );
     }
-
   }
 
   handleAddTag() {
     this.setState({
       ...this.state,
       isOpen: true
+    });
+  }
+
+  handleTagOnBlur() {
+    const tag = this.state.tagInput.title
+    this.setState({
+      ...this.state,
+      tags: this.state.tags.concat(tag),
+      isOpen: false
+    });
+
+    this.setState({
+      tagInput: {
+        title: ''
+      }
     })
   }
 
@@ -75,6 +89,14 @@ class TopicPage extends React.Component {
         return (
           <Fragment>
             <LinkList
+              tagTitle={this.state.tagInput.title}
+              tagOnChange={e =>
+                this.setState({
+                  tagInput: {
+                    title: e.target.value
+                  }
+                })}
+              tagOnBlur={this.handleTagOnBlur}
               isOpen={this.state.isOpen}
               onAddTag={() => this.handleAddTag()}
               onDelete={() => this.handleLinkDelete(link)}

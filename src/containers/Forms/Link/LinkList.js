@@ -23,7 +23,14 @@ class LinkList extends React.Component {
             <LinkIcon />
             <MaskedURL url={url} />
           </Container>
-          <TagInput isOpen={this.props.isOpen} addTag={this.props.onAddTag} tags={this.props.tags} />
+          <TagInput
+            value={this.props.tagTitle}
+            onChange={this.props.tagOnChange}
+            onBlur={this.props.tagOnBlur}
+            isOpen={this.props.isOpen}
+            addTag={this.props.onAddTag}
+            tags={this.props.tags}
+          />
         </Wrapper>
       </Fragment>
     );
