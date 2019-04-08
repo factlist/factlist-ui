@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Container = styled.div`
   background-color: #FFF;
   border: 1px solid #E0E0E0;
-  border-radius: 0px;
+  border-radius: 3px;
 
   min-width: 375px;
   max-width: 670px;
@@ -16,7 +16,7 @@ const Container = styled.div`
   word-break: break-all;
   word-break: break-word;
   hyphens: auto;
-  margin-bottom:0px;
+  margin-bottom:100px;
 `
 
 export default Container

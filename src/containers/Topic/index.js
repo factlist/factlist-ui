@@ -19,9 +19,8 @@ const Topic = ({ isEdit, topic, marginBottom }) => (
         </Box>
       </Flex>
 
-      <Flex flexDirection='column' mt={30}>
+      <Flex flexDirection='column'>
         {!!topic.links && topic.links.map((link, index) => {
-          console.log(link)
           return (
           <Box key={link.id}>
             <Link

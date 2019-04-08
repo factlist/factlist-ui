@@ -8,7 +8,7 @@ import AddIcon from './AddIcon';
 const StyledInput = styled.input`
   color: #2C8D16;
   font-size: 14px;
-  margin: 0px;
+  margin: 15px 0px 0px 0px;
   border: 0;
   width: 100%;
   &:focus {

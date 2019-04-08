@@ -5,10 +5,14 @@ const AddTag = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(240,240,240,0.7);
-  margin: 5px;
-  padding: 0px 7px;
-  border-radius: 3px;
+  
+  padding: 0px 8px;
+  margin: 6px 6px 0px 0px;
+  background-color: rgba(0,0,0,0.08);
+  font-size: 16px;
+  color: rgba(0,0,0,0.85);
+  border-radius:3px;
+  
 `;
 
 export default AddTag;
