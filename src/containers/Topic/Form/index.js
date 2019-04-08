@@ -18,6 +18,14 @@ class TopicForm extends React.Component {
     },
     links: [],
     isOpen: false,
+    setTitle: (title) => {
+      this.setState({
+        topic: {
+          ...this.state.topic,
+          title
+        }
+      })
+    },
     getLink: (url) => {
       console.log('get', url)
       return this.state.links.find((link) => link.url === url);
@@ -85,6 +93,7 @@ class TopicForm extends React.Component {
   }
 
   render() {
+    const {topic, setTitle } = this.state;
     return (
       <TopicFormContext.Provider value={this.state}>
         <Header />
@@ -92,7 +101,7 @@ class TopicForm extends React.Component {
           <Container>
               <Flex flexDirection="column">
                 <Box width={1}>
-                  <Title title={this.state.topic.title} isEdit={true}/>
+                  <Title title={topic.title} isEdit={true} setTitle={setTitle} />
                 </Box>
               </Flex>
               <Flex flexDirection="column" mt={30}>
