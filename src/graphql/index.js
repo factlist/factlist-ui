@@ -3,9 +3,10 @@ import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { getToken } from '../utils/storage';
+import config from 'config'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: `${config.API_ENDPOINT}/graphql`,
   credentials: 'same-origin',
 });
 
