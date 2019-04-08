@@ -7,7 +7,7 @@ import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'scenes/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import Topic from '../../containers/Topic'
+import Topic from 'containers/Topic'
 import Separator from 'components/Separator'
 import { StyledRefinementList, RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
@@ -55,7 +55,7 @@ class Main extends Component {
             <Center>
               <Flex flexDirection="column">
                 {topics.length > 0 && topics.map(topic =>
-                  <Topic key={topic.id} topic={topic} />
+                  <Topic key={topic.id} topic={topic} isEdit={false} />
                 )}
               </Flex>
             </Center>
