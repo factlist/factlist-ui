@@ -10,7 +10,7 @@ import MaskedURL from './MaskedURL';
 
 import Tags from 'components/Topic/Tags';
 
-const Link = ({ isEdit, title, url, onDelete, tags, onTagDelete, onTagAdd }) => {
+const Link = ({ isEdit, title, url, onDelete, tags, onTagDelete, onTagAdd, updateTitle }) => {
   return (
     <Fragment>
       <Wrapper>
@@ -19,7 +19,7 @@ const Link = ({ isEdit, title, url, onDelete, tags, onTagDelete, onTagAdd }) => 
           {isEdit && <IconContainer> <LinkIcon /> </IconContainer>}
 
           <Container>
-            <Title title={title} isEdit={isEdit} />
+            <Title title={title} isEdit={isEdit} updateTitle={updateTitle} />
             <MaskedURL url={url} />
             <Tags tags={tags}
               isEdit={isEdit}

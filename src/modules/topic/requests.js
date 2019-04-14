@@ -7,6 +7,7 @@ import CREATE_LINK from 'modules/graphql/mutations/createLink';
 import DELETE_LINK from 'modules/graphql/mutations/deleteLink';
 import ADD_TAG from 'modules/graphql/mutations/addTag';
 import REMOVE_TAG from 'modules/graphql/mutations/removeTag';
+import UPDATE_LINK_TITLE from '../graphql/mutations/updateLinkTitle';
 
 
 const getTopic = async ({id}) => {
@@ -86,6 +87,17 @@ const removeTag = async ({link_id, tags}) => {
   return removeTag;
 }
 
+const updateLinkTitle = async ({id, title}) => {
+  let {data: { updateLinkTitle }} = await client.mutate({
+    mutation: UPDATE_LINK_TITLE,
+    variables: {
+      id,
+      title
+    }
+  })
+  return updateLinkTitle;
+}
+
 
 
 export {
@@ -95,5 +107,6 @@ export {
   createLink,
   deleteLink,
   addTag,
-  removeTag
+  removeTag,
+  updateLinkTitle
 }

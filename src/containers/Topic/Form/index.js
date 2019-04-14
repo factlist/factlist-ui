@@ -10,18 +10,28 @@ import Title from 'components/Topic/Title'
 
 import {
   getTopic, createTopic, updateTitle,
-  createLink, deleteLink, addTag, removeTag
+  createLink, deleteLink, addTag, removeTag,
+  updateLinkTitle
 } from 'modules/topic/requests'
 
 import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
+import { assertIdValue } from 'apollo-cache-inmemory';
 
 class TopicForm extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(props.auth)
+
+    const STATES = {
+      NEW: "new",
+      NEW: "new",
+    }
+
     this.state = {
       isEdit: true,
       isReady: false,
+      state: STATES.NEW,
       topic: {
         id: props.id,
         title: '',
@@ -66,7 +76,6 @@ class TopicForm extends React.Component {
             ...topic
           }
         });
-
       },
       deleteLink: async (id) => {
         const isDeleted = await deleteLink({id})
@@ -75,6 +84,23 @@ class TopicForm extends React.Component {
           topic: {
             ...this.state.topic,
             links: this.state.topic.links.filter(item => item.id !== id)
+          }
+        });
+      },
+      updateLinkTitle: async (id, title) => {
+        const link = this.state.getLink(id);
+        if (link.title === title) { return }
+        const data = await updateLinkTitle({id, title})
+        const links = this.state.topic.links.map((item) => {
+          if (item.id === id) {
+            item.title = data.title
+          }
+          return item;
+        });
+        this.setState({
+          topic: {
+            ...this.state.topic,
+            links
           }
         });
       },
@@ -87,13 +113,12 @@ class TopicForm extends React.Component {
           item.tags = item.tags.concat({id, title});
           return item;
         });
-        Promise.all(links).then(links => {
-          this.setState({
-            topic: {
-              ...this.state.topic,
-              links
-            }
-          });
+        links = await Promise.all(links);
+        this.setState({
+          topic: {
+            ...this.state.topic,
+            links
+          }
         });
 
       },

@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import LinkFragment from "../fragments/link";
 
 const CREATE_LINK = gql`mutation(
-  $title: String!,
+  $title: String,
   $url: String!,
   $topic_id: ID!,
   $tags: [CreateTagInput]

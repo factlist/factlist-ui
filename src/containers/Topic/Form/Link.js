@@ -4,7 +4,7 @@ import Link from 'components/Topic/Link';
 import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
 
 const LinkContainer = ({ id }) => {
-  const { getLink, deleteLink, deleteTag, addTag } = useContext(TopicFormContext);
+  const { getLink, deleteLink, deleteTag, addTag, updateLinkTitle } = useContext(TopicFormContext);
 
   const {url, title, tags} = getLink(id);
 
@@ -16,7 +16,8 @@ const LinkContainer = ({ id }) => {
       onDelete={() => deleteLink(id)}
       tags={tags}
       onTagDelete={(tag) => deleteTag(id, tag)}
-      onTagAdd={(tag) => addTag(id, tag)}  />
+      onTagAdd={(tag) => addTag(id, tag)}
+      updateTitle={(title) => updateLinkTitle(id, title)}  />
   )
 }
 
