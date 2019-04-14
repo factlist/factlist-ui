@@ -93,15 +93,17 @@ class TopicForm extends React.Component {
 
       },
       deleteTag: async (link_id, id) => {
-        let tags = [{ id }]
+        let tags = [{ id }];
         let data = await removeTag({link_id, tags});
-        if (!data) { return; }
-        const links = this.state.topic.links.map(item => {
-          if (item.link_id === link_id) {
-            item.tags = item.tags.filter(tag => tag.id !== id)
+
+        if (!data) { return }
+        const links = this.state.topic.links.map(link => {
+          if (link.id === link_id) {
+            link.tags = link.tags.filter(tag => tag.id !== id)
           }
-          return item;
+          return link;
         })
+        console.log({links})
         this.setState({
           topic: {
             ...this.state.topic,
