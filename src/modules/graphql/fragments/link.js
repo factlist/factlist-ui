@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 
 const LinkFragment = gql`fragment LinkContent on Link {
   id,
-  description,
+  title,
   url,
   topic_id,
   tags {

@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import TopicFragment from "../fragments/topic";
 
 const CREATE_TOPIC = gql`mutation(
-  $title: String!,
+  $title: String,
   $links: [CreateLinkInput]
 ) {
   createTopic(data: {

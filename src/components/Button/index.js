@@ -16,6 +16,7 @@ const commonStyles = css`
   background-color: ${props => (props.primary ? '#000' : '#FFF')};
   border: 1px solid ${props => (props.primary ? '#000' : '#E0E0E0')};
 `;
+
 const StyledButton = styled.button`
   ${props => commonStyles};
   ${props => props.style};

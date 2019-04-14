@@ -3,8 +3,8 @@ import {
   fetchTopicsSuccess,
   fetchTopicsFailure,
 } from '../actions'
-import client from '../../../graphql';
-import GET_ALL_TOPICS from '../../../graphql/queries/topic';
+import client from 'modules/graphql';
+import { GET_ALL_TOPICS } from 'modules/graphql/queries/topic';
 
 export default function* () {
   try {

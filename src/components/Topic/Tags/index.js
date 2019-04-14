@@ -34,14 +34,14 @@ const Tags = ({ tags, isEdit, onAdd, onDelete }) => {
     }
   }
 
-  const handleOnEdit = (tag) => {
-    onDelete(tag);
-    setValue(tag);
+  const handleOnEdit = ({title, id}) => {
+    onDelete(id);
+    setValue(title);
     handleNewTag();
   }
 
-  const handleOnDelete = (tag) => {
-    onDelete(tag);
+  const handleOnDelete = (id) => {
+    onDelete(id);
   }
 
   const handleOnChange = (e) => {
@@ -51,10 +51,10 @@ const Tags = ({ tags, isEdit, onAdd, onDelete }) => {
   return (
     <Container>
       <TagsFlex>
-        { tags && tags.map((tag) => (
-          <Item key={tag} onDoubleClick={() => handleOnEdit(tag)}>
-            {tag}
-            {isEdit && <Remove onClick={() => handleOnDelete(tag)}>x</Remove>}
+        { tags && tags.map(({title, id}, index) => (
+          <Item key={`tag-${id}-${index}`} onDoubleClick={() => handleOnEdit({id, title})}>
+            {title}
+            {isEdit && <Remove onClick={() => handleOnDelete(id)}>x</Remove>}
           </Item>
         ))}
 

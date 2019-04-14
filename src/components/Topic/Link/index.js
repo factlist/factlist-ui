@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import { Flex } from '@rebass/grid';
 
 import Title from './Title';
@@ -24,8 +24,8 @@ const Link = ({ isEdit, title, url, onDelete, tags, onTagDelete, onTagAdd }) => 
         </Container>
         <Tags tags={tags}
               isEdit={isEdit}
-              onDelete={(tag) => onTagDelete(url, tag)}
-              onAdd={(tag) => onTagAdd(url, tag)} />
+              onDelete={onTagDelete}
+              onAdd={onTagAdd} />
       </Wrapper>
     </Fragment>
   );

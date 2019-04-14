@@ -1,36 +1,22 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import Link from 'components/Topic/Link';
 
 import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
 
-const LinkContainer = ({ url }) => {
-  const { getLink, getTags, deleteLink, deleteTag, addTag } = useContext(TopicFormContext);
+const LinkContainer = ({ id }) => {
+  const { getLink, deleteLink, deleteTag, addTag } = useContext(TopicFormContext);
 
-  const link = getLink(url);
-
-  const tags = getTags(url)
-
-  const onDelete = () => {
-    deleteLink(url);
-  }
-  const onTagDelete = (url, tag) => {
-    console.log('onTagDelete', url, tag)
-    deleteTag(url, tag)
-  }
-  const onTagAdd = (url, tag) => {
-    console.log('onTagAdd', url, tag)
-    addTag(url, tag)
-  }
+  const {url, title, tags} = getLink(id);
 
   return (
     <Link
       isEdit={true}
-      title={link.title}
-      url={link.url}
-      onDelete={onDelete}
+      title={title}
+      url={url}
+      onDelete={() => deleteLink(url)}
       tags={tags}
-      onTagDelete={onTagDelete}
-      onTagAdd={onTagAdd}  />
+      onTagDelete={(tag) => deleteTag(id, tag)}
+      onTagAdd={(tag) => addTag(id, tag)}  />
   )
 }
 

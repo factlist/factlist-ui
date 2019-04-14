@@ -8,84 +8,127 @@ import Link from './Link';
 import Separator from 'components/Separator';
 import Title from 'components/Topic/Title'
 
+import {
+  getTopic, createTopic, updateTitle,
+  createLink, addTag, removeTag
+} from 'modules/topic/requests'
+
 import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
 
 class TopicForm extends React.Component {
-  state = {
-    isEdit: true,
-    topic: {
-      title: 'Deneme'
-    },
-    links: [],
-    isOpen: false,
-    setTitle: (title) => {
-      this.setState({
-        topic: {
-          ...this.state.topic,
-          title
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isEdit: true,
+      isReady: false,
+      topic: {
+        id: props.id,
+        title: '',
+        links: [],
+      },
+      filterTopic: ({ id, title, links }) => {
+        return {id, title, links}
+      },
+      setTitle: async (title) => {
+        let { topic: { id } } = this.state;
+        let topic = id
+                  ? await updateTitle({id, title})
+                  : await createTopic({ title });
+        topic = this.state.filterTopic(topic);
+        this.setState({
+          topic: {
+            ...this.state.topic,
+            ...topic
+          }
+        })
+      },
+      getLink: (id) => {
+        return this.state.topic.links.find((link) => link.id === id);
+      },
+      addLink: async (url) => {
+        let topic = this.state.topic;
+
+        const topic_id = topic.id;
+        const linkInput = { url, title: 'title', tags: [] }
+
+        if (topic_id) {
+          let link = await createLink({topic_id, ...linkInput});
+          topic.links = topic.links.concat(link)
+        } else {
+          topic = await createTopic({ links: [linkInput] });
         }
-      })
-    },
-    getLink: (url) => {
-      console.log('get', url)
-      return this.state.links.find((link) => link.url === url);
-    },
-    addLink: (url) => {
 
+        topic = this.state.filterTopic(topic);
+        this.setState({
+          topic: {
+            ...this.state.topic,
+            ...topic
+          }
+        });
 
-      const linkInput = {
-        url: url,
-        title: 'title',
-        tags: [],
+      },
+      deleteLink: (url) => {
+        this.setState({
+          links: this.state.topic.links.filter(item => item.url !== url)
+        });
+      },
+      addTag: async (link_id, tag) => {
+        let tags = [{ title: tag }]
+        let links = this.state.topic.links.map(async (item) => {
+          if (item.id !== link_id) { return item; }
+          tags = await addTag({link_id, tags});
+          let {id, title} = tags[0]
+          item.tags = item.tags.concat({id, title});
+          return item;
+        });
+        Promise.all(links).then(links => {
+          this.setState({
+            topic: {
+              ...this.state.topic,
+              links
+            }
+          });
+        });
 
-      };
-
-      console.log('Xadd', linkInput)
-
-      this.setState({
-        links: this.state.links.concat(linkInput)
-      });
-      console.log('Xstate', this.state.links)
-
-    },
-    deleteLink: (url) => {
-      this.setState({
-        links: this.state.links.filter(item => item.url !== url)
-      });
-    },
-    addTag: (url, tag) => {
-      const links = this.state.links.map(item => {
-        if (item.url === url) {
-          item.tags.push(tag);
-        }
-        return item;
-      });
-      this.setState({
-        links: links
-      });
-    },
-    deleteTag: (url, tag) => {
-      const links = this.state.links.map(item => {
-        if (item.url === url) {
-          item.tags = item.tags.filter(_tag => _tag !== tag)
-        }
-        return item;
-      })
-      this.setState({
-        links: links
-      });
-    },
-    getTags: (url) => {
-      return this.state.links.find((link) => link.url === url).tags;
+      },
+      deleteTag: async (link_id, id) => {
+        let tags = [{ id }]
+        let data = await removeTag({link_id, tags});
+        if (!data) { return; }
+        const links = this.state.topic.links.map(item => {
+          if (item.link_id === link_id) {
+            item.tags = item.tags.filter(tag => tag.id !== id)
+          }
+          return item;
+        })
+        this.setState({
+          topic: {
+            ...this.state.topic,
+            links
+          }
+        });
+      }
     }
-  };
+
+    props.id ? this.fetchTopic(props.id) : this.state.isReady = true;
+  }
+
+  fetchTopic = async (id) => {
+    const topic = await getTopic({id})
+    // console.log(topic)
+    this.setState({
+      topic,
+      isReady: true
+    })
+  }
 
   renderLinkList() {
-    return this.state.links.map((link, key) => {
+    return this.state.topic.links.map((link, key) => {
       return (
         <Fragment>
-          <Link key={`link-${key}`}
-                url={link.url} />
+          <Link key={`link-${key}-${link.id}`}
+                id={link.id} />
           <Separator />
         </Fragment>
       );
@@ -93,7 +136,8 @@ class TopicForm extends React.Component {
   }
 
   render() {
-    const {topic, setTitle } = this.state;
+    const {topic, setTitle, isReady } = this.state;
+    if(!isReady) { return (<Header />) }
     return (
       <TopicFormContext.Provider value={this.state}>
         <Header />

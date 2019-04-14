@@ -7,7 +7,7 @@ import configureStore from 'store'
 // import { signInWithToken } from 'modules/auth/actions'
 import Global from 'scenes/Global'
 import Routes from './routes'
-import client from './graphql';
+import client from 'modules/graphql';
 
 // Global styles
 import 'sanitize.css/sanitize.css'

@@ -25,9 +25,9 @@ const Topic = ({ isEdit, topic, marginBottom }) => (
           return (
           <Box key={link.id}>
             <Link
-              title={link.description}
+              title={link.title}
               url={link.url}
-              tags={link.tags.map((tag) => tag.title)}
+              tags={link.tags}
               isEdit={isEdit}
             />
             {index !== topic.links.length - 1 && <Separator />}
