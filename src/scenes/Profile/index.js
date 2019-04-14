@@ -1,9 +1,6 @@
-import React, { Component, Fragment } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
+
 import { fetchUserProfile } from 'modules/profile/actions'
-import { Container, Left, Right, Center } from 'components/Layout'
-import UserCard from 'components/UserCard'
-import Header from 'scenes/Header'
 
 class Profile extends Component {
   componentDidMount() {
@@ -17,7 +14,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { user } = this.props
+    // const { user } = this.props
 
     return (
       <div>profile page</div>
@@ -43,13 +40,13 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  requesting: state.profile.requesting,
-  user: state.profile.user,
-})
+// const mapStateToProps = (state) => ({
+//   requesting: state.profile.requesting,
+//   user: state.profile.user,
+// })
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchUserProfile: (username) => dispatch(fetchUserProfile(username)),
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchUserProfile: (username) => dispatch(fetchUserProfile(username)),
+// })
 
 export default Profile;

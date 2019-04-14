@@ -8,6 +8,7 @@ const Title = ({ isEdit, title, setTitle }) => (
     {isEdit === false
       ? <H1>{title}</H1>
       : <Textarea
+          placeholder="Enter your topic title."
           value={title}
           onInput={event => setTitle(event.target.value)} />}
   </Fragment>

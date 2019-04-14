@@ -13,7 +13,7 @@ const GET_USER = gql`query ($id: ID!) {
       user_id,
       links {
         id,
-        description,
+        title,
         url,
         tags {
           id,

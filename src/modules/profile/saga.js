@@ -3,8 +3,8 @@ import { push as redirect } from 'react-router-redux'
 import { userProfileFetched } from 'modules/profile/actions'
 
 import { FETCH_USER_PROFILE_REQUEST } from './constants'
-import client from '../../graphql';
-import GET_USER from '../../graphql/queries/user';
+import client from 'modules/graphql';
+import GET_USER from 'modules/graphql/queries/user';
 
 const fetchProfile = function* (action) {
   try {

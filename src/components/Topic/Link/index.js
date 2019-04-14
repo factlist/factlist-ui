@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import { Flex } from '@rebass/grid';
 
 import Title from './Title';
@@ -15,22 +15,20 @@ const Link = ({ isEdit, title, url, onDelete, tags, onTagDelete, onTagAdd }) => 
     <Fragment>
       <Wrapper>
         <Flex justifyContent="space-between" alignItems="center">
-          
+
           {isEdit && <IconContainer> <LinkIcon /> </IconContainer>}
-          
+
           <Container>
             <Title title={title} isEdit={isEdit} />
             <MaskedURL url={url} />
             <Tags tags={tags}
               isEdit={isEdit}
-              onDelete={(tag) => onTagDelete(url, tag)}
-              onAdd={(tag) => onTagAdd(url, tag)} />
+              onDelete={onTagDelete}
+              onAdd={onTagAdd} />
           </Container>
 
           {isEdit && <Delete onClick={() => onDelete(url)} />}
-        
         </Flex>
-
       </Wrapper>
     </Fragment>
   );

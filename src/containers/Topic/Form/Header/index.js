@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex } from '@rebass/grid';
+import { Box } from '@rebass/grid';
 import Button from 'components/Button';
 import Logo from 'components/Header/Logo';
 import Container from './Container';

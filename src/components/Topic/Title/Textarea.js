@@ -8,8 +8,12 @@ const Textarea = styled(AutosizeTextarea)`
   width: 100%;
   border: 0;
 
+  color: ${props => props.color};
+  line-height: 32px;
+
   resize: none;
   outline: none;
 `
+
 
 export default Textarea

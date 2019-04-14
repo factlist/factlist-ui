@@ -8,8 +8,8 @@ import { saveToken, saveUser } from 'utils/storage'
 import formatFormErrors from 'utils/formatFormErrors'
 import { signInSuccess, signInFailure } from '../actions'
 import { SIGN_IN_FORM_NAME } from '../constants'
-import GET_USER from '../../../graphql/queries/user';
-import client from '../../../graphql';
+import GET_USER from 'modules/graphql/queries/user';
+import client from 'modules/graphql';
 
 const signIn = function* ({ email, password }) {
   try {
