@@ -1,18 +1,33 @@
 import React from 'react';
-import { Box } from '@rebass/grid';
+import { Flex, Box  } from '@rebass/grid';
 import Button from 'components/Button';
-import Logo from 'components/Header/Logo';
+import Avatar from 'components/Header/Avatar';
+import { Link } from 'react-router-dom';
 import Container from './Container';
+import Notice from './Notice';
 
-const Header = ({ onSave }) => (
-    <Container justifyContent="center" alignItems="center">
-      <Box>
-        <Logo />
-      </Box>
-      <Box>
-          <Button to="/" style={{marginRight: 20}} redirect primary={false} title="Cancel"/>
-          <Button onClick={onSave} primary={false} title="Save"/>
-      </Box>
+const Header = ({ onSave, user }) => (
+    <Container >
+      <Flex css={{
+        maxWidth: '670px',
+        width: '100%',
+        margin: 'auto', 
+        justifyContent: 'space-between'
+      }} >
+        <Box>
+          <a href="/">
+            <Button onClick={onSave} primary={false} title="<"/>
+          </a>
+          <Notice>Saving...</Notice>
+        </Box>
+        <Box>
+            <Link to={'/@' }>
+              <Avatar src="https://api.adorable.io/avatars/250/abott@adorable" />
+            </Link>
+        </Box>
+      </Flex>
+
+   
     </Container>
   )
 

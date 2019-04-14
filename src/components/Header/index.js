@@ -17,7 +17,7 @@ const Header = ({
   hideSignInButton = false,
 }) => (
     <Container justifyContent="center" alignItems="center">
-      <Box width={200} ml={10}>
+      <Box width={235} ml={10}>
         <Logo />
       </Box>
 
@@ -25,7 +25,7 @@ const Header = ({
         <SearchInput type="text" placeholder="Search" />
       </Box>
 
-      <Box width={270} mr={[20, 10]}>
+      <Box width={235} mr={[20, 10]}>
         <Flex justifyContent="flex-end">
           <Box>
             <MobileSearch />

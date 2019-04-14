@@ -3,13 +3,9 @@ import { Flex } from '@rebass/grid'
 
 const Container = styled(Flex)`
   background-color: #FFF;
+  border-bottom: 1px solid #DDDDDD;
   padding: 15px 0;
-  margin-bottom: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 375px;
-  max-width: 670px;
-  justify-content: space-between;
+  margin: 0px auto 30px auto;
 
   @media (max-width: 730px) {
     padding: 20px 0;

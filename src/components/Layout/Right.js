@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Box } from '@rebass/grid'
 
 const Right = styled(Box)`
-  width: 270px;
+  width: 235px;
   max-width: 670px;
   margin-right: 10px;
 
