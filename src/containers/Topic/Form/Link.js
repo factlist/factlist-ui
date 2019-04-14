@@ -13,7 +13,7 @@ const LinkContainer = ({ id }) => {
       isEdit={true}
       title={title}
       url={url}
-      onDelete={() => deleteLink(url)}
+      onDelete={() => deleteLink(id)}
       tags={tags}
       onTagDelete={(tag) => deleteTag(id, tag)}
       onTagAdd={(tag) => addTag(id, tag)}  />

@@ -10,7 +10,7 @@ import Title from 'components/Topic/Title'
 
 import {
   getTopic, createTopic, updateTitle,
-  createLink, addTag, removeTag
+  createLink, deleteLink, addTag, removeTag
 } from 'modules/topic/requests'
 
 import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
@@ -50,7 +50,7 @@ class TopicForm extends React.Component {
         let topic = this.state.topic;
 
         const topic_id = topic.id;
-        const linkInput = { url, title: 'title', tags: [] }
+        const linkInput = { url, tags: [] }
 
         if (topic_id) {
           let link = await createLink({topic_id, ...linkInput});
@@ -68,9 +68,14 @@ class TopicForm extends React.Component {
         });
 
       },
-      deleteLink: (url) => {
+      deleteLink: async (id) => {
+        const isDeleted = await deleteLink({id})
+        if (!isDeleted) { return }
         this.setState({
-          links: this.state.topic.links.filter(item => item.url !== url)
+          topic: {
+            ...this.state.topic,
+            links: this.state.topic.links.filter(item => item.id !== id)
+          }
         });
       },
       addTag: async (link_id, tag) => {
