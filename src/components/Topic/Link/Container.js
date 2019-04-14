@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-display: flex;
-position: relative;
-align-items: center;
-height: 30px;
+display: block;
+flex:2;
+align-self: flex-start;
 `;
 export default Container;

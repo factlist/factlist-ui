@@ -66,7 +66,7 @@ const Tags = ({ tags, isEdit, onAdd, onDelete }) => {
                   innerRef={inputEl}
                   onKeyPress={handleOnKeyPress}  /> }
 
-        { isEdit && (
+        { isEdit && !isOpen && (
           <AddTag onClick={() => setOpen(true)}>
             {tags.length === 0 ? <Badge>Add new Tag</Badge> : null}
             <div>+</div>

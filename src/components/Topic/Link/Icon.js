@@ -37,8 +37,8 @@ const LinkIcon = () => {
 };
 
 const IconContainer = styled.div`
-  position: absolute;
   left: -20px;
+  margin-right:10px;
   padding-bottom: 4px;
 `;
 

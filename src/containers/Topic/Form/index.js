@@ -148,8 +148,8 @@ class TopicForm extends React.Component {
                   <Title title={topic.title} isEdit={true} setTitle={setTitle} />
                 </Box>
               </Flex>
-              <Flex flexDirection="column" mt={30}>
-                <Box mb="5px" mt="5px">
+              <Flex flexDirection='column'>
+                <Box>
                   {this.renderLinkList()}
                 </Box>
               </Flex>
@@ -162,7 +162,7 @@ class TopicForm extends React.Component {
 }
 
 TopicForm.defaultProps = {
-  marginBottom: '30px',
+  marginBottom: '0px',
   topic: {
     id: null,
     title: 'Topic title',

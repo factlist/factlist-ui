@@ -5,7 +5,6 @@ import urlMask from 'utils/urlMask';
 const Span = styled.span`
   font-size: 12px;
   color: #2C8D16;
-  margin-left:10px;
 `;
 
 const MaskedURL = ({ url }) => <Span>{urlMask(url)}</Span>;

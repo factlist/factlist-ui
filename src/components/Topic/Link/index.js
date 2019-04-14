@@ -4,7 +4,7 @@ import { Flex } from '@rebass/grid';
 import Title from './Title';
 import Wrapper from './Wrapper';
 import Delete from './Delete';
-import { LinkIcon } from './Icon';
+import { LinkIcon , IconContainer } from './Icon';
 import Container from './Container';
 import MaskedURL from './MaskedURL';
 
@@ -15,17 +15,20 @@ const Link = ({ isEdit, title, url, onDelete, tags, onTagDelete, onTagAdd }) => 
     <Fragment>
       <Wrapper>
         <Flex justifyContent="space-between" alignItems="center">
-          <Title title={title} isEdit={isEdit} />
-          {isEdit && <Delete onClick={() => onDelete(url)}>x</Delete>}
-        </Flex>
-        <Container>
-          {isEdit && <LinkIcon />}
-          <MaskedURL url={url} />
-        </Container>
-        <Tags tags={tags}
+
+          {isEdit && <IconContainer> <LinkIcon /> </IconContainer>}
+
+          <Container>
+            <Title title={title} isEdit={isEdit} />
+            <MaskedURL url={url} />
+            <Tags tags={tags}
               isEdit={isEdit}
               onDelete={onTagDelete}
               onAdd={onTagAdd} />
+          </Container>
+
+          {isEdit && <Delete onClick={() => onDelete(url)} />}
+        </Flex>
       </Wrapper>
     </Fragment>
   );
