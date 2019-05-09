@@ -1,7 +1,6 @@
 import { put } from 'redux-saga/effects'
 import { stopSubmit, startSubmit } from 'redux-form'
-import config from 'config'
-import axios from 'axios'
+import request from 'utils/request'
 import formatFormErrors from 'utils/formatFormErrors'
 import { showNotification } from 'modules/notification/actions'
 import { closeModal } from 'modules/modal/actions'
@@ -14,8 +13,9 @@ const forgotPassword = function* (action) {
 
     yield put(startSubmit(FORGOT_PASSWORD_FORM))
 
-    yield axios.post(`${config.API_ENDPOINT}/auth/reset-password/`, {
-      user_identifier: email,
+    yield request('/auth/reset-password', {
+      method: 'post',
+      data: {user_identifier: email},
     })
 
     yield put(stopSubmit(FORGOT_PASSWORD_FORM))

@@ -1,7 +1,6 @@
 import { put } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-import config from 'config'
-import axios from 'axios'
+import request from 'utils/request'
 import formatFormErrors from 'utils/formatFormErrors'
 import { showNotification } from 'modules/notification/actions'
 import { CHANGE_PASSWORD_FORM } from '../constants'
@@ -13,9 +12,12 @@ const changePassword = function* (action) {
   try {
     yield put(startSubmit(CHANGE_PASSWORD_FORM))
 
-    yield axios.post(`${config.API_ENDPOINT}/auth/change_password/`, {
-      key: changeKey,
-      password,
+    yield request('/auth/change_password', {
+        method: 'post',
+        data: {
+            key: changeKey,
+            password,
+        },
     })
 
     yield put(stopSubmit(CHANGE_PASSWORD_FORM))

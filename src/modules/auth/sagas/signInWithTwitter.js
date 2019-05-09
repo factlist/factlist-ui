@@ -1,13 +1,12 @@
 import { put } from 'redux-saga/effects'
-import config from 'config'
-import axios from 'axios'
+import request from 'utils/request'
 import { showNotification } from 'modules/notification/actions'
 import { closeModal } from 'modules/modal/actions'
 
 const signInWithTwitter = function* () {
   try {
     // Token request with email & password
-    const response = yield axios.get(`${config.API_ENDPOINT}/auth/twitter/`)
+    const response = yield request('/auth/twitter')
     const redirectURL = response.data.redirect_link
 
     // Redirect to Twitter

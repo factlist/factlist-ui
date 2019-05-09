@@ -1,7 +1,6 @@
 import { put } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-import config from 'config'
-import axios from 'axios'
+import request from 'utils/request'
 import jwtDecode from 'jwt-decode';
 import { push as redirect } from 'react-router-redux'
 import { saveToken, saveUser } from 'utils/storage'
@@ -15,9 +14,10 @@ const signIn = function* ({ email, password }) {
   try {
     yield put(startSubmit(SIGN_IN_FORM_NAME))
 
-    // Token request with email & password
-    const response = yield axios
-      .post(`${config.API_ENDPOINT}/auth/login/`, { email, password })
+    const response = yield request('/auth/login', {
+      method: 'post',
+      data: {email, password},
+    })
 
     const { token } = response.data;
 
