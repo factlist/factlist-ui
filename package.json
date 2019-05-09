@@ -36,13 +36,15 @@
   },
   "devDependencies": {
     "react-scripts": "^1.1.4",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "source-map-explorer": "^1.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "analyze": "source-map-explorer 'build/static/js/*.js' --html > bundle-analysis.html"
   }
 }
