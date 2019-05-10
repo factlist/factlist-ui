@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {compose} from 'recompose'
+import {withUnstated} from 'utils/unstated'
+import ModalContainer from 'modules/modal/container'
 import { signIn, signInWithTwitter } from 'modules/auth/actions'
-import {
-  showSignUpModal,
-  showPasswordResetModal,
-} from 'modules/modal/actions'
 import Container from './Container'
 import H2 from './H2'
 import H4 from './H4'
@@ -30,11 +29,7 @@ class SignInForm extends Component {
   }
 
   render() {
-    const {
-      authenticating,
-      showSignUpModal,
-      showPasswordResetModal,
-    } = this.props
+    const {authenticating, modal} = this.props
 
     return (
       <Container>
@@ -48,8 +43,8 @@ class SignInForm extends Component {
         <Form
           authenticating={authenticating}
           onSubmit={this.onSubmit}
-          onSignUpClick={showSignUpModal}
-          onPasswordResetClick={showPasswordResetModal} />
+          onSignUpClick={() => modal.show('SignUp')}
+          onPasswordResetClick={() => modal.show('PasswordReset')} />
       </Container>
     )
   }
@@ -62,11 +57,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   signIn: (params) => dispatch(signIn(params)),
   signInWithTwitter: () => dispatch(signInWithTwitter()),
-  showSignUpModal: () => dispatch(showSignUpModal()),
-  showPasswordResetModal: () => dispatch(showPasswordResetModal()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignInForm)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withUnstated({modal: ModalContainer}),
+)(
+  SignInForm
+)

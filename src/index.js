@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Provider as UnstatedProvider} from 'unstated'
+import unstatedDebugger from 'unstated-debug'
 import { Provider } from 'react-redux'
 import { ApolloProvider } from "react-apollo";
 import createHistory from 'history/createBrowserHistory'
@@ -12,6 +14,9 @@ import client from 'modules/graphql';
 // Global styles
 import 'sanitize.css/sanitize.css'
 import './globalStyles'
+
+if (process.env.NODE_ENV == 'development')
+  unstatedDebugger.logStateChanges = true
 
 // Create Redux store with history
 const history = createHistory()
@@ -31,10 +36,12 @@ if (token && isSignOutPage === false) {
 // TODO: migrate from redux to apollo
 ReactDOM.render(
   <Provider store={store}>
-    <ApolloProvider client={client}>
-      <Global />
-      <Routes history={history} />
-    </ApolloProvider>
+    <UnstatedProvider>
+      <ApolloProvider client={client}>
+        <Global />
+        <Routes history={history} />
+      </ApolloProvider>
+    </UnstatedProvider>
   </Provider>,
   document.getElementById('root')
 )

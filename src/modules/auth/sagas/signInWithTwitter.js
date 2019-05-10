@@ -1,7 +1,6 @@
 import { put } from 'redux-saga/effects'
 import request from 'utils/request'
 import { showNotification } from 'modules/notification/actions'
-import { closeModal } from 'modules/modal/actions'
 
 const signInWithTwitter = function* () {
   try {
@@ -13,7 +12,6 @@ const signInWithTwitter = function* () {
     window.top.location = redirectURL
   } catch (error) {
     yield put(showNotification(`We can't authenticate you with Twitter right now, please try again later.`))
-    yield put(closeModal())
   }
 }
 
