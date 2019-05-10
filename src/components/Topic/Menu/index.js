@@ -2,7 +2,7 @@ import React from 'react'
 import { withState } from 'recompose'
 import Popover from 'react-tiny-popover'
 import Nav from './Nav'
-import { MoreHorizontal } from 'react-feather'
+import MoreHorizontal from 'react-feather/dist/icons/more-horizontal'
 import styled from 'styled-components'
 
 const enhance = withState('isOpen', 'setIsOpen', false)
