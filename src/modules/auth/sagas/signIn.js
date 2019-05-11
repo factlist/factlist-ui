@@ -7,8 +7,7 @@ import { saveToken, saveUser } from 'utils/storage'
 import formatFormErrors from 'utils/formatFormErrors'
 import { signInSuccess, signInFailure } from '../actions'
 import { SIGN_IN_FORM_NAME } from '../constants'
-import GET_USER from 'modules/graphql/queries/user';
-import client from 'modules/graphql';
+import {getUser} from 'modules/graphql/requests'
 
 const signIn = function* ({ email, password }) {
   try {
@@ -24,17 +23,12 @@ const signIn = function* ({ email, password }) {
     saveToken(token)
 
     const id = jwtDecode(token).sub;
-    const { data } = yield client.query({
-      query: GET_USER,
-      variables: { id }
-    });
 
-    saveUser(data.getUserById)
+    const user = yield getUser({id})
 
-    yield put(signInSuccess({
-      token,
-      user: data.getUserById,
-    }))
+    saveUser(user)
+
+    yield put(signInSuccess({token, user }))
 
     yield put(redirect('/'))
   } catch (error) {
