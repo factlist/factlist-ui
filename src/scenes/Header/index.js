@@ -1,22 +1,22 @@
 import React from 'react'
+import {compose} from 'recompose'
 import { connect } from 'react-redux'
+import {withUnstated} from 'utils/unstated'
+import ModalContainer from 'modules/modal/container'
 import HeaderComponent from 'components/Header'
-import {
-  showSignInModal,
-} from 'modules/modal/actions'
 
 const Header = ({
   authenticating,
   token,
   user,
+  modal,
   hideSignInButton,
-  showSignInModal,
 }) => (
   <HeaderComponent
     user={user}
     token={token}
     authenticating={authenticating}
-    onClickSignInButton={showSignInModal}
+    onClickSignInButton={() => modal.show('SignIn')}
     hideSignInButton={hideSignInButton} />
 )
 
@@ -24,13 +24,11 @@ const mapStateToProps = state => ({
   authenticating: state.auth.authenticating,
   token: state.auth.token,
   user: state.auth.user,
-});
+})
 
-const mapDispatchToProps = (dispatch) => ({
-  showSignInModal: () => dispatch(showSignInModal()),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header)
+export default compose(
+  connect(mapStateToProps),
+  withUnstated({modal: ModalContainer})
+)(
+  Header
+)

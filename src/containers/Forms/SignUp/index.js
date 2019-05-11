@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {compose} from 'recompose'
+import {withUnstated} from 'utils/unstated'
+import ModalContainer from 'modules/modal/container'
 import { signInWithTwitter } from 'modules/auth/actions'
 import { signUp } from 'modules/user/actions'
-import { showSignInModal } from 'modules/modal/actions'
 import Container from '../SignIn/Container'
 import H2 from '../SignIn/H2'
 import H4 from '../SignIn/H4'
@@ -27,7 +29,7 @@ class SignUpForm extends Component {
   }
 
   render() {
-    const { requesting, showSignInModal } = this.props
+    const { requesting, modal } = this.props
 
     return (
       <Container>
@@ -40,7 +42,7 @@ class SignUpForm extends Component {
 
         <Form
           requesting={requesting}
-          onSignInClick={showSignInModal}
+          onSignInClick={() => modal.show('SignIn')}
           onSubmit={this.onSubmit} />
       </Container>
     )
@@ -54,10 +56,11 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   signUp: (data) => dispatch(signUp(data)),
   signInWithTwitter: () => dispatch(signInWithTwitter()),
-  showSignInModal: () => dispatch(showSignInModal()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUpForm)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withUnstated({modal: ModalContainer}),
+)(
+  SignUpForm
+)
