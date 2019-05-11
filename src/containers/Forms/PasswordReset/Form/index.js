@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form'
 import { TextField } from 'components/Form'
 import { Flex, Box } from '@rebass/grid'
 import { FORGOT_PASSWORD_FORM } from 'modules/user/constants'
-import { required, email } from 'core/validationRules'
+import { required, email } from 'utils/validationRules'
 import Button from 'components/Button'
 
 const PasswordResetForm = ({

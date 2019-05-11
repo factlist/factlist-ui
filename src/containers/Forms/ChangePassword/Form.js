@@ -2,7 +2,7 @@ import React from 'react'
 import { Flex, Box } from '@rebass/grid'
 import { reduxForm, Field } from 'redux-form'
 import { TextField } from 'components/Form'
-import { required } from 'core/validationRules'
+import { required } from 'utils/validationRules'
 import { CHANGE_PASSWORD_FORM } from 'modules/user/constants'
 import Button from 'components/Button'
 
