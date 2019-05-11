@@ -1,6 +1,5 @@
 import { put } from 'redux-saga/effects'
-import axios from 'axios'
-import config from 'config'
+import request from 'utils/request'
 import formatFormErrors from 'utils/formatFormErrors'
 import { push as redirect } from 'react-router-redux'
 import { stopSubmit, startSubmit } from 'redux-form'
@@ -13,7 +12,10 @@ const signUp = function* (action) {
   try {
     yield put(startSubmit(SIGN_UP_FORM_NAME))
 
-    const response = yield axios.post(`${config.API_ENDPOINT}/auth/register/`, action.data)
+    const response = yield request('/auth/register', {
+      method: 'post',
+      data: action.data,
+    })
     const { token } = response.data
 
     yield put(signUpSuccess())

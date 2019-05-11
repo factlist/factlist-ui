@@ -1,7 +1,6 @@
 import { select, put } from 'redux-saga/effects'
-import axios from 'axios'
 import { stopSubmit, startSubmit } from 'redux-form'
-import config from 'config'
+import request from 'utils/request'
 import { showNotification } from 'modules/notification/actions'
 import { UPDATE_USER_FORM_NAME } from '../constants'
 import { userUpdated } from '../actions'
@@ -24,10 +23,10 @@ const update = function* (action) {
     const token = yield select(state => state.auth.token)
 
     // API request
-    const response = yield axios.patch(`${config.API_ENDPOINT}/auth/me/`, formData, {
-      headers: {
-        Authorization: `Token ${token}`
-      }
+    const response = yield request('/auth/me', {
+      method: 'patch',
+      data: formData,
+      headers: {Authorization: 'Token ' + token},
     })
 
     yield put(stopSubmit(UPDATE_USER_FORM_NAME))
