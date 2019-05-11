@@ -1,4 +1,4 @@
-FROM node:8.9.4
+FROM node:10.15.3
 RUN mkdir /factlist-ui
 WORKDIR /factlist-ui
 
