@@ -1,5 +1,8 @@
-sudo: required
-
+sudo: reequired
+node_js:
+  - 10
+  - 9
+  - 8
 language: generic
 
 services:
