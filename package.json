@@ -35,7 +35,7 @@
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
-    "react-scripts": "^1.1.4",
+    "react-scripts": "^2.1.8",
     "redux-logger": "^3.0.6",
     "source-map-explorer": "^1.8.0"
   },
@@ -43,8 +43,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer 'build/static/js/*.js' --html > bundle-analysis.html",
     "lint": "eslint src",
-    "analyze": "source-map-explorer 'build/static/js/*.js' --html > bundle-analysis.html"
-  }
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
