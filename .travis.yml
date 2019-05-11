@@ -1,9 +1,9 @@
-sudo: reequired
+language: node_js
+sudo: required
 node_js:
   - 10
   - 9
   - 8
-language: generic
 
 services:
   - docker
