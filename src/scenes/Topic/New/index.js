@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import TopicForm from 'containers/Topic/Form'
 
 const NewTopic = (props) => {

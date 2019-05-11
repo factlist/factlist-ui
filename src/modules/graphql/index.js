@@ -10,7 +10,7 @@ const httpLink = createHttpLink({
   credentials: 'same-origin',
 });
 
-const authLink = setContext((_, { }) => {
+const authLink = setContext(() => {
   // get the authentication token from local storage if it exists
   const token = getToken();
   // return the headers to the context so httpLink can read them
