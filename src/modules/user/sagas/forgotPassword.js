@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects'
 import { stopSubmit, startSubmit } from 'redux-form'
 import request from 'utils/request'
 import formatFormErrors from 'utils/formatFormErrors'
-import { showNotification } from 'modules/notification/actions'
+import {notification} from 'store/unstated'
 import { FORGOT_PASSWORD_FORM } from '../constants'
 import { passwordChangeKeySent } from '../actions'
 
@@ -30,7 +30,9 @@ const forgotPassword = function* (action) {
       yield put(stopSubmit(FORGOT_PASSWORD_FORM, errors))
     } else {
       // Generic API error
-      yield put(showNotification(`We can't complete your request. Please try again later.`))
+      notification.show(
+        'We can\'t complete your request. Please try again later.'
+      )
     }
   }
 }

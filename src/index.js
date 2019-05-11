@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { ApolloProvider } from "react-apollo";
 import createHistory from 'history/createBrowserHistory'
 import configureStore from 'store'
+import {notification} from 'store/unstated'
 // import { signInWithToken } from 'modules/auth/actions'
 import Global from 'scenes/Global'
 import Routes from './routes'
@@ -36,7 +37,7 @@ if (token && isSignOutPage === false) {
 // TODO: migrate from redux to apollo
 ReactDOM.render(
   <Provider store={store}>
-    <UnstatedProvider>
+    <UnstatedProvider inject={[notification]}>
       <ApolloProvider client={client}>
         <Global />
         <Routes history={history} />
