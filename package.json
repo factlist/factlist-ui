@@ -42,9 +42,9 @@
     "source-map-explorer": "^1.8.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "NODE_PATH=src react-scripts start",
+    "build": "NODE_PATH=src react-scripts build",
+    "test": "NODE_PATH=src react-scripts test --env=jsdom",
     "analyze": "source-map-explorer 'build/static/js/*.js' --html > bundle-analysis.html",
     "lint": "eslint src",
     "eject": "react-scripts eject"
