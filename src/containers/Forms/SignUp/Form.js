@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Flex, Box } from '@rebass/grid'
-import { required, email } from 'core/validationRules'
+import { required, email } from 'utils/validationRules'
 import { SIGN_UP_FORM_NAME } from 'modules/user/constants'
 import { TextField } from 'components/Form'
 import Container from '../SignIn/Form/Container'

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { TextField } from 'components/Form'
-import { required, email } from 'core/validationRules'
+import { required, email } from 'utils/validationRules'
 import { Flex, Box } from '@rebass/grid'
 import Button from './Button'
 
