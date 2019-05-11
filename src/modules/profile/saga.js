@@ -3,27 +3,24 @@ import { push as redirect } from 'react-router-redux'
 import { userProfileFetched } from 'modules/profile/actions'
 
 import { FETCH_USER_PROFILE_REQUEST } from './constants'
-import client from 'modules/graphql';
-import GET_USER from 'modules/graphql/queries/user';
 
 const fetchProfile = function* (action) {
-  try {
-    const username = action.username
-    const { data } = yield client.query({
-      query: GET_USER,
-      variables: { username } // Update API to accept username parameter
-    });
-    yield put(userProfileFetched({
-      user: data.user,
-    }))
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      yield put(redirect('/404'))
-    } else {
-      // @TODO Redirect 500
-      console.log(error)
-    }
-  }
+  throw new Error('Unimplemented feature: fetchProfile.')
+  // TODO: The API needs to be updated to accept the username parameter.
+
+  // try {
+  //   const username = action.username
+  //   const user = yield getUserByUsername({username})
+
+  //   yield put(userProfileFetched({user}))
+  // } catch (error) {
+  //   if (error.response && error.response.status === 404) {
+  //     yield put(redirect('/404'))
+  //   } else {
+  //     // @TODO Redirect 500
+  //     console.log(error)
+  //   }
+  // }
 }
 
 export const watchFetchProfile = function* () {

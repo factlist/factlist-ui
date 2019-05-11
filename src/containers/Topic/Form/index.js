@@ -11,7 +11,7 @@ import Title from 'components/Topic/Title'
 import {
   getTopic, createTopic, updateTitle,
   createLink, addTag, removeTag
-} from 'modules/topic/requests'
+} from 'modules/graphql/requests'
 
 import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
 

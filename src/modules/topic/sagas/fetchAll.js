@@ -4,16 +4,13 @@ import {
   fetchTopicsFailure,
 } from '../actions'
 import client from 'modules/graphql';
-import { GET_ALL_TOPICS } from 'modules/graphql/queries/topic';
+import {getAllTopics} from 'modules/graphql/requests'
 
 export default function* () {
   try {
-    const { data } = yield client.query({
-      query: GET_ALL_TOPICS
-    })
-    yield put(fetchTopicsSuccess({
-      data: data.topics,
-    }))
+    const topics = yield getAllTopics()
+
+    yield put(fetchTopicsSuccess({data: topics}))
   } catch (error) {
     yield put(fetchTopicsFailure(error))
   }
