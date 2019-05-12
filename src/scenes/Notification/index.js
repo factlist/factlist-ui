@@ -1,45 +1,29 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { hideNotification } from 'modules/notification/actions'
 import Container from './Container'
 import P from './P'
 import Close from './Close'
 
-class Notification extends Component {
+export default class Notification extends Component {
   componentDidUpdate() {
-    const { show } = this.props
+    const {open} = this.props
 
-    if (show) {
+    if (open) {
       window.scrollTo(0, 0)
     }
   }
 
   render() {
-    const { show, message, hideNotification } = this.props
+    const {open, msg, onClose} = this.props
 
-    if (!show) {
+    if (!open) {
       return null
     }
 
     return (
       <Container>
-        <Close onClick={hideNotification} />
-        <P>{message}</P>
+        <Close onClick={onClose} />
+        <P>{msg}</P>
       </Container>
     )
   }
 }
-
-const mapStateToProps = (state) => ({
-  show: state.notification.show,
-  message: state.notification.message,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  hideNotification: () => dispatch(hideNotification()),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Notification)

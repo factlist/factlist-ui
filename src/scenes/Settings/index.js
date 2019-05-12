@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import {compose} from 'recompose'
+import {withUnstated} from 'utils/unstated'
 import { Flex, Box } from '@rebass/grid'
+import NotificationContainer from 'modules/notification/container'
 import Header from 'scenes/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
 import { updateUser } from 'modules/user/actions'
-import { showNotification } from 'modules/notification/actions'
 import Form from './Form'
 import H1 from './H1'
 import Avatar from './Avatar'
@@ -22,10 +24,10 @@ class Settings extends Component {
   }
 
   componentDidUpdate() {
-    const { showNotification, updated } = this.props
+    const { notification, updated } = this.props
 
     if (updated) {
-      showNotification('User updated successfully.')
+      notification.show('User updated successfully.')
     }
   }
 
@@ -88,10 +90,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateUser: (data) => dispatch(updateUser(data)),
-  showNotification: (message) => dispatch(showNotification(message)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Settings)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withUnstated({notification: NotificationContainer})
+)(
+  Settings
+)

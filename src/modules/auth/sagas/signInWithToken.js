@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects'
 import request from 'utils/request'
-import { showNotification } from 'modules/notification/actions'
+import {notification} from 'store/unstated'
 import { saveToken } from 'utils/storage'
 import { signInSuccess, signInFailure } from '../actions'
 
@@ -19,7 +19,10 @@ const signInWithToken = function* ({ token }) {
     // Store user's token in local storage to keep user authenticated
     saveToken(token)
   } catch (error) {
-    yield put(showNotification(`Sorry, we couldn't authenticate. Please try again later.`))
+    notification.show(
+      'Sorry, we couldn\'t authenticate. Please try again later.'
+    )
+
     yield put(signInFailure())
   }
 }

@@ -1,7 +1,7 @@
 import { select, put } from 'redux-saga/effects'
 import { stopSubmit, startSubmit } from 'redux-form'
 import request from 'utils/request'
-import { showNotification } from 'modules/notification/actions'
+import {notification} from 'store/unstated'
 import { UPDATE_USER_FORM_NAME } from '../constants'
 import { userUpdated } from '../actions'
 
@@ -33,7 +33,9 @@ const update = function* (action) {
 
     yield put(userUpdated(response.data))
   } catch (error) {
-    yield put(showNotification(`We couldn't update your settings. Please try again later.`))
+    notification.show(
+      'We couldn\'t update your settings. Please try again later.'
+    )
   }
 }
 
