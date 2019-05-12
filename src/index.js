@@ -1,14 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider as UnstatedProvider} from 'unstated'
+import {Provider as UnstatedProvider, Subscribe} from 'unstated'
 import unstatedDebugger from 'unstated-debug'
 import { Provider } from 'react-redux'
 import { ApolloProvider } from "react-apollo";
 import createHistory from 'history/createBrowserHistory'
 import configureStore from 'store'
 import {notification} from 'store/unstated'
+import NotificationContainer from 'modules/notification/container'
+import ModalContainer from 'modules/modal/container'
 // import { signInWithToken } from 'modules/auth/actions'
-import Global from 'scenes/Global'
+import Modals from 'scenes/Modals'
+import Notification from 'scenes/Notification'
 import Routes from './routes'
 import client from 'modules/graphql';
 
@@ -39,8 +42,24 @@ ReactDOM.render(
   <Provider store={store}>
     <UnstatedProvider inject={[notification]}>
       <ApolloProvider client={client}>
-        <Global />
         <Routes history={history} />
+
+        <Subscribe to={[ModalContainer, NotificationContainer]}>
+          {(modal, notification) => <>
+            <Modals
+              open={modal.state.open}
+              componentName={modal.state.componentName}
+              componentProps={modal.state.componentProps}
+              onClose={modal.hide}
+            />
+
+            <Notification
+              open={notification.state.open}
+              msg={notification.state.msg}
+              onClose={notification.hide}
+            />
+          </>}
+        </Subscribe>
       </ApolloProvider>
     </UnstatedProvider>
   </Provider>,
