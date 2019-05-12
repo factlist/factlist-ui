@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import {compose} from 'recompose'
 import {withUnstated} from 'utils/unstated'
 import { Flex, Box } from '@rebass/grid'
+import ModalContainer from 'modules/modal/container'
 import NotificationContainer from 'modules/notification/container'
-import Header from 'scenes/Header'
+import Header from 'components/Header'
 import { Container, Left, Right, Center } from 'components/Layout'
 import { updateUser } from 'modules/user/actions'
 import Form from './Form'
@@ -51,11 +52,16 @@ class Settings extends Component {
   }
 
   render() {
-    const { user, updating } = this.props
+    const {user, token, authenticating, updating, modal} = this.props
 
     return (
       <Fragment>
-        <Header />
+        <Header
+          user={user}
+          token={token}
+          authenticating={authenticating}
+          onClickSignInButton={() => modal.show('SignIn')}
+        />
 
         <Container>
           <Left></Left>
@@ -84,6 +90,8 @@ class Settings extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  token: state.auth.token,
+  authenticating: state.auth.authenticating,
   updating: state.user.settings.requesting,
   updated: state.user.settings.success,
 })
@@ -94,7 +102,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withUnstated({notification: NotificationContainer})
+  withUnstated({
+    modal: ModalContainer,
+    notification: NotificationContainer,
+  })
 )(
   Settings
 )

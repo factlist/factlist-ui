@@ -10,8 +10,8 @@ import {notification} from 'store/unstated'
 import NotificationContainer from 'modules/notification/container'
 import ModalContainer from 'modules/modal/container'
 // import { signInWithToken } from 'modules/auth/actions'
-import Modals from 'scenes/Modals'
-import Notification from 'scenes/Notification'
+import ModalRouter from 'components/ModalRouter'
+import Notification from 'components/Notification'
 import Routes from './routes'
 import client from 'modules/graphql';
 
@@ -46,7 +46,7 @@ ReactDOM.render(
 
         <Subscribe to={[ModalContainer, NotificationContainer]}>
           {(modal, notification) => <>
-            <Modals
+            <ModalRouter
               open={modal.state.open}
               componentName={modal.state.componentName}
               componentProps={modal.state.componentProps}
