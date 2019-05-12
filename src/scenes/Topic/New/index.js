@@ -1,5 +1,5 @@
 import React from 'react'
-import TopicForm from 'containers/Topic/Form'
+import TopicForm from 'components/TopicForm'
 
 const NewTopic = (props) => {
   return (<TopicForm />);
