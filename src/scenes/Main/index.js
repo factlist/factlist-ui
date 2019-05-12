@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import {withUnstated} from 'utils/unstated'
+import {compose} from 'recompose'
+import ModalContainer from 'modules/modal/container'
 
 import { Flex, Box } from '@rebass/grid'
 import { fetchTopicsRequest } from 'modules/topic/actions'
 import { Container, Left, Center, Right } from 'components/Layout'
-import Header from 'scenes/Header'
+import Header from 'components/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Topic from 'containers/Topic'
@@ -30,12 +33,18 @@ class Main extends Component {
   }
 
   render() {
-    const { topics } = this.props;
+    const {user, token, authenticating, topics, modal} = this.props;
 
     return (
       <Fragment>
         <InstantSearch appId="latency" apiKey="3d9875e51fbd20c7754e65422f7ce5e1" indexName="bestbuy">
-          <Header />
+          <Header
+            user={user}
+            token={token}
+            authenticating={authenticating}
+            onClickSignInButton={() => modal.show('SignIn')}
+          />
+
           <Container>
 
             <Left>
@@ -77,6 +86,8 @@ class Main extends Component {
 }
 
 const mapStateToProps = state => ({
+  authenticating: state.auth.authenticating,
+  user: state.auth.user,
   requesting: state.topic.all.requesting,
   topics: state.topic.all.data,
   token: state.auth.token,
@@ -86,7 +97,9 @@ const mapDispatchToProps = dispatch => ({
   fetchTopicsRequest: () => dispatch(fetchTopicsRequest()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withUnstated({modal: ModalContainer})
+)(
+  Main
+)
