@@ -13,7 +13,7 @@ import {
   createLink, addTag, removeTag
 } from 'modules/graphql/requests'
 
-import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
+import TopicFormContext from './TopicFormContext'
 
 class TopicForm extends React.Component {
   constructor(props) {

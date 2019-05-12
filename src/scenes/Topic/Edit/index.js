@@ -1,5 +1,5 @@
 import React from 'react'
-import TopicForm from 'containers/Topic/Form'
+import TopicForm from 'components/TopicForm'
 
 const EditTopic = (props) => {
   return (<TopicForm id={props.match.params.id}/>);

@@ -10,7 +10,7 @@ import { Container, Left, Center, Right } from 'components/Layout'
 import Header from 'components/Header'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
-import Topic from 'containers/Topic'
+import Topic from 'components/Topic'
 import Separator from 'components/Separator'
 import { StyledRefinementList, RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';

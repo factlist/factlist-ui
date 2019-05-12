@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Link from 'components/Topic/Link';
 
-import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
+import TopicFormContext from './TopicFormContext'
 
 const LinkContainer = ({ id }) => {
   const { getLink, deleteLink, deleteTag, addTag } = useContext(TopicFormContext);

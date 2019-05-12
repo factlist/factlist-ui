@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import NewLink from 'components/Topic/NewLink';
 
-import TopicFormContext from 'containers/Topic/Form/TopicFormContext'
+import TopicFormContext from './TopicFormContext'
 
 const PASTE_DETECT_THRESHOLD = 10;
 
