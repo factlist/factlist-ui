@@ -8,10 +8,9 @@ import Link from './Link';
 import Separator from 'components/Separator';
 import Title from 'components/Topic/Title'
 
-import {
-  getTopic, createTopic, updateTitle,
-  createLink, addTag, removeTag
-} from 'modules/graphql/requests'
+import client from 'modules/graphql'
+import {getTopic, createTopic, updateTitle, createLink, addTag, removeTag}
+  from 'modules/graphql/requests'
 
 import TopicFormContext from './TopicFormContext'
 
@@ -33,8 +32,17 @@ class TopicForm extends React.Component {
       setTitle: async (title) => {
         let { topic: { id } } = this.state;
         let topic = id
-                  ? await updateTitle({id, title})
-                  : await createTopic({ title });
+                  ? await client.mutate({
+                      mutation: updateTitle,
+                      variables: {id, title}
+                    })
+                      .then(resp => resp.data.updateTopicTitle)
+
+                  : await client.mutate({
+                      mutation: createTopic,
+                      variables: {title}
+                    })
+                      .then(resp => resp.data.createTopic);
         topic = this.state.filterTopic(topic);
         this.setState({
           topic: {
@@ -53,10 +61,19 @@ class TopicForm extends React.Component {
         const linkInput = { url, title: 'title', tags: [] }
 
         if (topic_id) {
-          let link = await createLink({topic_id, ...linkInput});
+          let link = await client.mutate({
+            mutation: createLink,
+            variables: {topic_id, ...linkInput}
+          })
+            .then(resp => resp.data.createLink);
+
           topic.links = topic.links.concat(link)
         } else {
-          topic = await createTopic({ links: [linkInput] });
+          topic = await client.mutate({
+            mutation: createTopic,
+            variables: {links: [linkInput]},
+          })
+            .then(resp => resp.data.createTopic);
         }
 
         topic = this.state.filterTopic(topic);
@@ -77,7 +94,12 @@ class TopicForm extends React.Component {
         let tags = [{ title: tag }]
         let links = this.state.topic.links.map(async (item) => {
           if (item.id !== link_id) { return item; }
-          tags = await addTag({link_id, tags});
+          tags = await client.mutate({
+            mutation: addTag,
+            variables: {link_id, tags},
+          })
+            .then(resp => resp.data.addTag);
+
           let {id, title} = tags[0]
           item.tags = item.tags.concat({id, title});
           return item;
@@ -94,7 +116,12 @@ class TopicForm extends React.Component {
       },
       deleteTag: async (link_id, id) => {
         let tags = [{ id }]
-        let data = await removeTag({link_id, tags});
+        let data = await client.mutate({
+          mutation: removeTag,
+          variables: {link_id, tags},
+        })
+          .then(resp => resp.data.removeTag);
+
         if (!data) { return; }
         const links = this.state.topic.links.map(item => {
           if (item.link_id === link_id) {
@@ -115,7 +142,12 @@ class TopicForm extends React.Component {
   }
 
   fetchTopic = async (id) => {
-    const topic = await getTopic({id})
+    const topic  = await client.query({
+      query: getTopic,
+      variables: {id},
+    })
+      .then(resp => resp.data.topic)
+
     // console.log(topic)
     this.setState({
       topic,

@@ -1,38 +1,46 @@
 import React from 'react'
 import { Flex, Box } from '@rebass/grid'
-import { reduxForm, Field } from 'redux-form'
+import {Formik, Form} from 'formik'
 import { TextField } from 'components/Form'
-import { required } from 'utils/validationRules'
-import { CHANGE_PASSWORD_FORM } from 'modules/user/constants'
+import {object, string} from 'yup'
 import Button from 'components/Button'
 
-const ChangePasswordForm = ({
-  handleSubmit,
-  submitting,
-}) => (
-    <form onSubmit={handleSubmit}>
-      <Flex flexDirection="column" width={420}>
-        <Box>
-          <Field
-            type="password"
-            id="password_change_password"
-            name="password"
-            label="Password"
-            autoComplete="password"
-            validate={[required]}
-            component={TextField} />
-        </Box>
-        <Box mt={10} alignSelf="flex-end">
-          <Button
-            type="submit"
-            disabled={submitting}>
-            {submitting ? 'Submitting...' : 'Submit'}
-          </Button>
-        </Box>
-      </Flex>
-    </form>
-  )
 
-export default reduxForm({
-  form: CHANGE_PASSWORD_FORM,
-})(ChangePasswordForm)
+const initialValues = {
+  password: '',
+}
+
+const validationSchema = object({
+  password: string().required(),
+})
+
+const ChangePasswordForm = ({onSubmit}) =>
+  <Formik
+    initialValues={initialValues}
+    validationSchema={validationSchema}
+    onSubmit={onSubmit}
+  >
+    {({isSubmitting, isValidating}) =>
+      <Form>
+        <Flex flexDirection="column" width={420}>
+          <Box>
+            <TextField
+              type="password"
+              name="password"
+              label="Password"
+              autoComplete="password"
+            />
+          </Box>
+          <Box mt={10} alignSelf="flex-end">
+            <Button
+              type="submit"
+              disabled={isSubmitting || isValidating}>
+              {(isSubmitting || isValidating) ? 'Submitting...' : 'Submit'}
+            </Button>
+          </Box>
+        </Flex>
+      </Form>
+    }
+  </Formik>
+
+export default ChangePasswordForm

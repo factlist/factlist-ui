@@ -1,38 +1,46 @@
 import React from 'react'
-import { reduxForm, Field } from 'redux-form'
+import {Formik, Form} from 'formik'
 import { TextField } from 'components/Form'
 import { Flex, Box } from '@rebass/grid'
-import { FORGOT_PASSWORD_FORM } from 'modules/user/constants'
-import { required, email } from 'utils/validationRules'
+import {object, string} from 'yup'
 import Button from 'components/Button'
 
-const PasswordResetForm = ({
-  handleSubmit,
-  submitting,
-}) => (
-    <form onSubmit={handleSubmit}>
-      <Flex flexDirection="column">
-        <Box>
-          <Field
-            type="text"
-            id="password_reset_email"
-            name="email"
-            label="Email"
-            autoComplete="email"
-            validate={[required, email]}
-            component={TextField} />
-        </Box>
-        <Box alignSelf="flex-end" mt={10}>
-          <Button
-            type='submit'
-            disabled={submitting}>
-            {submitting ? 'Submitting...' : 'Submit'}
-          </Button>
-        </Box>
-      </Flex>
-    </form>
-  )
 
-export default reduxForm({
-  form: FORGOT_PASSWORD_FORM,
-})(PasswordResetForm)
+const initialValues = {
+  user_identifier: '',
+}
+
+const validationSchema = object({
+  user_identifier: string().email().required(),
+})
+
+const PasswordResetForm = ({onSubmit}) =>
+  <Formik
+    initialValues={initialValues}
+    validationSchema={validationSchema}
+    onSubmit={onSubmit}
+  >
+    {({isSubmitting, isValidating}) =>
+      <Form>
+        <Flex flexDirection="column">
+          <Box>
+            <TextField
+              name="user_identifier"
+              label="Email"
+              autoComplete="email"
+            />
+          </Box>
+
+          <Box alignSelf="flex-end" mt={10}>
+            <Button
+              type='submit'
+              disabled={isSubmitting || isValidating}>
+              {isSubmitting ? 'Submitting...' : 'Submit'}
+            </Button>
+          </Box>
+        </Flex>
+      </Form>
+    }
+  </Formik>
+
+export default PasswordResetForm

@@ -2,14 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider as UnstatedProvider, Subscribe} from 'unstated'
 import unstatedDebugger from 'unstated-debug'
-import { Provider } from 'react-redux'
 import { ApolloProvider } from "react-apollo";
-import createHistory from 'history/createBrowserHistory'
-import configureStore from 'store'
-import {notification} from 'store/unstated'
+import {InstantSearch} from 'react-instantsearch-dom'
+import {user, notification} from 'store/unstated'
+import history from 'store/history'
 import NotificationContainer from 'modules/notification/container'
 import ModalContainer from 'modules/modal/container'
-// import { signInWithToken } from 'modules/auth/actions'
 import ModalRouter from 'components/ModalRouter'
 import Notification from 'components/Notification'
 import Routes from './routes'
@@ -19,29 +17,18 @@ import client from 'modules/graphql';
 import 'sanitize.css/sanitize.css'
 import './globalStyles'
 
-if (process.env.NODE_ENV == 'development')
+
+if (process.env.NODE_ENV === 'development')
   unstatedDebugger.logStateChanges = true
 
-// Create Redux store with history
-const history = createHistory()
-const store = configureStore(history)
-
-// Get token from state
-const state = store.getState()
-const token = state.auth.token
-
-// Fetch user's data if client has a token.
-// Don't sign in user on sign out page.
-const isSignOutPage = window.location.href.indexOf('sign_out') !== -1
-if (token && isSignOutPage === false) {
-  // store.dispatch(signInWithToken(token))
-}
-
-// TODO: migrate from redux to apollo
 ReactDOM.render(
-  <Provider store={store}>
-    <UnstatedProvider inject={[notification]}>
-      <ApolloProvider client={client}>
+  <UnstatedProvider inject={[user, notification]}>
+    <ApolloProvider client={client}>
+      <InstantSearch
+        appId="latency"
+        apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+        indexName="bestbuy"
+      >
         <Routes history={history} />
 
         <Subscribe to={[ModalContainer, NotificationContainer]}>
@@ -60,9 +47,10 @@ ReactDOM.render(
             />
           </>}
         </Subscribe>
-      </ApolloProvider>
-    </UnstatedProvider>
-  </Provider>,
+      </InstantSearch>
+    </ApolloProvider>
+  </UnstatedProvider>,
+
   document.getElementById('root')
 )
 

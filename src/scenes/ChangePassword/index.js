@@ -1,77 +1,62 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import {withUnstated} from 'utils/unstated'
 import {compose} from 'recompose'
-import { reset } from 'redux-form'
+import {withFetch, formFetch} from 'utils/request'
+import UserContainer from 'modules/auth/container'
 import ModalContainer from 'modules/modal/container'
+import NotificationContainer from 'modules/notification/container'
 import Header from 'components/Header'
 import {Container, Left, Right, Center} from 'components/Layout'
-import { changePassword } from 'modules/user/actions'
-import { CHANGE_PASSWORD_FORM } from 'modules/user/constants'
 import FormContainer from './Container'
 import P from './P'
 import Form from './Form'
 
-class ChangePassword extends Component {
-  onSubmit = this.onSubmit.bind(this)
 
-  componentDidUpdate() {
-    const { success, reset } = this.props
+const ChangePasswordScene = ({user, modal, changeFetch = {}, changePassword}) =>
+  <>
+    <Header
+      user={user.state.user}
+      token={user.state.token}
+      onClickSignInButton={() => modal.show('SignIn')}
+    />
 
-    if (success) {
-      reset()
-    }
-  }
+    <Container>
+      <Left />
 
-  onSubmit(values) {
-    const { changePassword, match: {changeKey} } = this.props
-    const password = values.password
+      <Center>
+        <FormContainer>
+          {changeFetch.resolved && <P>Your password change successfully.</P>}
 
-    changePassword({ changeKey, password })
-  }
+          <Form onSubmit={changePassword} />
+        </FormContainer>
+      </Center>
 
-  render() {
-    const {success, user, token, authenticating, modal} = this.props
-
-    return <>
-      <Header
-        user={user}
-        token={token}
-        authenticating={authenticating}
-        onClickSignInButton={() => modal.show('SignIn')}
-      />
-
-      <Container>
-        <Left />
-
-        <Center>
-          <FormContainer>
-            {success && <P>Your password change successfully.</P>}
-            <Form onSubmit={this.onSubmit} />
-          </FormContainer>
-        </Center>
-
-        <Right />
-      </Container>
-    </>
-  }
-}
-
-const mapStateToProps = (state) => ({
-  success: state.user.changePassword.success,
-  user: state.auth.user,
-  token: state.auth.token,
-  authenticating: state.auth.authenticating,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  changePassword: (params) => dispatch(changePassword(params)),
-  reset: () => dispatch(reset(CHANGE_PASSWORD_FORM)),
-})
+      <Right />
+    </Container>
+  </>
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  withUnstated({modal: ModalContainer})
+  withUnstated({
+    user: UserContainer,
+    modal: ModalContainer,
+    notification: NotificationContainer,
+  }),
+
+  withFetch(({match, notification}) => ({
+    changePassword: formFetch((params, form) => ({
+      changeFetch: {
+        url: '/auth/change_password',
+        method: 'post',
+        body: {...params, key: match.params.key},
+        then: () => { form.resetForm() },
+        catch: () => {
+          notification.show(
+            'We can\'t complete your request. Please try again later.'
+          )
+        }
+      },
+    })),
+  })),
 )(
-  ChangePassword
+  ChangePasswordScene
 )
