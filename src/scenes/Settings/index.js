@@ -41,7 +41,7 @@ const SettingsScene = ({
         </Box>
         <Box width={370}>
           <Form
-            user={user.state.user}
+            initialValues={user.state.user}
             onSubmit={handleSubmit}
           />
         </Box>
@@ -79,11 +79,14 @@ export default compose(
   }, {
     setAvatar: () => avatar => ({avatar}),
 
-    handleSubmit: (state, props) => values =>
-      props.updateUser({
-        ...values,
-        avatar: state.avatar,
-      })
+    handleSubmit: (state, props) => (values, ...rest) =>
+      props.updateUser(
+        {
+          ...values,
+          avatar: state.avatar,
+        },
+        ...rest
+      )
   }),
 )(
   SettingsScene

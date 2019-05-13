@@ -1,0 +1,41 @@
+import {withFormik} from 'formik'
+import pick from 'lodash/pick'
+import mapValues from 'lodash/mapValues'
+import noop from 'lodash/noop'
+
+
+export {Form} from 'formik'
+
+/**
+ * withForm: Wrapper for Formik's "withformik" HOC. All it does is to define two
+ * default properties with following behaviors:
+ *
+ * - mapPropsToValues: Use the "initialValues" prop if exists, or else derive
+ * initial values from the validation schema.
+ *
+ * - handleSubmit: Forward the event to the "onSubmit" prop (if exists).
+ */
+export const withForm = conf => {
+  if (!conf.validationSchema)
+    throw new Error(
+      'withForm: "validationSchema" is a required option!')
+
+  return withFormik({
+    mapPropsToValues:
+      props =>
+        props.initialValues
+          ? pick(
+              props.initialValues,
+              Object.keys(conf.validationSchema.fields)
+            )
+            // pick only the keys that exist in our schema, in case there are
+            // other keys that don't concern us.
+
+          : mapValues(conf.validationSchema.fields, () => ''),
+
+    handleSubmit: (vals, formikBag) =>
+      (formikBag.props.onSubmit || noop)(vals, formikBag),
+
+    ...conf,
+  })
+}
