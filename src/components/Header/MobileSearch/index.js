@@ -16,13 +16,9 @@ export default class MobileSearch extends Component {
 
   render() {
     return (
-      <div>
-        <StyledIcon onClick={this.onClick} />
-
-        <Container show={this.state.show}>
-          <Search type="text" placeholder="Search | Explosion in Cairo..." />
-        </Container>
-      </div>
+      <Container show={this.state.show}>
+        <Search type="text" placeholder="Search | Explosion in Cairo..." />
+      </Container>
     )
   }
 }

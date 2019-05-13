@@ -11,6 +11,11 @@ import Topic from 'containers/Topic'
 import Separator from 'components/Separator'
 import { StyledRefinementList, RadioList } from 'components/Filter'
 import { InstantSearch } from 'react-instantsearch-dom';
+import {ThemeProvider} from 'styled-components'
+
+const theme = {
+  breakpoints: ['600px', '960px', '1200px' ]
+}
 
 class Main extends Component {
   componentDidMount() {
@@ -31,46 +36,50 @@ class Main extends Component {
 
   render() {
     const { topics } = this.props;
-
     return (
       <Fragment>
-        <InstantSearch appId="latency" apiKey="3d9875e51fbd20c7754e65422f7ce5e1" indexName="bestbuy">
-          <Header />
-          <Container>
+        <ThemeProvider theme={theme}>
+          <InstantSearch appId="latency" apiKey="3d9875e51fbd20c7754e65422f7ce5e1" indexName="bestbuy">
 
-            <Left>
-              <div className="container">
-                <RadioList title="USERS" options={['All People', 'People you follow']} />
-                <Separator />
-                <div style={{ fontSize: '13px', opacity: '0.5' }}>SOURCES</div>
-                <StyledRefinementList attribute="type" searchable />
-                <Separator />
-                <div style={{ fontSize: '13px', opacity: '0.5' }}>TAGS</div>
-                <StyledRefinementList attribute="category" searchable />
-              <Separator />
-                <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} />
-              </div>
-            </Left>
+              <Header />
 
-            <Center>
-              <Flex flexDirection="column">
-                {topics.length > 0 && topics.map(topic =>
-                  <Topic key={topic.id} topic={topic} isEdit={false} />
-                )}
-              </Flex>
-            </Center>
+              <Container width={['auto','600px','960px', '1200px']} justifyContent="center" >
 
-            <Right>
-              <Box>
-                <Slack />
-              </Box>
-              <Box mt={15}>
-                <Footer />
-              </Box>
-            </Right>
+                <Left width={['235px']} mr={'20px'}>
 
-          </Container>
-        </InstantSearch>
+                    <RadioList title="USERS" options={['All People', 'People you follow', 'Only me']} />
+                    <Separator />
+                    <div style={{ fontSize: '13px', opacity: '0.5' }}>SOURCES</div>
+                    <StyledRefinementList attribute="type" searchable />
+                    <Separator />
+                    <div style={{ fontSize: '13px', opacity: '0.5' }}>TAGS</div>
+                    <StyledRefinementList attribute="category" searchable />
+                  <Separator />
+                    <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} />
+
+                </Left>
+
+                <Center flex='1 0 0' mx={0}>
+                  <Flex flexDirection="column">
+                    {topics.length > 0 && topics.map(topic =>
+                      <Topic key={topic.id} topic={topic} isEdit={false} />
+                    )}
+                  </Flex>
+                </Center>
+
+                <Right width={['235px']} ml={'20px'}>
+                  <Box>
+                    <Slack />
+                  </Box>
+                  <Box mt={15}>
+                    <Footer />
+                  </Box>
+                </Right>
+
+            </Container>
+
+          </InstantSearch>
+        </ThemeProvider>
       </Fragment>
     )
   }

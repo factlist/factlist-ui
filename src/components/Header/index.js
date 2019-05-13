@@ -16,35 +16,38 @@ const Header = ({
   onClickSignInButton,
   hideSignInButton = false,
 }) => (
-    <Container justifyContent="center" alignItems="center">
-      <Box width={235} ml={10}>
+
+    <Container width={['auto','600px','960px', '1200px']} justifyContent="flex-start" alignItems="center">
+
+      <Box width={[ 'auto', '130px', '235px']}>
         <Logo />
       </Box>
 
-      <Box width={670} mx={30}>
+      <Box flex='1 0 0' mx={20} >
         <SearchInput type="text" placeholder="Search" />
       </Box>
 
-      <Box width={235} mr={[20, 10]}>
+      <Box width={[ 'auto', '130px', '235px']}>
         <Flex justifyContent="flex-end">
-          <Box>
-            <MobileSearch />
-          </Box>
-          <Box ml={10}>
-            {authenticating && <AvatarLoader />}
-            {!authenticating && !token && !hideSignInButton &&
-              <Button onClick={onClickSignInButton} primary={false} title="Sign in" />
-            }
-            {!authenticating && token && (
-              <Link to={'/@' + user.username}>
-                <Avatar src={user.avatar} />
-              </Link>
-            )}
+          <Box mr={10}>
             <Button primary to='/topic/new' title="New Topic"/>
+          </Box>
+          <Box>
+          {authenticating && <AvatarLoader />}
+          {!authenticating && !token && !hideSignInButton &&
+          <Button onClick={onClickSignInButton} primary={false} title="Sign in" />
+          }
+          {!authenticating && token && (
+            <Link to={'/@' + user.username}>
+              <Avatar src={user.avatar} />
+            </Link>
+          )}
           </Box>
         </Flex>
       </Box>
+
     </Container>
+
   )
 
 export default Header;

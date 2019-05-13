@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import StyledIcon from './StyledIcon'
+import Icon from './Icon'
 
 const Logo = () => (
   <Link to="/">
-    <StyledIcon />
+    <Icon />
   </Link>
 )
 

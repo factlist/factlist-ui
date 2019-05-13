@@ -5,16 +5,19 @@ import { Link } from "react-router-dom";
 
 const commonStyles = css`
   font-family: 'Roboto', sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 12px;
   display: inline-block;
-  padding: 12px 30px;
+  border-radius:3px;
+  padding: 12px 12px;
   user-select: none;
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   outline: none;
   color: ${props => (props.primary ? '#FFF' : '#000')};
   background-color: ${props => (props.primary ? '#000' : '#FFF')};
   border: 1px solid ${props => (props.primary ? '#000' : '#E0E0E0')};
+   white-space: nowrap;
+  
 `;
 
 const StyledButton = styled.button`
