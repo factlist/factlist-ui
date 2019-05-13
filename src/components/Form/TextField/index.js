@@ -1,5 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
+import {Field} from 'formik'
+import nanoid from 'nanoid'
 import Container from './Container'
 import Input from './Input'
 import Textarea from './Textarea'
@@ -7,37 +9,45 @@ import Label from './Label'
 import P from './P'
 
 const TextField = ({
-  id,
+  name,
+  id = nanoid(),
   type = 'text',
-  input,
   label,
   multiLine = false,
   rows = 2,
-  meta: { touched, error, warning },
   ...rest,
 }) => (
-  <Container>
-    <Label htmlFor={id}>{label}</Label>
+  <Field name={name}>
+    {({field, form}) =>
+      <Container>
+        <Label htmlFor={id}>{label}</Label>
 
-    {multiLine
-      ? <Textarea id={id} {...input} {...rest} rows={rows} error={touched && (error || warning)} />
-      : <Input id={id} type={type} {...input} {...rest} error={touched && (error || warning)} />}
+        {multiLine
+          ? <Textarea
+              id={id}
+              {...field}
+              {...rest}
+              rows={rows}
+              error={form.touched[field.name] && form.errors[field.name]}
+            />
+          : <Input
+              id={id}
+              type={type}
+              {...field}
+              {...rest}
+              error={form.touched[field.name] && form.errors[field.name]}
+            />
+          }
 
-
-    {touched && ((error && <P>{error}</P>) || (warning && <P>{warning}</P>))}
-  </Container>
+        {(form.touched[field.name] && form.errors[field.name]) &&
+          <P>{form.errors[field.name]}</P>
+        }
+      </Container>
+    }
+  </Field>
 )
 
-TextField.defaultProps = {
-  meta: {
-    touched: false,
-    error: null,
-    warning: null,
-  }
-}
-
 TextField.propTypes = {
-  id: propTypes.string.isRequired,
   label: propTypes.string.isRequired,
 }
 

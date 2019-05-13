@@ -1,85 +1,78 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import {Formik, Form} from 'formik'
 import { TextField } from 'components/Form'
-import { required, email } from 'utils/validationRules'
+import {object, string} from 'yup'
 import { Flex, Box } from '@rebass/grid'
 import Button from './Button'
 
-const Form = ({
-  handleSubmit, requesting, invalid, pristine, onSignUpClick
-}) => (
-    <form onSubmit={handleSubmit}>
-      <Flex flexDirection="column">
-        <Box>
-          <Field
-            type="text"
-            id="settings_bio"
-            name="bio"
-            label="Bio"
-            autoComplete="bio"
-            multiLine={true}
-            component={TextField} />
-        </Box>
 
-        <Box mt={20}>
-          <Field
-            type="text"
-            id="settings_name"
-            name="name"
-            label="Name"
-            autoComplete="name"
-            validate={[required]}
-            component={TextField} />
-        </Box>
-
-        <Box mt={20}>
-          <Field
-            type="text"
-            id="settings_username"
-            name="username"
-            label="Username"
-            autoComplete="username"
-            validate={[required]}
-            component={TextField} />
-        </Box>
-
-        <Box mt={20}>
-          <Field
-            type="text"
-            id="settings_email"
-            name="email"
-            label="Email"
-            autoComplete="email"
-            validate={[required, email]}
-            component={TextField} />
-        </Box>
-
-        <Box mt={20}>
-          <Field
-            type="password"
-            id="settings_password"
-            name="password"
-            label="Password"
-            autoComplete="password"
-            component={TextField} />
-        </Box>
-
-        <Box mt={20}>
-          <Button disabled={requesting}>
-            {requesting ? 'Saving...' : 'Save'}
-          </Button>
-        </Box>
-      </Flex>
-    </form>
-  )
-
-const ReduxForm = reduxForm({
-  form: 'SettingsForm'
-})(Form)
-
-const mapStateToProps = (state) => ({
-  initialValues: state.auth.user,
+const validationSchema = object({
+  bio: string(),
+  name: string().required(),
+  username: string().required(),
+  email: string().email().required(),
+  password: string(),
 })
 
-export default connect(mapStateToProps)(ReduxForm)
+const SettingsForm = ({user, onSubmit}) =>
+  <Formik
+    initialValues={user}
+    validationSchema={validationSchema}
+    onSubmit={onSubmit}
+  >
+    {({isSubmitting, isValidating}) =>
+      <Form>
+        <Flex flexDirection="column">
+          <Box>
+            <TextField
+              name="bio"
+              label="Bio"
+              autoComplete="bio"
+              multiLine={true}
+            />
+          </Box>
+
+          <Box mt={20}>
+            <TextField
+              name="name"
+              label="Name"
+              autoComplete="name"
+            />
+          </Box>
+
+          <Box mt={20}>
+            <TextField
+              name="username"
+              label="Username"
+              autoComplete="username"
+            />
+          </Box>
+
+          <Box mt={20}>
+            <TextField
+              name="email"
+              label="Email"
+              autoComplete="email"
+            />
+          </Box>
+
+          <Box mt={20}>
+            <TextField
+              type="password"
+              name="password"
+              label="Password"
+              autoComplete="password"
+            />
+          </Box>
+
+          <Box mt={20}>
+            <Button disabled={isSubmitting || isValidating}>
+              {isSubmitting || isValidating ? 'Saving...' : 'Save'}
+            </Button>
+          </Box>
+        </Flex>
+      </Form>
+    }
+  </Formik>
+
+export default SettingsForm

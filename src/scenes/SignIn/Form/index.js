@@ -1,69 +1,80 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
-import { Flex, Box } from '@rebass/grid'
-import { required, email } from 'utils/validationRules'
-import { SIGN_IN_FORM_NAME } from 'modules/auth/constants'
-import { TextField } from 'components/Form'
+import {Formik, Form} from 'formik'
+import {string, object} from 'yup'
+import {Flex, Box} from '@rebass/grid'
+import {TextField} from 'components/Form'
 import Container from './Container'
 import Button from 'components/Button'
 import P from './P'
 import A from './A'
 
-const Form = ({
-  handleSubmit,
-  authenticating,
-  invalid,
-  pristine,
+
+const initialValues = {
+  email: '',
+  password: '',
+}
+
+const validationSchema = object({
+  email: string().email().required(),
+  password: string().required(),
+})
+
+const SignInForm = ({
+  onSubmit,
   onSignUpClick,
   onPasswordResetClick,
-}) => (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <Flex flexDirection="column">
-          <Box>
-            <Field
-              type="text"
-              id="sign_in_email"
-              name="email"
-              label="Email"
-              autoComplete="email"
-              validate={[required, email]}
-              component={TextField} />
-          </Box>
+}) =>
+  <Formik
+    initialValues={initialValues}
+    validationSchema={validationSchema}
+    onSubmit={onSubmit}
+  >
+    {({isSubmitting, isValidating}) =>
+      <Container>
+        <Form>
+          <Flex flexDirection='column'>
+            <Box>
+              <TextField
+                name='email'
+                label='Email'
+                autoComplete='email'
+              />
+            </Box>
 
-          <Box mt={20}>
-            <Field
-              type="password"
-              id="sign_in_password"
-              name="password"
-              label="Password"
-              autoComplete="current-password"
-              validate={[required]}
-              component={TextField} />
-          </Box>
+            <Box mt={20}>
+              <TextField
+                type='password'
+                name='password'
+                label='Password'
+                autoComplete='current-password'
+              />
+            </Box>
 
-          <Box>
-            <A onClick={onPasswordResetClick}>Forgot password?</A>
-          </Box>
-        </Flex>
+            <Box>
+              <A onClick={onPasswordResetClick}>
+                Forgot password?
+              </A>
+            </Box>
+          </Flex>
 
-        <Flex flexDirection="column" alignItems="flex-end">
-          <Box>
-            <Button
-              type="submit"
-              disabled={authenticating || invalid || pristine}
-              title={authenticating ? 'Loading...' : 'Sign In'} />
-          </Box>
-          <Box mt={12}>
-            <P>
-              No account? <A onClick={onSignUpClick}>Create one.</A>
-            </P>
-          </Box>
-        </Flex>
-      </form>
-    </Container>
-  )
+          <Flex flexDirection='column' alignItems='flex-end'>
+            <Box>
+              <Button
+                type='submit'
+                disabled={isSubmitting || isValidating}
+                title={(isSubmitting || isValidating) ? 'Loading' : 'Sign In'}
+              />
+            </Box>
 
-export default reduxForm({
-  form: SIGN_IN_FORM_NAME
-})(Form)
+            <Box mt={12}>
+              <P>
+                No account? <A onClick={onSignUpClick}>Create one.</A>
+              </P>
+            </Box>
+          </Flex>
+        </Form>
+      </Container>
+    }
+  </Formik>
+
+export default SignInForm

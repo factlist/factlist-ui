@@ -11,4 +11,4 @@ export const saveUser = (user) => localStorage.setItem(USER_KEY, JSON.stringify(
 
 export const removeUser = () => localStorage.removeItem(USER_KEY)
 
-export const getUser = () => localStorage.getItem(USER_KEY)
+export const getUser = () => JSON.parse(localStorage.getItem(USER_KEY)) || {}

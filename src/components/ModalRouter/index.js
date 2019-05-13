@@ -6,7 +6,12 @@ import PasswordReset from 'scenes/PasswordReset'
 import Image from 'scenes/Image'
 
 
-const modalComponents = {SignIn, SignUp, PasswordReset, Image}
+const modalComponents = {
+  SignIn,
+  SignUp,
+  PasswordReset,
+  Image,
+}
 
 
 export default ({open, componentName, componentProps, onClose}) =>

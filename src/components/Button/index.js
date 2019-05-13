@@ -29,8 +29,8 @@ const StyledLink = styled(Link)`
 
 class Button extends React.Component {
   render() {
-    const { primary, disabled, title, onClick, to, style, redirect } = this.props;
-    const commonProps = { primary, disabled, style };
+    const { primary, disabled, title, onClick, to, style, redirect, type } = this.props;
+    const commonProps = { primary, disabled, style, type };
     const canRedirect = to || redirect;
     return (
       !!canRedirect ?
