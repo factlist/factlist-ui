@@ -5,10 +5,10 @@ const Container = styled.div`
   border: 1px solid #E0E0E0;
   border-radius: 0px;
 
-  min-width: 375px;
-  max-width: 670px;
-  padding: 20px;
-  margin: auto;
+  min-width: 300px;
+  max-width: 690px;
+  padding: 15px;
+  
 
   // Cross browser word wrapping
   overflow-wrap: break-word;

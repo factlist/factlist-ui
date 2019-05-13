@@ -16,7 +16,11 @@ import client from 'modules/graphql';
 // Global styles
 import 'sanitize.css/sanitize.css'
 import './globalStyles'
+import {ThemeProvider} from 'styled-components'
 
+const theme = {
+  breakpoints: ['600px', '960px', '1200px' ]
+}
 
 if (process.env.NODE_ENV === 'development')
   unstatedDebugger.logStateChanges = true
@@ -24,30 +28,32 @@ if (process.env.NODE_ENV === 'development')
 ReactDOM.render(
   <UnstatedProvider inject={[user, notification]}>
     <ApolloProvider client={client}>
-      <InstantSearch
-        appId="latency"
-        apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
-        indexName="bestbuy"
-      >
-        <Routes history={history} />
+      <ThemeProvider theme={theme}>
+        <InstantSearch
+          appId="latency"
+          apiKey="3d9875e51fbd20c7754e65422f7ce5e1"
+          indexName="bestbuy"
+        >
+          <Routes history={history} />
 
-        <Subscribe to={[ModalContainer, NotificationContainer]}>
-          {(modal, notification) => <>
-            <ModalRouter
-              open={modal.state.open}
-              componentName={modal.state.componentName}
-              componentProps={modal.state.componentProps}
-              onClose={modal.hide}
-            />
+          <Subscribe to={[ModalContainer, NotificationContainer]}>
+            {(modal, notification) => <>
+              <ModalRouter
+                open={modal.state.open}
+                componentName={modal.state.componentName}
+                componentProps={modal.state.componentProps}
+                onClose={modal.hide}
+              />
 
-            <Notification
-              open={notification.state.open}
-              msg={notification.state.msg}
-              onClose={notification.hide}
-            />
-          </>}
-        </Subscribe>
-      </InstantSearch>
+              <Notification
+                open={notification.state.open}
+                msg={notification.state.msg}
+                onClose={notification.hide}
+              />
+            </>}
+          </Subscribe>
+        </InstantSearch>
+      </ThemeProvider>
     </ApolloProvider>
   </UnstatedProvider>,
 

@@ -1,8 +1,10 @@
-import React from 'react'
+import styled from 'styled-components'
 import { Flex } from '@rebass/grid'
 
-export default ({ children, className }) => (
-  <Flex className={className} justifyContent="center" flexWrap="wrap">
-    {children}
-  </Flex>
-)
+const Container = styled(Flex)`
+  background-color: #FFF;
+  padding: 15px 10px;
+  margin: 0px auto 20px auto;
+`
+
+export default Container

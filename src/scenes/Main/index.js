@@ -17,14 +17,15 @@ import { StyledRefinementList, RadioList } from 'components/Filter'
 
 
 const MainScene = ({user, modal, data}) => <>
+
   <Header
     user={user.state.user}
     token={user.state.token}
     onClickSignInButton={() => modal.show('SignIn')}
   />
 
-  <Container>
-    <Left>
+  <Container width={['auto','600px','960px', '1200px']} justifyContent="center">
+    <Left width={['235px']} mr={'20px'}>
       <div className="container">
         <RadioList title="USERS" options={['All People', 'People you follow']} />
         <Separator />
@@ -33,21 +34,21 @@ const MainScene = ({user, modal, data}) => <>
         <Separator />
         <div style={{ fontSize: '13px', opacity: '0.5' }}>TAGS</div>
         <StyledRefinementList attribute="category" searchable />
-      <Separator />
+        <Separator />
         <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} />
       </div>
     </Left>
 
-    <Center>
+    <Center flex='1 0 0' mx={0}>
       <Flex flexDirection="column">
         {(data && data.networkStatus === 7) &&
-          data.topics.map(topic =>
-            <Topic key={topic.id} topic={topic} isEdit={false} />
-          )}
+        data.topics.map(topic =>
+          <Topic key={topic.id} topic={topic} isEdit={false} />
+        )}
       </Flex>
     </Center>
 
-    <Right>
+    <Right width={['235px']} ml={'20px'}>
       <Box>
         <Slack />
       </Box>
