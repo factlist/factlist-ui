@@ -1,0 +1,35 @@
+.header {
+  background-color: white;
+  padding: 15px 10px;
+  margin: 0 auto;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.searchBox input {
+  width: 100%;
+  max-width: 670px;
+  display: block;
+  margin: auto;
+  font: normal 14px Roboto, sans-serif;
+  background: url(/images/icons/search.png) 98% 50% no-repeat;
+  border: 1px solid #ddd;
+  padding: 11px 18px;
+  outline: none;
+}
+.searchBox input::placeholder {
+  color: #b2b2b2;
+}
+.searchBox input::focus {
+  border: 1px solid #b2b2b2;
+}
+
+.searchBox :global(.ais-SearchBox-submit),
+.searchBox :global(.ais-SearchBox-reset) {
+  display: none;
+}

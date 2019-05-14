@@ -3,42 +3,23 @@ import {withUnstated} from 'utils/unstated'
 import {compose} from 'recompose'
 import {withFetch, formFetch} from 'utils/request'
 import UserContainer from 'modules/auth/container'
-import ModalContainer from 'modules/modal/container'
 import NotificationContainer from 'modules/notification/container'
-import Header from 'components/Header'
-import {Container, Left, Right, Center} from 'components/Layout'
-import FormContainer from './Container'
-import P from './P'
+import Layout from 'components/Layout'
 import Form from './Form'
+import cm from './changePass.module.css'
 
 
-const ChangePasswordScene = ({user, modal, changeFetch = {}, changePassword}) =>
-  <>
-    <Header
-      user={user.state.user}
-      token={user.state.token}
-      onClickSignInButton={() => modal.show('SignIn')}
-    />
+const ChangePasswordScene = ({user, changeFetch = {}, changePassword}) =>
+  <Layout>
+    {changeFetch.resolved &&
+      <p className={cm.success}>Your password change successfully.</p>}
 
-    <Container>
-      <Left />
-
-      <Center>
-        <FormContainer>
-          {changeFetch.resolved && <P>Your password change successfully.</P>}
-
-          <Form onSubmit={changePassword} />
-        </FormContainer>
-      </Center>
-
-      <Right />
-    </Container>
-  </>
+    <Form onSubmit={changePassword} />
+  </Layout>
 
 export default compose(
   withUnstated({
     user: UserContainer,
-    modal: ModalContainer,
     notification: NotificationContainer,
   }),
 

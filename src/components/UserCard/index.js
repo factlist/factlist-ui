@@ -1,19 +1,12 @@
 import React from 'react'
-import Container from './Container'
-import Img from './Img'
-import Name from './Name'
-import Username from './Username'
+import cm from './userCard.module.css'
 
-const UserCard = ({
-  avatar,
-  name,
-  username,
-}) => (
-  <Container>
-    <Img src={avatar} />
-    <Name>{name}</Name>
-    <Username>@{username}</Username>
-  </Container>
-)
+
+const UserCard = ({avatar, name, username}) =>
+  <div className={cm.card}>
+    <img src={avatar} alt='Your avatar' />
+    <span className={cm.name}>{name}</span>
+    <span className={cm.username}>@{username}</span>
+  </div>
 
 export default UserCard

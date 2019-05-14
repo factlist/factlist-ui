@@ -1,0 +1,33 @@
+.container {
+  display: block;
+  flex: 2;
+  align-self: flex-start;
+}
+
+.container h3 {
+  font-size: 16px;
+  font-weight: 400;
+  max-width: 100%;
+  margin: 0px 0px 2px 0px;
+}
+
+.icon {
+  left: -20px;
+  margin-right: 10px;
+  padding-bottom: 4px;
+}
+
+.url {
+  font-size: 12px;
+  color: #2C8D16;
+}
+
+.delete {
+  padding-right: 10px;
+  align-self: flex-start;
+  cursor: pointer;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjE4cHgiIHdpZHRoPSIxOHB4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0iIzAwMDAwMCI+CiA8cGF0aCBkPSJtMCAwaDE4djE4aC0xOHpoMTh2MThoLTE4eiIgZmlsbD0ibm9uZSIvPgogPHBhdGggZD0ibTE0LjUzIDQuNTNsLTEuMDYtMS4wNi00LjQ3IDQuNDctNC40Ny00LjQ3LTEuMDYgMS4wNiA0LjQ3IDQuNDctNC40NyA0LjQ3IDEuMDYgMS4wNiA0LjQ3LTQuNDcgNC40NyA0LjQ3IDEuMDYtMS4wNi00LjQ3LTQuNDd6Ii8+Cjwvc3ZnPgo=);
+  background-size: 14px 14px;
+  height: 18px;
+  width:18px;
+}

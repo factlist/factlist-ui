@@ -1,0 +1,21 @@
+.notif {
+  position: relative;
+  width: 100%;
+  background-color: #000;
+}
+
+.notif > p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-align: center;
+  margin: 0;
+  line-height: 40px;
+}
+
+.closeBtn {
+  position: absolute;
+  right: 12px;
+  top: 7px;
+  cursor: pointer;
+}

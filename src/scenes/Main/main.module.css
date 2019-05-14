@@ -1,0 +1,20 @@
+.container {
+  padding: 15px 10px;
+  margin: 0px auto 20px auto;
+}
+
+.title {
+  font-size: 13px;
+  opacity: 0.5;
+}
+
+.leftSidebar {
+  word-wrap: break-word;
+}
+
+@media (max-width: 960px) {
+  .leftSidebar { display: none; }
+}
+@media (max-width: 1200px) {
+  .rightSidebar { display: none; }
+}

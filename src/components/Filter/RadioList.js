@@ -1,25 +1,22 @@
-import React, { Component } from 'react'
-class RadioList extends Component {
+import React from 'react'
+import cm from './radiolist.module.css'
 
-  render() {
-    const { options, title } = this.props;
-    return (
-      <div style={{ fontSize: '13px', marginBottom: '20px' }}>
-        <div style={{ fontSize: '13px', opacity: '0.5' }}>{title}</div>
-        <ul style={{
-          listStyle: "none",
-          margin: "10px 0px",
-          padding: "0px"
-        }}>
-          {options.map((option, index) =>
-            <li style={{ padding: '3px 0px' }} key={index}>
-              <input name="{title}" id={option} style={{ marginRight: '5px' }} type="radio" />
-              <label htmlFor={option}>{option}</label>
-            </li>
-          )}
-        </ul>
-      </div>
-    )
-  }
-}
+
+const RadioList = ({options, title}) =>
+  <div className={cm.root}>
+    <div className={cm.title}>{title}</div>
+
+    <ul>{options.map((opt, idx) =>
+      <li key={idx}>
+        <input
+          name="{title}"
+          id={'radiolist-opt-' + opt}
+          type="radio"
+        />
+
+        <label htmlFor={opt}>{opt}</label>
+      </li>
+    )}</ul>
+  </div>
+
 export default RadioList

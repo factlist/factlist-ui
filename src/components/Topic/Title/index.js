@@ -1,17 +1,17 @@
-import React, { Fragment } from 'react'
-import H1 from './H1'
-import Textarea from './Textarea'
+import React from 'react'
+import AutosizeTextarea from 'react-textarea-autosize'
+import cm from './title.module.css'
 
 
-const Title = ({ isEdit, title, setTitle }) => (
-  <Fragment>
-    {isEdit === false
-      ? <H1>{title}</H1>
-      : <Textarea
-          placeholder="Enter your topic title."
-          value={title}
-          onInput={event => setTitle(event.target.value)} />}
-  </Fragment>
-)
+const Title = ({ isEdit, title, setTitle }) =>
+  isEdit === false
+    ? <h1 className={cm.title}>{title}</h1>
+
+    : <AutosizeTextarea
+        className={cm.titleEditor}
+        placeholder="Enter your topic title."
+        value={title}
+        onInput={e => setTitle(e.target.value)}
+      />
 
 export default Title

@@ -1,0 +1,18 @@
+.container {
+  width: 320px;
+  margin: 0 auto;
+}
+
+.link {
+  font-size: 12px;
+  color: rgba(0,0,0,0.70);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.text {
+  font-size: 12px;
+  color: rgba(0,0,0,0.60);
+  text-align: right;
+  margin: 0;
+}

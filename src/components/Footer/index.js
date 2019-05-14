@@ -1,35 +1,19 @@
 import React from 'react'
-import Container from './Container'
-import List from './List'
-import Item from './Item'
-import Link from './Link'
-import Copyright from './Copyright'
+import cm from './footer.module.css'
 
-const Footer = () => (
-  <Container>
-    <List>
-      <Item>
-        <Link href="">About</Link>
-      </Item>
-      <Item>
-        <Link href="">Help</Link>
-      </Item>
-      <Item>
-        <Link href="">Terms and Conditions</Link>
-      </Item>
-      <Item>
-        <Link href="">Privacy</Link>
-      </Item>
-      <Item>
-        <Link href="">Contact</Link>
-      </Item>
-      <Item>
-        <Link href="">Feedback</Link>
-      </Item>
-    </List>
 
-    <Copyright>Factlist 2018</Copyright>
-  </Container>
-)
+const Footer = () =>
+  <div className={cm.footer}>
+    <ul>
+      <li><a href="/">About</a></li>
+      <li><a href="/">Help</a></li>
+      <li><a href="/">Terms and Conditions</a></li>
+      <li><a href="/">Privacy</a></li>
+      <li><a href="/">Contact</a></li>
+      <li><a href="/">Feedback</a></li>
+    </ul>
+
+    <label>Factlist 2018</label>
+  </div>
 
 export default Footer

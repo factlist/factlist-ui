@@ -1,0 +1,26 @@
+.btn {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  display: inline-block;
+  border-radius: 3px;
+  padding: 12px 12px;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--color-aux);
+  background-color: var(--bg-aux);
+  border: var(--border-aux);
+  white-space: nowrap;
+}
+a.btn {
+  text-decoration: none;
+}
+.btn.primary {
+  color: var(--color-pri);
+  background-color: var(--bg-pri);
+  border: var(--border-pri);
+}
+.btn.disabled {
+  cursor: not-allowed;
+}

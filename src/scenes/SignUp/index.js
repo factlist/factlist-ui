@@ -6,12 +6,9 @@ import ModalContainer from 'modules/modal/container'
 import {saveToken} from 'utils/storage'
 import history from 'store/history'
 import NotificationContainer from 'modules/notification/container'
-import Container from '../SignIn/Container'
-import H2 from '../SignIn/H2'
-import H4 from '../SignIn/H4'
 import TwitterLogin from '../SignIn/TwitterLogin'
-import Seperator from '../SignIn/Seperator'
 import Form from './Form'
+import cm from 'scenes/SignIn/signin.module.css'
 
 
 const SignUpScene = ({
@@ -19,20 +16,25 @@ const SignUpScene = ({
   signInTwitter,
   modal,
 }) =>
-    <Container>
-      <H2>Hello, Factchecker!</H2>
-      <H4>Sign up to add suspicious claims or submit evidences.</H4>
+    <div className={cm.container}>
+      <h2 className={cm.title}>
+        Hello, Factchecker!
+      </h2>
+
+      <h4 className={cm.description}>
+        Sign up to add suspicious claims or submit evidences.
+      </h4>
 
       <TwitterLogin onClick={signInTwitter} />
 
-      <Seperator />
+      <span className={cm.separator}>or</span>
 
       <Form
         requesting={signUpFetch.pending}
         onSignInClick={() => modal.show('SignIn')}
         onSubmit={signUp}
       />
-    </Container>
+    </div>
 
 export default compose(
   withUnstated({
