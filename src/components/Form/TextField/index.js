@@ -1,7 +1,7 @@
 import React from 'react'
-import propTypes from 'prop-types'
 import {Field} from 'formik'
 import nanoid from 'nanoid'
+import capitalize from 'lodash/capitalize'
 import Container from './Container'
 import Input from './Input'
 import Textarea from './Textarea'
@@ -20,7 +20,7 @@ const TextField = ({
   <Field name={name}>
     {({field, form}) =>
       <Container>
-        <Label htmlFor={id}>{label}</Label>
+        <Label htmlFor={id}>{label || capitalize(name)}</Label>
 
         {multiLine
           ? <Textarea
@@ -46,9 +46,5 @@ const TextField = ({
     }
   </Field>
 )
-
-TextField.propTypes = {
-  label: propTypes.string.isRequired,
-}
 
 export default TextField

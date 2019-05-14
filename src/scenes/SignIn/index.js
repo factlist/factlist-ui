@@ -32,7 +32,6 @@ const SignInScene = ({
     <Seperator />
 
     <Form
-      authenticating={signInFetch.pending}
       onSubmit={signIn}
       onSignUpClick={() => modal.show('SignUp')}
       onPasswordResetClick={() => modal.show('PasswordReset')}
