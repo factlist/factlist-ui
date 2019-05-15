@@ -18,7 +18,7 @@ const SettingsForm = ({isSubmitting, isValidating}) => <Form>
     <Box>
       <TextField
         name="bio"
-        autocomplete="bio"
+        autoComplete="bio"
         multiLine={true}
       />
     </Box>
@@ -26,21 +26,21 @@ const SettingsForm = ({isSubmitting, isValidating}) => <Form>
     <Box mt={20}>
       <TextField
         name="name"
-        autocomplete="name"
+        autoComplete="name"
       />
     </Box>
 
     <Box mt={20}>
       <TextField
         name="username"
-        autocomplete="username"
+        autoComplete="username"
       />
     </Box>
 
     <Box mt={20}>
       <TextField
         name="email"
-        autocomplete="email"
+        autoComplete="email"
       />
     </Box>
 
@@ -48,7 +48,7 @@ const SettingsForm = ({isSubmitting, isValidating}) => <Form>
       <TextField
         type="password"
         name="password"
-        autocomplete="password"
+        autoComplete="password"
       />
     </Box>
 

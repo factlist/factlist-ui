@@ -31,7 +31,7 @@ const SignInForm = ({
           <TextField
             type='password'
             name='password'
-            autocomplete='current-password'
+            autoComplete='current-password'
           />
         </Box>
 
