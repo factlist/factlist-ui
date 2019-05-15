@@ -1,9 +1,8 @@
 import React from 'react'
 import {string, object} from 'yup'
 import {Flex, Box} from '@rebass/grid'
-import {withForm, Form} from 'utils/form'
-import {TextField} from 'components/Form'
-import Button from 'components/Button'
+import {withForm, Form} from 'adapters'
+import {TextField, Button} from 'components'
 import cm from './signinForm.module.css'
 
 

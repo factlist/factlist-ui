@@ -1,20 +1,13 @@
 import React from 'react';
 import { Flex, Box } from '@rebass/grid';
-
-import Button from 'components/Button';
-import Logo from 'components/Logo';
-
+import {Button, Logo, Separator} from 'components';
+import Title from 'components/Topic/Title'
+import client from 'lib/graphql'
 import Link from './Link'
 import NewLink from './NewLink';
-import Separator from 'components/Separator';
-import Title from 'components/Topic/Title'
-
-import client from 'modules/graphql'
 import {getTopic, createTopic, updateTitle, createLink, addTag, removeTag}
-  from 'modules/graphql/requests'
-
+  from './queries'
 import TopicFormContext from './TopicFormContext'
-
 import cm from './topicForm.module.css'
 
 

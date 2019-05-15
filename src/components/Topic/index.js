@@ -1,9 +1,9 @@
 import React from 'react'
 import { Flex, Box } from '@rebass/grid'
-import Title from 'components/Topic/Title'
-import Link from 'components/Topic/Link'
-import Menu from 'components/Topic/Menu'
-import Separator from 'components/Separator'
+import {Separator} from 'components'
+import Title from './Title'
+import Link from './Link'
+import Menu from './Menu'
 import cm from './topic.module.css'
 
 

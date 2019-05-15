@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Router, Route, Switch, Redirect} from 'react-router-dom'
 import {Provider as UnstatedProvider, Subscribe} from 'unstated'
 import unstatedDebugger from 'unstated-debug'
 import { ApolloProvider } from "react-apollo";
 import {InstantSearch} from 'react-instantsearch-dom'
-import {user, notification} from 'store/unstated'
-import history from 'store/history'
-import NotificationContainer from 'modules/notification/container'
-import ModalContainer from 'modules/modal/container'
-import ModalRouter from 'components/ModalRouter'
-import Notification from 'components/Notification'
-import Routes from './routes'
-import client from 'modules/graphql';
+import {history, user, modal, notification} from 'store'
+import {ModalContainer, NotificationContainer} from 'containers'
+import {ModalRouter, Notification} from 'components'
+import client from 'lib/graphql'
+import {getToken} from 'lib/storage'
+import {NotFound} from 'scenes'
+import routes from './routes'
 import 'sanitize.css/sanitize.css'
 import './theme.css'
 
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development')
   unstatedDebugger.logStateChanges = true
 
 ReactDOM.render(
-  <UnstatedProvider inject={[user, notification]}>
+  <UnstatedProvider inject={[user, modal, notification]}>
     <ApolloProvider client={client}>
       <InstantSearch
         appId="latency"
@@ -44,11 +44,35 @@ ReactDOM.render(
           </>}
         </Subscribe>
 
-        <Routes history={history} />
+        <Router history={history}>
+          <Switch>
+            {routes.map(([
+              path,
+              Component,
+              {private: priv, ...opts} = {},
+            ]) =>
+              <Route
+                key={path}
+                path={path}
+                {...opts}
+                render={props =>
+                  !priv || getToken()
+                    ? <Component {...props} />
+
+                    : <Redirect to={{
+                        pathname: '/',
+                        state: {from: props.location}
+                    }} />
+                }
+              />
+            )}
+
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
       </InstantSearch>
     </ApolloProvider>
   </UnstatedProvider>,
 
   document.getElementById('root')
 )
-

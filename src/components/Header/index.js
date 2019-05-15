@@ -3,8 +3,7 @@ import ContentLoader from 'react-content-loader'
 import { Flex, Box } from '@rebass/grid';
 import { Link } from 'react-router-dom';
 import {SearchBox} from 'react-instantsearch-dom';
-import Button from 'components/Button';
-import Logo from 'components/Logo';
+import {Button, Logo} from 'components'
 import cm from './header.module.css'
 
 

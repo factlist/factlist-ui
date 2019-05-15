@@ -1,17 +1,10 @@
 import {compose} from 'recompose'
-import {withRouter} from 'react-router'
-import {withUnstated} from 'utils/unstated'
-import NotificationContainer from 'modules/notification/container'
-import {withFetch} from 'utils/request'
-import {saveToken, saveUser} from 'utils/storage'
+import {saveToken, saveUser} from 'lib/storage'
+import {withNotification, withFetch} from 'adapters'
 
 
-export default compose (
-  withUnstated({
-    notification: NotificationContainer,
-  }),
-
-  withRouter,
+export default compose(
+  withNotification,
 
   withFetch(({match, history, notification}) => ({
     signInFetch: ({

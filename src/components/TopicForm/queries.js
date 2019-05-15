@@ -8,16 +8,6 @@ const extendedTopicFields = `
   links {id, title, url, tags {id, title}}
 `
 
-export const getUser = gql`query($id: ID!) {
-  getUserById(id: $id) {
-    id, name, email, username, topics {
-      id, title, user_id, links {
-        id, title, url, tags {id, title}
-      }
-    }
-  }
-}`
-
 export const getTopic = gql`query($id: ID!) {
   topic(id: $id) {
     id, title, links {
@@ -25,8 +15,6 @@ export const getTopic = gql`query($id: ID!) {
     }
   }
 }`
-
-export const getAllTopics = gql`query {topics {${extendedTopicFields}}}`
 
 export const createTopic = gql`mutation(
   $title: String

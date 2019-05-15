@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { withState } from 'recompose'
 import Popover from 'react-tiny-popover'
 import MoreHorizontal from 'react-feather/dist/icons/more-horizontal'
+import {withState} from 'adapters'
 import cm from './menu.module.css'
 
 

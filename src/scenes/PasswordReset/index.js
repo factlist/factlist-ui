@@ -1,5 +1,5 @@
 import React from 'react'
-import {withFetch, formFetch} from 'utils/request'
+import {withFetch, formFetch} from 'adapters'
 import Form from './Form'
 import cm from './passReset.module.css'
 

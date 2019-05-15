@@ -1,7 +1,8 @@
-import _ from 'utils/_'
+import {parseUrl} from './_'
+
 
 export default (url) => {
-  const { protocol, hostname } = _.parseUrl(url)
+  const { protocol, hostname } = parseUrl(url)
   const domain = `${protocol}//${hostname}`
 
   return url || hostname.replace('www.', '') + url.substr(domain.length, 6) + '...'

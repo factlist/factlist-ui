@@ -1,18 +1,25 @@
 import React from 'react'
-import {compose} from 'recompose'
-import {withUnstated} from 'utils/unstated'
-import {withFetch, formFetch} from 'utils/request'
 import jwtDecode from 'jwt-decode'
-import history from 'store/history'
-import ModalContainer from 'modules/modal/container'
-import NotificationContainer from 'modules/notification/container'
-import UserContainer from 'modules/auth/container'
-import client from 'modules/graphql'
-import {getUser} from 'modules/graphql/requests'
-import {saveToken, saveUser} from 'utils/storage'
+import gql from 'graphql-tag'
+import {history} from 'store'
+import {compose, withUser, withModal, withNotification, withFetch, formFetch}
+  from 'adapters'
+import client from 'lib/graphql'
+import {saveToken, saveUser} from 'lib/storage'
 import TwitterLogin from './TwitterLogin'
 import Form from './Form'
 import cm from './signin.module.css'
+
+
+const userQuery = gql`query($id: ID!) {
+  getUserById(id: $id) {
+    id, name, email, username, topics {
+      id, title, user_id, links {
+        id, title, url, tags {id, title}
+      }
+    }
+  }
+}`
 
 
 const SignInScene = ({
@@ -41,11 +48,11 @@ const SignInScene = ({
   </div>
 
 export default compose(
-  withUnstated({
-    user: UserContainer,
-    modal: ModalContainer,
-    notification: NotificationContainer,
-  }),
+  withUser,
+
+  withModal,
+
+  withNotification,
 
   withFetch(({user, modal, notification}) => ({
     signIn: formFetch(params => ({
@@ -74,7 +81,7 @@ const handleSignInSuccess = (resp, user, modal) => {
   user.setToken(resp.token)
 
   client.query({
-    query: getUser,
+    query: userQuery,
     variables: {id: jwtDecode(resp.token).sub},
   })
     .then(resp => {

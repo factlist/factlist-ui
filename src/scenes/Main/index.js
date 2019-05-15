@@ -1,17 +1,21 @@
 import React from 'react'
 import {compose} from 'recompose'
-import {graphql} from 'react-apollo'
-import {getAllTopics} from 'modules/graphql/requests'
+import {withUser, withGraphql} from 'adapters'
+import gql from 'graphql-tag'
 import { Flex, Box } from '@rebass/grid'
-import {withUnstated} from 'utils/unstated'
-import UserContainer from 'modules/auth/container'
-import Layout from 'components/Layout'
-import Slack from 'components/Slack'
-import Footer from 'components/Footer'
-import Topic from 'components/Topic'
-import Separator from 'components/Separator'
-import {RefinementList, RadioList} from 'components/Filter'
+import {Layout, Slack, Footer, Topic, Separator, RefinementList, RadioList}
+  from 'components'
 import cm from './main.module.css'
+
+
+export const getTopicsQuery = gql`query {
+  topics {
+    id
+    title
+    user {id, username, name, email}
+    links {id, title, url, tags {id, title}}
+  }
+}`
 
 
 const MainScene = ({data}) => <Layout>
@@ -80,9 +84,9 @@ const MainScene = ({data}) => <Layout>
 </Layout>
 
 export default compose(
-  withUnstated({user: UserContainer}),
+  withUser,
 
-  graphql(getAllTopics, {
+  withGraphql(getTopicsQuery, {
     skip: props => !props.user.state.token,
   })
 )(

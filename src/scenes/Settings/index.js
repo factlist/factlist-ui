@@ -1,12 +1,10 @@
 import React from 'react'
-import {compose, withStateHandlers} from 'recompose'
-import {withUnstated} from 'utils/unstated'
-import pickBy from 'lodash/pickBy'
 import { Flex, Box } from '@rebass/grid'
-import {withFetch, formFetch} from 'utils/request'
-import UserContainer from 'modules/auth/container'
-import NotificationContainer from 'modules/notification/container'
-import Layout from 'components/Layout'
+import pickBy from 'lodash/pickBy'
+import {
+  compose, withUser, withNotification, withFetch, formFetch, withStateHandlers,
+} from 'adapters'
+import {Layout} from 'components'
 import Form from './Form'
 import Avatar from './Avatar'
 import cm from './settings.module.css'
@@ -33,10 +31,9 @@ const SettingsScene = ({setAvatar, handleSubmit, user}) => <Layout>
 </Layout>
 
 export default compose(
-  withUnstated({
-    user: UserContainer,
-    notification: NotificationContainer,
-  }),
+  withUser,
+
+  withNotification,
 
   withFetch(({notification}) => ({
     updateUser: formFetch(params => ({
