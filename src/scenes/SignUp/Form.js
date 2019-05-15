@@ -3,10 +3,8 @@ import { Flex, Box } from '@rebass/grid'
 import {object, string} from 'yup'
 import {withForm, Form} from 'utils/form'
 import { TextField } from 'components/Form'
-import Container from '../SignIn/Form/Container'
 import Button from 'components/Button'
-import A from '../SignIn/Form/A'
-import P from '../SignIn/Form/P'
+import cm from 'scenes/SignIn/signinForm.module.css'
 
 
 const validationSchema = object({
@@ -17,7 +15,7 @@ const validationSchema = object({
 })
 
 const SignupForm = ({onSignInClick, isSubmitting, isValidating}) => <Form>
-  <Container>
+  <div className={cm.container}>
     <Flex flexDirection="column">
       <Box>
         <TextField
@@ -61,12 +59,18 @@ const SignupForm = ({onSignInClick, isSubmitting, isValidating}) => <Form>
       </Box>
 
       <Box mt={12}>
-        <P>
-          Already have an account? <A onClick={onSignInClick}>Sign In.</A>
-        </P>
+        <p className={cm.text}>
+          Already have an account?&nbsp;
+          <a
+            className={cm.link}
+            onClick={onSignInClick}
+            href='#nogo'
+            children='Sign In.'
+          />
+        </p>
       </Box>
     </Flex>
-  </Container>
+  </div>
 </Form>
 
 export default withForm({validationSchema})(SignupForm)

@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Flex, Box } from '@rebass/grid';
 
-import Container from './Container';
-import Header from './Header';
+import Button from 'components/Button';
+import Logo from 'components/Logo';
+
+import Link from './Link'
 import NewLink from './NewLink';
-import Link from './Link';
 import Separator from 'components/Separator';
 import Title from 'components/Topic/Title'
 
@@ -13,6 +14,9 @@ import {getTopic, createTopic, updateTitle, createLink, addTag, removeTag}
   from 'modules/graphql/requests'
 
 import TopicFormContext from './TopicFormContext'
+
+import cm from './topicForm.module.css'
+
 
 class TopicForm extends React.Component {
   constructor(props) {
@@ -156,37 +160,43 @@ class TopicForm extends React.Component {
   }
 
   renderLinkList() {
-    return this.state.topic.links.map((link, key) => {
-      return (
-        <Fragment>
-          <Link key={`link-${key}-${link.id}`}
-                id={link.id} />
-          <Separator />
-        </Fragment>
-      );
-    });
+    return this.state.topic.links.map((link, key) => <>
+      <Link key={`link-${key}-${link.id}`}
+            id={link.id} />
+      <Separator />
+    </>);
   }
 
   render() {
-    const {topic, setTitle, isReady } = this.state;
-    if(!isReady) { return (<Header />) }
+    const {topic, setTitle, isReady} = this.state;
+
+    if (!isReady)
+      return <Header />
+
     return (
       <TopicFormContext.Provider value={this.state}>
         <Header />
+
         <Box>
-          <Container>
-              <Flex flexDirection="column">
-                <Box width={1}>
-                  <Title title={topic.title} isEdit={true} setTitle={setTitle} />
-                </Box>
-              </Flex>
-              <Flex flexDirection='column'>
-                <Box>
-                  {this.renderLinkList()}
-                </Box>
-              </Flex>
-              <NewLink />
-          </Container>
+          <div className={cm.container}>
+            <Flex flexDirection="column">
+              <Box width={1}>
+                <Title
+                  title={topic.title}
+                  isEdit={true}
+                  setTitle={setTitle}
+                />
+              </Box>
+            </Flex>
+
+            <Flex flexDirection='column'>
+              <Box>
+                {this.renderLinkList()}
+              </Box>
+            </Flex>
+
+            <NewLink />
+          </div>
         </Box>
       </TopicFormContext.Provider>
     );
@@ -204,3 +214,31 @@ TopicForm.defaultProps = {
 };
 
 export default TopicForm;
+
+
+const Header = ({ onSave }) =>
+  <Flex
+    className={cm.header}
+    justifyContent="center"
+    alignItems="center"
+  >
+    <Box>
+      <Logo />
+    </Box>
+
+    <Box>
+      <Button
+        to="/"
+        primary={false}
+        redirect
+        children="Cancel"
+        style={{marginRight: 20}}
+      />
+
+      <Button
+        onClick={onSave}
+        primary={false}
+        children="Save"
+      />
+    </Box>
+  </Flex>

@@ -1,10 +1,7 @@
-import styled from 'styled-components'
+import React from 'react'
+import cm from './separator.module.css'
 
-const Separator = styled.div`
-  width: 100%;
-  border-top: 1px solid #E0E0E0;
-  opacity: 0.3;
-  margin: 20px 0;
-`
+
+const Separator = () => <div className={cm.sep} />
 
 export default Separator;

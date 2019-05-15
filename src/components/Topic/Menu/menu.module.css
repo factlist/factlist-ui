@@ -1,0 +1,44 @@
+.button {
+  border-color: transparent;
+  color: #4c4c4c;
+}
+
+.navContainer {
+  border-radius: 3px;
+  border: 1px solid #E4E7EB;
+  background-color: #FFF;
+
+  min-width: 180px;
+  min-height: 40px;
+}
+
+.navList {
+  padding: 8px 0;
+}
+
+.navLink {
+  cursor: pointer;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  color: black;
+}
+.navLink:hover {
+  background-color: rgba(67, 90, 111, 0.04);
+}
+
+.navItem {
+  cursor: pointer;
+  padding: 8px 15px;
+
+  font-size: 14px;
+  font-weight: 400;
+}
+.navItem:hover {
+  background-color: rgba(67, 90, 111, 0.04);
+}
+
+.navSeparator {
+  border-bottom: 1px solid #E4E7EB;
+}

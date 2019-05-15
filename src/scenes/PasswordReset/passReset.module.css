@@ -1,0 +1,17 @@
+.container {
+  width: 430px;
+  padding: 50px 30px;
+}
+
+h2.title {
+  font-size: 24px;
+  font-weight: normal;
+  color: rgba(0,0,0,0.90);
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+p.success {
+  font-size: 13px;
+  line-height: 18px;
+}

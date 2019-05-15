@@ -8,16 +8,15 @@ const LinkContainer = ({ id }) => {
 
   const {url, title, tags} = getLink(id);
 
-  return (
-    <Link
-      isEdit={true}
-      title={title}
-      url={url}
-      onDelete={() => deleteLink(url)}
-      tags={tags}
-      onTagDelete={(tag) => deleteTag(id, tag)}
-      onTagAdd={(tag) => addTag(id, tag)}  />
-  )
+  return <Link
+    isEdit={true}
+    title={title}
+    url={url}
+    onDelete={() => deleteLink(url)}
+    tags={tags}
+    onTagDelete={(tag) => deleteTag(id, tag)}
+    onTagAdd={(tag) => addTag(id, tag)}
+  />
 }
 
 export default LinkContainer;

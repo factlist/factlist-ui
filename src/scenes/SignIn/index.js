@@ -10,12 +10,9 @@ import UserContainer from 'modules/auth/container'
 import client from 'modules/graphql'
 import {getUser} from 'modules/graphql/requests'
 import {saveToken, saveUser} from 'utils/storage'
-import Container from './Container'
-import H2 from './H2'
-import H4 from './H4'
 import TwitterLogin from './TwitterLogin'
-import Seperator from './Seperator'
 import Form from './Form'
+import cm from './signin.module.css'
 
 
 const SignInScene = ({
@@ -23,20 +20,25 @@ const SignInScene = ({
   signInTwitter,
   modal,
 }) =>
-  <Container>
-    <H2>Welcome back, Fact Checker!</H2>
-    <H4>Login to add suspicious claims or submit evidences.</H4>
+  <div className={cm.container}>
+    <h2 className={cm.title}>
+      Welcome back, Fact Checker!
+    </h2>
+
+    <h4 className={cm.description}>
+      Login to add suspicious claims or submit evidences.
+    </h4>
 
     <TwitterLogin onClick={signInTwitter} />
 
-    <Seperator />
+    <span className={cm.separator}>or</span>
 
     <Form
       onSubmit={signIn}
       onSignUpClick={() => modal.show('SignUp')}
       onPasswordResetClick={() => modal.show('PasswordReset')}
     />
-  </Container>
+  </div>
 
 export default compose(
   withUnstated({

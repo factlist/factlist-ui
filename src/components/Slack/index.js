@@ -1,20 +1,23 @@
 import React from 'react'
 import { Flex, Box } from '@rebass/grid'
-import Container from './Container'
-import Img from './Img'
-import A from './A'
+import cm from './slack.module.css'
 
-const Slack = () => (
-  <Container>
+
+const Slack = () =>
+  <div className={cm.slack}>
     <Flex justifyContent="center" alignItems="center">
       <Box>
-        <Img src="images/slack.svg" title="Slack" />
+        <img
+          src="images/slack.svg"
+          title="Slack"
+          alt='Slack'
+        />
       </Box>
+
       <Box>
-        <A href="">Join our Slack community</A>
+        <a href="/">Join our Slack community</a>
       </Box>
     </Flex>
-  </Container>
-)
+  </div>
 
 export default Slack

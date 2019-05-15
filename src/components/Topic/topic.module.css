@@ -1,0 +1,13 @@
+.container {
+  background-color: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 0px;
+  min-width: 300px;
+  max-width: 690px;
+  padding: 15px;
+  overflow-wrap: break-word; /* Cross browser word wrapping */
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+}

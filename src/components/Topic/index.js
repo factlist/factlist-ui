@@ -1,15 +1,15 @@
 import React from 'react'
 import { Flex, Box } from '@rebass/grid'
-
-import Container from 'components/Topic/Container'
 import Title from 'components/Topic/Title'
 import Link from 'components/Topic/Link'
 import Menu from 'components/Topic/Menu'
 import Separator from 'components/Separator'
+import cm from './topic.module.css'
 
-const Topic = ({ isEdit, topic, marginBottom }) => (
+
+const Topic = ({ isEdit, topic, marginBottom }) =>
   <Box mb={marginBottom}>
-    <Container>
+    <div className={cm.container}>
       <Flex justifyContent='space-between'>
         <Box width={1}>
           <Title title={topic.title} isEdit={isEdit} />
@@ -33,10 +33,8 @@ const Topic = ({ isEdit, topic, marginBottom }) => (
           </Box>
         )})}
       </Flex>
-    </Container>
-
+    </div>
   </Box>
-)
 
 export default Topic;
 

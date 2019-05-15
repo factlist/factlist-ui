@@ -1,69 +1,86 @@
 import React from 'react'
-import {graphql} from 'react-apollo'
-import {withUnstated} from 'utils/unstated'
 import {compose} from 'recompose'
-import UserContainer from 'modules/auth/container'
-import ModalContainer from 'modules/modal/container'
+import {graphql} from 'react-apollo'
 import {getAllTopics} from 'modules/graphql/requests'
-
 import { Flex, Box } from '@rebass/grid'
-import { Container, Left, Center, Right } from 'components/Layout'
-import Header from 'components/Header'
+import {withUnstated} from 'utils/unstated'
+import UserContainer from 'modules/auth/container'
+import Layout from 'components/Layout'
 import Slack from 'components/Slack'
 import Footer from 'components/Footer'
 import Topic from 'components/Topic'
 import Separator from 'components/Separator'
-import { StyledRefinementList, RadioList } from 'components/Filter'
+import {RefinementList, RadioList} from 'components/Filter'
+import cm from './main.module.css'
 
 
-const MainScene = ({user, modal, data}) => <>
-
-  <Header
-    user={user.state.user}
-    token={user.state.token}
-    onClickSignInButton={() => modal.show('SignIn')}
-  />
-
-  <Container width={['auto','600px','960px', '1200px']} justifyContent="center">
-    <Left width={['235px']} mr={'20px'}>
+const MainScene = ({data}) => <Layout>
+  <Flex
+    className={cm.container}
+    width={['auto','600px','960px', '1200px']}
+    justifyContent="center"
+  >
+    <Box
+      className={cm.leftSidebar}
+      width={['235px']}
+      mr='20px'
+    >
       <div className="container">
-        <RadioList title="USERS" options={['All People', 'People you follow']} />
+        <RadioList
+          title="USERS"
+          options={['All People', 'People you follow']}
+        />
         <Separator />
-        <div style={{ fontSize: '13px', opacity: '0.5' }}>SOURCES</div>
-        <StyledRefinementList attribute="type" searchable />
-        <Separator />
-        <div style={{ fontSize: '13px', opacity: '0.5' }}>TAGS</div>
-        <StyledRefinementList attribute="category" searchable />
-        <Separator />
-        <RadioList title="TIME" options={['All time', 'Past Hour', 'Past Day', 'Past Week', 'Past Month', 'Past Year']} />
-      </div>
-    </Left>
 
-    <Center flex='1 0 0' mx={0}>
+        <div className={cm.title}>SOURCES</div>
+        <RefinementList attribute="type" searchable />
+        <Separator />
+
+        <div className={cm.title}>TAGS</div>
+        <RefinementList attribute="category" searchable />
+        <Separator />
+
+        <RadioList
+          title="TIME"
+          options={[
+            'All time',
+            'Past Hour',
+            'Past Day',
+            'Past Week',
+            'Past Month',
+            'Past Year',
+          ]}
+        />
+      </div>
+    </Box>
+
+    <Box flex='1 0 0' mx={0}>
       <Flex flexDirection="column">
         {(data && data.networkStatus === 7) &&
-        data.topics.map(topic =>
-          <Topic key={topic.id} topic={topic} isEdit={false} />
-        )}
+          data.topics.map(topic =>
+            <Topic key={topic.id} topic={topic} isEdit={false} />
+          )}
       </Flex>
-    </Center>
+    </Box>
 
-    <Right width={['235px']} ml={'20px'}>
+    <Box
+      className={cm.rightSidebar}
+      width={['235px']}
+      ml='20px'
+    >
       <Box>
         <Slack />
       </Box>
+
       <Box mt={15}>
         <Footer />
       </Box>
-    </Right>
-  </Container>
-</>
+    </Box>
+  </Flex>
+</Layout>
 
 export default compose(
-  withUnstated({
-    user: UserContainer,
-    modal: ModalContainer,
-  }),
+  withUnstated({user: UserContainer}),
 
   graphql(getAllTopics, {
     skip: props => !props.user.state.token,

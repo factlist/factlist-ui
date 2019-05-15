@@ -1,58 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components'
-import { Link } from "react-router-dom";
+import React from 'react'
+import pt from 'prop-types'
+import { Link } from "react-router-dom"
+import cn from 'utils/classname'
+import cm from './button.module.css'
 
-const commonStyles = css`
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  display: inline-block;
-  border-radius:3px;
-  padding: 12px 12px;
-  user-select: none;
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
-  outline: none;
-  color: ${props => (props.primary ? '#FFF' : '#000')};
-  background-color: ${props => (props.primary ? '#000' : '#FFF')};
-  border: 1px solid ${props => (props.primary ? '#000' : '#E0E0E0')};
-   white-space: nowrap;
-  
-`;
 
-const StyledButton = styled.button`
-  ${props => commonStyles};
-  ${props => props.style};
-`
-const StyledLink = styled(Link)`
-  ${props => commonStyles};
-  ${props => props.style};
-  text-decoration: none;
-`;
+const Button = ({to, primary, disabled, ...props}) => {
+  const className = cn(cm, 'btn', {primary, disabled})
 
-class Button extends React.Component {
-  render() {
-    const { primary, disabled, title, onClick, to, style, redirect, type } = this.props;
-    const commonProps = { primary, disabled, style, type };
-    const canRedirect = to || redirect;
-    return (
-      !!canRedirect ?
-      <StyledLink {...commonProps} to={to}>{title}</StyledLink>
-      :
-      <StyledButton {...commonProps} onClick={onClick}>{title}</StyledButton>
-    )
-  }
+  return to
+    ? <Link {...{to, className, ...props}} />
+    : <button {...{className, ...props}} />
 }
 
 Button.propTypes = {
-  disabled: PropTypes.bool,
-  primary: PropTypes.bool,
-  canRedirect: PropTypes.bool,
+  disabled: pt.bool,
+  primary: pt.bool,
 }
+
 Button.defaultProps = {
   primary: true,
   disabled: false,
-  canRedirect: false,
 }
 
-export default Button;
+export default Button

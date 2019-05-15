@@ -1,0 +1,37 @@
+.container {
+  background-color: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 3px;
+
+  min-width: 375px;
+  max-width: 670px;
+  padding: 20px;
+  margin: auto;
+
+  overflow-wrap: break-word; /* Cross browser word wrapping */
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
+  margin-bottom: 100px;
+}
+
+.header {
+  background-color: #FFF;
+  padding: 15px 0;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 375px;
+  max-width: 670px;
+  justify-content: space-between;
+
+}
+
+@media (max-width: 730px) {
+  .header {
+    padding: 20px 0;
+    background-color: #F1F3F5;
+    margin: 0;
+  }
+}

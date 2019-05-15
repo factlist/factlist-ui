@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import OuterContainer from './OuterContainer'
-import InnerContainer from './InnerContainer'
-import Overlay from './Overlay'
-import Content from './Content'
-import CloseButton from './CloseButton'
+import cm from './modal.module.css'
+
 
 export default class Modal extends Component {
   listenKeyboard = this.listenKeyboard.bind(this)
@@ -26,18 +23,26 @@ export default class Modal extends Component {
   render() {
     const { onClose, children } = this.props
 
-    return (
-      <OuterContainer>
-        <Overlay onClick={onClose} />
+    return <div className={cm.container}>
+      <div
+        className={cm.overlay}
+        onClick={onClose}
+      />
 
-        <InnerContainer>
-          <Content>
-            <CloseButton onClick={onClose} />
+      <div className={cm.content}>
+        <a
+          className={cm.closeButton}
+          onClick={onClose}
+          href='#nogo'
+        >
+          <img
+            src="/images/icons/close.svg"
+            alt="Close"
+          />
+        </a>
 
-            {children}
-          </Content>
-        </InnerContainer>
-      </OuterContainer>
-    )
+        {children}
+      </div>
+    </div>
   }
 }
