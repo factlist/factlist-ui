@@ -15,7 +15,7 @@ const ChangePasswordForm = ({isSubmitting, isValidating}) => <Form>
       <TextField
         type="password"
         name="password"
-        autocomplete="password"
+        autoComplete="password"
       />
     </Box>
 

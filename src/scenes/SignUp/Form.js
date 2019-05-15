@@ -26,7 +26,7 @@ const SignupForm = ({onSignInClick, isSubmitting, isValidating}) => <Form>
       <Box mt={15}>
         <TextField
           name="email"
-          autocomplete="email"
+          autoComplete="email"
         />
       </Box>
 
@@ -34,7 +34,7 @@ const SignupForm = ({onSignInClick, isSubmitting, isValidating}) => <Form>
         <TextField
           type="name"
           name="name"
-          autocomplete="name"
+          autoComplete="name"
         />
       </Box>
 
@@ -42,7 +42,7 @@ const SignupForm = ({onSignInClick, isSubmitting, isValidating}) => <Form>
         <TextField
           type="password"
           name="password"
-          autocomplete="current-password"
+          autoComplete="current-password"
         />
       </Box>
     </Flex>
