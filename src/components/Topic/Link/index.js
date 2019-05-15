@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex } from '@rebass/grid';
-import urlMask from 'utils/urlMask';
+import urlMask from 'lib/urlMask';
 import Tags from './Tags';
 import cm from './link.module.css'
 

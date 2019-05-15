@@ -1,7 +1,7 @@
-import {connect} from 'react-refetch'
-import {getToken} from 'utils/storage'
+import {connect as connectRefetch} from 'react-refetch'
 import mapValues from 'lodash/mapValues'
 import noop from 'lodash/noop'
+import {getToken} from './storage'
 
 
 const buildRequest = ({url, headers, body, ...rest}) => ({
@@ -26,7 +26,7 @@ const handleResponse = resp =>
         : Promise.reject(parsed)
     })
 
-export const withFetch = connect.defaults({
+export const withFetch = connectRefetch.defaults({
   buildRequest,
   fetch: fetch_,
   handleResponse,

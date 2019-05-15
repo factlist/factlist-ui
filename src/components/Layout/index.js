@@ -1,8 +1,6 @@
 import React from 'react'
-import {withUnstated} from 'utils/unstated'
-import UserContainer from 'modules/auth/container'
-import ModalContainer from 'modules/modal/container'
-import Header from 'components/Header'
+import {compose, withUser, withModal} from 'adapters'
+import {Header} from 'components'
 import cm from './layout.module.css'
 
 
@@ -18,9 +16,9 @@ const Layout = ({user, modal, children}) => <>
   </div>
 </>
 
-export default withUnstated({
-  user: UserContainer,
-  modal: ModalContainer,
-})(
+export default compose(
+  withUser,
+  withModal
+)(
   Layout
 )

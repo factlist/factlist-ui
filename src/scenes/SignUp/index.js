@@ -1,11 +1,8 @@
 import React from 'react'
-import {compose} from 'recompose'
-import {withUnstated} from 'utils/unstated'
-import {withFetch, formFetch} from 'utils/request'
-import ModalContainer from 'modules/modal/container'
-import {saveToken} from 'utils/storage'
-import history from 'store/history'
-import NotificationContainer from 'modules/notification/container'
+import {history} from 'store'
+import {compose, withModal, withNotification, withFetch, formFetch}
+  from 'adapters'
+import {saveToken} from 'lib/storage'
 import TwitterLogin from '../SignIn/TwitterLogin'
 import Form from './Form'
 import cm from 'scenes/SignIn/signin.module.css'
@@ -37,10 +34,9 @@ const SignUpScene = ({
     </div>
 
 export default compose(
-  withUnstated({
-    modal: ModalContainer,
-    notification: NotificationContainer,
-  }),
+  withModal,
+
+  withNotification,
 
   withFetch(({notification}) => ({
     signUp: formFetch(params => ({

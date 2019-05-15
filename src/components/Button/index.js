@@ -1,7 +1,7 @@
 import React from 'react'
 import pt from 'prop-types'
 import { Link } from "react-router-dom"
-import cn from 'utils/classname'
+import cn from 'lib/classname'
 import cm from './button.module.css'
 
 

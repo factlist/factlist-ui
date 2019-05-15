@@ -1,8 +1,8 @@
 import React from 'react'
-import {withForm, Form} from 'utils/form'
-import { TextField } from 'components/Form'
-import {object, string} from 'yup'
 import { Flex, Box } from '@rebass/grid'
+import {object, string} from 'yup'
+import {withForm, Form} from 'adapters'
+import {TextField} from 'components'
 
 
 const validationSchema = object({

@@ -1,9 +1,6 @@
 import {createElement as h} from 'react'
-import Modal from 'components/Modal'
-import SignIn from 'scenes/SignIn'
-import SignUp from 'scenes/SignUp'
-import PasswordReset from 'scenes/PasswordReset'
-import Image from 'scenes/Image'
+import {Modal} from 'components'
+import {SignIn, SignUp, PasswordReset, Image} from 'scenes'
 
 
 const modalComponents = {

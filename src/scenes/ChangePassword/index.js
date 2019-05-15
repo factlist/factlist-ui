@@ -1,10 +1,7 @@
 import React from 'react'
-import {withUnstated} from 'utils/unstated'
 import {compose} from 'recompose'
-import {withFetch, formFetch} from 'utils/request'
-import UserContainer from 'modules/auth/container'
-import NotificationContainer from 'modules/notification/container'
-import Layout from 'components/Layout'
+import {withUser, withNotification, withFetch, formFetch} from 'adapters'
+import {Layout} from 'components'
 import Form from './Form'
 import cm from './changePass.module.css'
 
@@ -18,10 +15,9 @@ const ChangePasswordScene = ({user, changeFetch = {}, changePassword}) =>
   </Layout>
 
 export default compose(
-  withUnstated({
-    user: UserContainer,
-    notification: NotificationContainer,
-  }),
+  withUser,
+
+  withNotification,
 
   withFetch(({match, notification}) => ({
     changePassword: formFetch((params, form) => ({

@@ -4,8 +4,6 @@ import mapValues from 'lodash/mapValues'
 import noop from 'lodash/noop'
 
 
-export {Form} from 'formik'
-
 /**
  * withForm: Wrapper for Formik's "withformik" HOC. All it does is to define two
  * default properties with following behaviors:
