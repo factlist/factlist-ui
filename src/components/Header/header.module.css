@@ -1,13 +1,38 @@
 .header {
   background-color: white;
-  padding: 15px 10px;
-  margin: 0 auto;
+  padding: 15px 0px;
+  margin-bottom:20px;
 }
+
+.logo{
+  width:120px;
+}
+.buttons{
+  width:135px;
+}
+.searchBox{
+  margin: 0px 10px;
+}
+
+@media screen and (min-width: 600px){
+
+}
+@media screen and (min-width: 960px){
+  .searchBox{
+    margin-left:135px;
+    margin-right:10px;
+  }
+}
+@media screen and (min-width: 1200px){
+  .searchBox{
+    margin-right:120px;
+  }
+}
+
 
 .avatar {
   width: 40px;
   height: 40px;
-  margin-right: 10px;
   border-radius: 50%;
 }
 

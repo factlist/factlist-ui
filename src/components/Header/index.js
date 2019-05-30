@@ -14,21 +14,19 @@ const Header = ({
   onClickSignInButton,
   hideSignInButton = false,
 }) =>
-  <div className={cm.header}>
-    <Flex width={['auto','600px','960px', '1200px']} justifyContent="flex-start" alignItems="center">
-      <Box width={[ 'auto', '130px', '235px']}>
+    <Flex className={cm.header} justifyContent="flex-start" alignItems="center">
+      <Box className={cm.logo}>
         <Logo />
       </Box>
 
-      <Box flex='1 0 0' mx={20} >
+      <Box  flex='1 0 0'  className={cm.searchBox}>
         <SearchBox
-          className={cm.searchBox}
           type="text"
           placeholder="Search"
         />
       </Box>
 
-      <Box width={[ 'auto', '130px', '235px']}>
+      <Box className={cm.buttons}>
         <Flex justifyContent="flex-end">
           <Box mr={10}>
             <Button primary to='/topic/new' children="New Topic"/>
@@ -52,7 +50,6 @@ const Header = ({
         </Flex>
       </Box>
     </Flex>
-  </div>
 
 export default Header;
 
