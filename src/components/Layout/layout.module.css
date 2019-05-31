@@ -1,5 +1,20 @@
 .container {
-  background-color: white;
-  padding: 15px 10px;
-  margin: 0 auto 20px auto;
+  padding: 0px 10px;
+  margin: 0 auto;
+  width:100%;
+}
+@media screen and (min-width: 600px){
+  .container {
+    width: 600px;
+  }
+}
+@media screen and (min-width: 960px){
+  .container {
+    width: 960px;
+  }
+}
+@media screen and (min-width: 1200px){
+  .container {
+    width: 1200px;
+  }
 }

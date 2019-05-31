@@ -1,8 +1,3 @@
-.container {
-  padding: 15px 10px;
-  margin: 0px auto 20px auto;
-}
-
 .title {
   font-size: 13px;
   opacity: 0.5;
@@ -10,11 +5,15 @@
 
 .leftSidebar {
   word-wrap: break-word;
+  display:none;
+}
+.rightSidebar{
+  display: none;
 }
 
-@media (max-width: 960px) {
-  .leftSidebar { display: none; }
+@media (min-width: 960px) {
+  .leftSidebar { display: block; }
 }
-@media (max-width: 1200px) {
-  .rightSidebar { display: none; }
+@media (min-width: 1200px) {
+  .rightSidebar { display: block; }
 }

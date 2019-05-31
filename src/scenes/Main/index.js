@@ -20,8 +20,6 @@ export const getTopicsQuery = gql`query {
 
 const MainScene = ({data}) => <Layout>
   <Flex
-    className={cm.container}
-    width={['auto','600px','960px', '1200px']}
     justifyContent="center"
   >
     <Box
