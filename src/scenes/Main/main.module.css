@@ -2,18 +2,3 @@
   font-size: 13px;
   opacity: 0.5;
 }
-
-.leftSidebar {
-  word-wrap: break-word;
-  display:none;
-}
-.rightSidebar{
-  display: none;
-}
-
-@media (min-width: 960px) {
-  .leftSidebar { display: block; }
-}
-@media (min-width: 1200px) {
-  .rightSidebar { display: block; }
-}

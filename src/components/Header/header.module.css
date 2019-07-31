@@ -1,32 +1,7 @@
 .header {
   background-color: white;
-  padding: 15px 0px;
+  padding: 15px 0;
   margin-bottom:20px;
-}
-
-.logo{
-  width:120px;
-}
-.buttons{
-  width:135px;
-}
-.searchBox{
-  margin: 0px 10px;
-}
-
-@media screen and (min-width: 600px){
-
-}
-@media screen and (min-width: 960px){
-  .searchBox{
-    margin-left:135px;
-    margin-right:10px;
-  }
-}
-@media screen and (min-width: 1200px){
-  .searchBox{
-    margin-right:120px;
-  }
 }
 
 
@@ -57,4 +32,22 @@
 .searchBox :global(.ais-SearchBox-submit),
 .searchBox :global(.ais-SearchBox-reset) {
   display: none;
+}
+
+
+.create{
+  display:none;
+}
+.searchBox{
+  margin: 0 10px;
+}
+
+
+@media screen and (min-width: 600px){
+  .create{
+    display:block;
+  }
+  .searchBox{
+    margin: 0 10px 0 20px;
+  }
 }

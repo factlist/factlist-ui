@@ -22,41 +22,9 @@ const MainScene = ({data}) => <Layout>
   <Flex
     justifyContent="center"
   >
-    <Box
-      className={cm.leftSidebar}
-      width={['235px']}
-      mr='20px'
-    >
-      <div className="container">
-        <RadioList
-          title="USERS"
-          options={['All People', 'People you follow']}
-        />
-        <Separator />
 
-        <div className={cm.title}>SOURCES</div>
-        <RefinementList attribute="type" searchable />
-        <Separator />
 
-        <div className={cm.title}>TAGS</div>
-        <RefinementList attribute="category" searchable />
-        <Separator />
-
-        <RadioList
-          title="TIME"
-          options={[
-            'All time',
-            'Past Hour',
-            'Past Day',
-            'Past Week',
-            'Past Month',
-            'Past Year',
-          ]}
-        />
-      </div>
-    </Box>
-
-    <Box flex='1 0 0' mx={0}>
+    <Box >
       <Flex flexDirection="column">
         {(data && data.networkStatus === 7) &&
           data.topics.map(topic =>
@@ -65,19 +33,7 @@ const MainScene = ({data}) => <Layout>
       </Flex>
     </Box>
 
-    <Box
-      className={cm.rightSidebar}
-      width={['235px']}
-      ml='20px'
-    >
-      <Box>
-        <Slack />
-      </Box>
 
-      <Box mt={15}>
-        <Footer />
-      </Box>
-    </Box>
   </Flex>
 </Layout>
 

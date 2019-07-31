@@ -28,7 +28,7 @@ const Header = ({
 
       <Box className={cm.buttons}>
         <Flex justifyContent="flex-end">
-          <Box mr={10}>
+          <Box mr={10} className={cm.create}>
             <Button primary to='/topic/new' children="New Topic"/>
           </Box>
 
