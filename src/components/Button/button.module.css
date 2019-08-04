@@ -29,3 +29,12 @@ a.btn {
 .btn.disabled {
   cursor: not-allowed;
 }
+.hidden{
+  display:none;
+}
+
+@media screen and (min-width: 600px){
+  .hidden{
+    display:block;
+  }
+}

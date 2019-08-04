@@ -52,16 +52,24 @@
 .searchBox :global(.ais-SearchBox-reset) {
   display: none;
 }
-.create{
+.hidden{
   display:none;
 }
 .searchBox{
   margin: 0 10px;
 }
 
+.saving {
+  opacity: 0.5;
+  font: normal 14px Roboto, sans-serif;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 15px;
+}
+
 
 @media screen and (min-width: 600px){
-  .create{
+  .hidden{
     display:block;
   }
 }
