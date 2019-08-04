@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Box } from "@rebass/grid";
-import { Button, Logo, Separator } from "components";
+import { Separator } from "components";
 import { Layout } from "components";
 import Title from "components/Topic/Title";
 import client from "lib/graphql";
@@ -183,7 +183,7 @@ class TopicForm extends React.Component {
     if (!isReady) return <Layout />;
 
     return (
-      <Layout topic>
+      <Layout topic onBack={() => {}}>
         <TopicFormContext.Provider value={this.state}>
           <Box>
             <div className={cm.container}>

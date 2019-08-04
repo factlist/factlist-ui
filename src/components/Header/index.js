@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader";
 import { Flex, Box } from "@rebass/grid";
 import { Link } from "react-router-dom";
 import { SearchBox } from "react-instantsearch-dom";
-import { Button, Logo } from "components";
+import { Button, Logo, Back } from "components";
 import cm from "./header.module.css";
 
 const Header = ({
@@ -13,7 +13,9 @@ const Header = ({
   onClickSignInButton,
   onClickSignUpButton,
   topic = false,
-  hideSignInButton = false
+  hideSignInButton = false,
+  onSave,
+  saving = false
 }) => (
   <Flex
     className={cm.header}
@@ -26,6 +28,21 @@ const Header = ({
       </Box>
     )}
 
+    {topic && (
+      <Box>
+        <Back to="/" />
+        {!saving && (
+          <Button
+            style={{ marginLeft: "15px" }}
+            primary={false}
+            children="Save"
+            onClick={onSave}
+          />
+        )}
+        {saving && <div className={cm.saving}>Saving...</div>}
+      </Box>
+    )}
+
     {!topic && (
       <Box flex="1 1 0" className={cm.searchBox}>
         <SearchBox type="text" placeholder="Search" />
@@ -35,8 +52,8 @@ const Header = ({
     <Box className={cm.buttons}>
       <Flex justifyContent="flex-end">
         {!authenticating && token && !topic && (
-          <Box mr={10} className={cm.create}>
-            <Button create to="/topic/new" children="Create New List" />
+          <Box mr={10}>
+            <Button hidden create to="/topic/new" children="Create New List" />
           </Box>
         )}
 
@@ -45,7 +62,7 @@ const Header = ({
             <Button
               primary={false}
               onClick={onClickSignInButton}
-              children="Sign In"
+              children="Login"
             />
           </Box>
         )}
@@ -56,13 +73,14 @@ const Header = ({
             <Button
               onClick={onClickSignUpButton}
               primary={false}
+              hidden
               children="Register"
             />
           )}
 
           {!authenticating && token && (
             <Link to={"/@" + user.username}>
-              <img className={cm.avatar} src={user.avatar} />
+              <img alt="" className={cm.avatar} src={user.avatar} />
             </Link>
           )}
         </Box>

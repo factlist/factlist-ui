@@ -1,11 +1,12 @@
+
 import React from "react";
 import pt from "prop-types";
 import { Link } from "react-router-dom";
 import cn from "lib/classname";
 import cm from "./button.module.css";
 
-const Button = ({ to, primary, create, disabled, ...props }) => {
-  const className = cn(cm, "btn", { primary, disabled, create });
+const Button = ({ to, primary, create, disabled, hidden, ...props }) => {
+  const className = cn(cm, "btn", { primary, disabled, create, hidden });
 
   return to ? (
     <Link {...{ to, className, ...props }} />
