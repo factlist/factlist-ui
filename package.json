@@ -36,13 +36,14 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "react-scripts": "^2.1.8",
     "source-map-explorer": "^1.8.0"
   },
   "scripts": {
-    "start": "NODE_PATH=src react-scripts start",
-    "build": "NODE_PATH=src react-scripts build",
-    "test": "NODE_PATH=src react-scripts test --env=jsdom",
+    "start": "cross-env NODE_PATH=src react-scripts start",
+    "build": "cross-env NODE_PATH=src react-scripts build",
+    "test": "cross-env NODE_PATH=src react-scripts test --env=jsdom",
     "analyze": "source-map-explorer 'build/static/js/*.js' --html > bundle-analysis.html",
     "lint": "eslint src",
     "eject": "react-scripts eject"

@@ -1,3 +1,4 @@
+
 .container {
   background-color: white;
   border: 1px solid #E0E0E0;
@@ -33,5 +34,11 @@
     padding: 20px 0;
     background-color: #F1F3F5;
     margin: 0;
+  }
+}
+
+@media screen and (min-width: 1200px){
+  .headerContainer {
+    width: 1200px;
   }
 }

@@ -1,7 +1,6 @@
-import React from 'react'
-import {TopicForm} from 'components'
+import React from "react";
+import { TopicForm } from "components";
 
-
-const NewTopic = () => <TopicForm />
+const NewTopic = () => <TopicForm />;
 
 export default NewTopic;

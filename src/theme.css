@@ -14,4 +14,7 @@ body {
   --bg-aux: white;
   --border-pri: 1px solid black;
   --border-aux: 1px solid #e0e0e0;
+  --color-create: #ffffff;
+  --bg-create: #34a08d;
+  --border-create: 0px;
 }
