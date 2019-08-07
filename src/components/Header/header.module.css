@@ -64,6 +64,6 @@
 
 @media screen and (max-width: 835px) {
   .searchBox {
-    flex: 4 1 835px;
+    flex: 4 1 835px !important;
   }
 }
