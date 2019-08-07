@@ -14,15 +14,6 @@
   top: 75px;
 }
 
-.buttons, .logo {
-  width: 15%;
-}
-
-.logo {
-  text-align: right;
-}
-
-
 .avatar {
   width: 40px;
   height: 40px;
@@ -30,13 +21,19 @@
   margin-left: 5px;
 }
 
+.logo {
+  min-width: 55px;
+}
+
+
+
 .searchBox input {
   width: 100%;
   max-width: 670px;
   display: block;
   margin: auto;
   font: normal 14px Roboto, sans-serif;
-  background: url(/images/icons/search.png) 98% 50% no-repeat;
+  background: url(/images/icons/search.png) 97% 50% no-repeat;
   border: 1px solid #ddd;
   padding: 10px 18px;
   outline: none;
@@ -52,9 +49,7 @@
 .searchBox :global(.ais-SearchBox-reset) {
   display: none;
 }
-.hidden{
-  display:none;
-}
+
 .searchBox{
   margin: 0 10px;
 }
@@ -67,15 +62,8 @@
   margin-left: 15px;
 }
 
-
-@media screen and (min-width: 600px){
-  .hidden{
-    display:block;
-  }
-}
-
-@media screen and (max-width: 1100px) {
-  .logo, .buttons {
-    width: unset;
+@media screen and (max-width: 835px) {
+  .searchBox {
+    flex: 4 1 835px;
   }
 }

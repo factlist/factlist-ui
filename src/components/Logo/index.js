@@ -14,8 +14,8 @@ const Logo = () => (
     <svg
       className={cm.mini}
       width="20px"
-      height="23px"
-      viewBox="0 0 20 23"
+      height="26px"
+      viewBox="0 0 20 26"
       version="1.1"
     >
       <g

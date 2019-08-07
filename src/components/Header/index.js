@@ -23,7 +23,7 @@ const Header = ({
     alignItems="center"
   >
     {!topic && (
-      <Box className={cm.logo}>
+      <Box flex="1 4 250px" className={cm.logo}>
         <Logo />
       </Box>
     )}
@@ -44,48 +44,46 @@ const Header = ({
     )}
 
     {!topic && (
-      <Box flex="1 1 0" className={cm.searchBox}>
+      <Box flex={"4 0 " + (token ? "670px" : "630px")} className={cm.searchBox}>
         <SearchBox type="text" placeholder="Search" />
       </Box>
     )}
 
-    <Box className={cm.buttons}>
-      <Flex justifyContent="flex-end">
-        {!authenticating && token && !topic && (
-          <Box mr={10}>
-            <Button hidden create to="/topic/new" children="Create New List" />
-          </Box>
-        )}
+    <Flex flex="1 4 250px" className={cm.buttons} justifyContent="flex-end">
 
-        {!authenticating && !token && !hideSignInButton && (
-          <Box mr={10}>
-            <Button
-              primary={false}
-              onClick={onClickSignInButton}
-              children="Login"
-            />
-          </Box>
-        )}
-        <Box>
-          {authenticating && <AvatarLoader />}
 
-          {!authenticating && !token && !hideSignInButton && (
-            <Button
-              onClick={onClickSignUpButton}
-              primary={false}
-              hidden
-              children="Register"
-            />
-          )}
-
-          {!authenticating && token && (
-            <Link to={"/@" + user.username}>
-              <img alt="" className={cm.avatar} src={user.avatar} />
-            </Link>
-          )}
+      {!authenticating && token && !topic && (
+        <Box mr={10}>
+          <Button hidden create to="/topic/new" children="Create New List" />
         </Box>
-      </Flex>
-    </Box>
+      )}
+
+      {!authenticating && !token && !hideSignInButton && (
+        <Box mr={10}>
+          <Button
+            primary={false}
+            onClick={onClickSignInButton}
+            children="Login"
+          />
+        </Box>
+      )}
+      <Box>
+        {authenticating && <AvatarLoader />}
+        {!authenticating && !token && !hideSignInButton && (
+          <Button
+            onClick={onClickSignUpButton}
+            primary={false}
+            hidden
+            children="Register"
+          />
+        )}
+        {!authenticating && token && (
+          <Link to={"/@" + user.username}>
+            <img alt="" className={cm.avatar} src={user.avatar} />
+          </Link>
+        )}
+      </Box>
+    </Flex>
   </Flex>
 );
 
