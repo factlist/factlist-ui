@@ -1,28 +1,51 @@
-.card {
-  background-color: #FFF;
-  border: 1px solid #E0E0E0;
-  text-align: center;
-  padding: 20px;
+.container {
+  background-color: white;
+  min-width: 300px;
+  max-width: 670px;
+  padding: 15px;
+  overflow-wrap: break-word; /* Cross browser word wrapping */
+  word-wrap: break-word;
+  word-break: break-all;
+  word-break: break-word;
+  hyphens: auto;
 }
 
-.card > img {
+.info {
+  padding: 20px 0;
+}
+
+.avatar {
+  margin-right: 50px;
+}
+
+.name {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.description {
+  font-size: 16px;
+}
+
+.socials {
+  font-size: 24px;
+  color: #a1a1a1;
+}
+
+.social {
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.social:hover {
+  color:black;
+  transition: color 0.2s ease-in-out;
+}
+
+.avatar .img {
   box-shadow: 0 4px 6px 0 rgba(0,0,0,0.02);
   border-radius: 150px;
   width: 60px;
   height: 60px;
-}
-
-.name {
-  font-size: 13px;
-  color: rgba(0,0,0,0.85);
-  letter-spacing: 0;
-  font-weight: 700;
-  display: block;
-  margin-top: 13px;
-}
-
-.username {
-  display: block;
-  font-size: 12px;
-  margin-top: 2px;
 }
