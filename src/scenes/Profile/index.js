@@ -41,7 +41,6 @@ export const getTopicsQuery = gql`
 
 const ProfileScene = ({ data, user }) => {
   const userData = user.state.user;
-  console.log(userData);
   return (
     <Layout>
       <Flex justifyContent="center">

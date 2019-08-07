@@ -10,7 +10,6 @@ import { faGlobeAmericas } from "@fortawesome/free-solid-svg-icons";
 import cm from "./userCard.module.css";
 
 const UserCard = ({ user }) => {
-  console.log(user);
   return (
     <Flex className={cm.container}>
       <Box className={cm.avatar}>
