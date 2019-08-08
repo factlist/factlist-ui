@@ -1,10 +1,12 @@
 import {compose} from 'recompose'
 import {saveToken, saveUser} from 'lib/storage'
-import {withNotification, withFetch} from 'adapters'
+import {withNotification, withRouter, withFetch} from 'adapters'
 
 
 export default compose(
   withNotification,
+
+  withRouter,
 
   withFetch(({match, history, notification}) => ({
     signInFetch: ({
