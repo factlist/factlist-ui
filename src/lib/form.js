@@ -5,7 +5,7 @@ import noop from 'lodash/noop'
 
 
 /**
- * withForm: Wrapper for Formik's "withformik" HOC. All it does is to define two
+ * withForm: Wrapper for Formik's "withFormik" HOC. All it does is to define two
  * default properties with following behaviors:
  *
  * - mapPropsToValues: Use the "initialValues" prop if exists, or else derive
@@ -21,15 +21,16 @@ export const withForm = conf => {
   return withFormik({
     mapPropsToValues:
       props =>
-        props.initialValues
-          ? pick(
+        !props.initialValues
+          ? mapValues(conf.validationSchema.fields, () => '')
+
+          : pick(
               props.initialValues,
               Object.keys(conf.validationSchema.fields)
-            )
+            ),
             // pick only the keys that exist in our schema, in case there are
             // other keys that don't concern us.
 
-          : mapValues(conf.validationSchema.fields, () => ''),
 
     handleSubmit: (vals, formikBag) =>
       (formikBag.props.onSubmit || noop)(vals, formikBag),
