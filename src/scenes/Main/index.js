@@ -1,6 +1,5 @@
 import React from 'react'
-import {compose} from 'recompose'
-import {withUser, withGraphql} from 'adapters'
+import {compose, withUser, withGraphql} from 'adapters'
 import gql from 'graphql-tag'
 import { Flex, Box } from '@rebass/grid'
 import {Layout, Slack, Footer, Topic, Separator, RefinementList, RadioList}
