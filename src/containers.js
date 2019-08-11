@@ -3,37 +3,49 @@
  * Below are the global state bits powered by Unstated:
  */
 
-import {makeUnstated} from 'lib/unstated'
+import {makeUnstated, withUnstated} from '/lib/unstated'
+import {noop} from 'lodash-es'
 
 
-export const UserContainer = makeUnstated({
-  user: {},
-  token: null,
-}, {
-  setUser: () => user => ({user}),
-  setToken: () => token => ({token}),
+const defaultUser = {}
+
+export const UserContainer = makeUnstated('User', defaultUser, {
+  set: () => user => user,
+  setToDefault: () => () => defaultUser,
 })
 
+export const withUser = withUnstated({user: UserContainer})
 
-export const ModalContainer = makeUnstated({
+
+export const ModalContainer = makeUnstated('Modal', {
   open: false,
-  componentName: null,
-  componentProps: null,
+  component: () => null,
+  componentProps: {},
+  onClose: noop,
 }, {
-  show: () => (componentName, componentProps) => ({
+  open: () => (component, componentProps = {}, onClose = noop) => ({
     open: true,
-    componentName,
+    component,
     componentProps,
+    onClose,
   }),
 
-  hide: () => () => ({open: false}),
+  close: ({onClose}) => data => {
+    onClose(data)
+    return {open: false}
+  },
 })
 
+export const withModal = withUnstated({modal: ModalContainer})
 
-export const NotificationContainer = makeUnstated({
+
+export const NotificationContainer = makeUnstated('Notification', {
   open: false,
   msg: '',
 }, {
   show: () => msg => ({open: true, msg}),
   hide: () => () => ({open: false}),
 })
+
+export const withNotification =
+  withUnstated({notification: NotificationContainer})

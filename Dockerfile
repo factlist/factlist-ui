@@ -12,7 +12,7 @@ ENV REACT_APP_API_ENDPOINT=$REACT_APP_API_ENDPOINT_ARG
 
 COPY . .
 
-RUN yarn install && yarn build
+RUN npm install && npm run build
 
 RUN npm install -g serve
 CMD serve -s build

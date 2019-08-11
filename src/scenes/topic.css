@@ -1,0 +1,7 @@
+ul.links {
+    list-style-type: none;
+    padding: 0;
+}
+ul.links li:focus {
+    outline-style: none;
+}

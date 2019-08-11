@@ -1,40 +1,62 @@
-import {withFormik} from 'formik'
-import pick from 'lodash/pick'
-import mapValues from 'lodash/mapValues'
-import noop from 'lodash/noop'
+import React from 'react'
+import Ajv from 'ajv'
+import {withFormik as withFormikOriginal, Form as FormOriginal} from 'formik'
+import {memoize, mapValues, pick, fromPairs} from 'lodash-es'
+import getApiDescription from './apiDescription'
 
 
-/**
- * withForm: Wrapper for Formik's "withFormik" HOC. All it does is to define two
- * default properties with following behaviors:
- *
- * - mapPropsToValues: Use the "initialValues" prop if exists, or else derive
- * initial values from the validation schema.
- *
- * - handleSubmit: Forward the event to the "onSubmit" prop (if exists).
- */
-export const withForm = conf => {
-  if (!conf.validationSchema)
-    throw new Error(
-      'withForm: "validationSchema" is a required option!')
+const ajvInstance = new Ajv({
+  allErrors: true,
+  $data: true,
+})
 
-  return withFormik({
-    mapPropsToValues:
-      props =>
-        !props.initialValues
-          ? mapValues(conf.validationSchema.fields, () => '')
+const getAjvValidator = memoize(
+  (endpointPath, endpointMethod) =>
+    getApiDescription()
+      .then(apiDescription => {
+        const endpointSchema =
+          apiDescription
+            .paths[endpointPath][endpointMethod]
+            .parameters
+            .filter(({name}) => name === 'body')[0]
+            .schema
 
-          : pick(
-              props.initialValues,
-              Object.keys(conf.validationSchema.fields)
-            ),
-            // pick only the keys that exist in our schema, in case there are
-            // other keys that don't concern us.
+        return ajvInstance.compile(endpointSchema)
+      })
+)
 
+export const makeValidatorFromAPI = (endpointPath, endpointMethod) =>
+  data =>
+    getAjvValidator(endpointPath, endpointMethod)
+      .then(ajvValidator =>
+        ajvValidator(data)
+          ? Promise.resolve()
+          : Promise.reject(
+            (ajvValidator.errors || []).reduce(
+              (acc, e) => ({
+                ...acc,
+                [e.dataPath.slice(1)]: e.message,
+              }),
 
-    handleSubmit: (vals, formikBag) =>
-      (formikBag.props.onSubmit || noop)(vals, formikBag),
+              {}
+            )
+          )
+      )
 
-    ...conf,
+export const withFormik = opts =>
+  withFormikOriginal({
+    validateOnChange: false,
+    validateOnBlur: true,
+    ...opts,
   })
-}
+
+export const Form = props =>
+  <FormOriginal noValidate {...props} />
+
+export const makeFormState = (keys, initialRecord = {}) =>
+  fromPairs(
+    keys.map(key => [
+      key,
+      initialRecord[key] || ''
+    ])
+  )

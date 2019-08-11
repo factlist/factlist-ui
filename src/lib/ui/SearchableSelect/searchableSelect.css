@@ -1,0 +1,28 @@
+.ss {
+    position: relative;
+    padding: 0;
+}
+.ss input {
+    width: 100%;
+}
+.ss ul {
+    padding: 0;
+    margin: 0;
+}
+ul.choices {
+    position: absolute;
+    right: 0;
+}
+ul.choices li {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 3px;
+    background-color: #ddd;
+    margin-left: 0.2em;
+}
+ul.menu {
+    position: absolute;
+    list-style-type: none;
+    width: 100%;
+    background-color: #eee;
+}

@@ -2,15 +2,11 @@
  * This module is just a small wrapper on Unstated that serves to create
  * containers with sweet factory methods instead of by extending the "Container"
  * class; and to create subscribers using the higher order component pattern
- * instead of the render props pattern.
- *
- * So it does nothing that Unstated doesn't.
- * But it does what it does with style
+ * instead of the render props pattern. Because boo render props.
  */
 
+import React from 'react'
 import {Container, Subscribe} from 'unstated'
-import {createElement as h} from 'react'
-import {fromRenderProps} from 'recompose'
 import zipObject from 'lodash/zipObject'
 
 /**
@@ -18,12 +14,12 @@ import zipObject from 'lodash/zipObject'
  * The API is equivalent of Recompose's `withStateHandlers`.
  * Returns an Unstated container.
  */
-export const makeUnstated = (initialState, handlers) => {
-  const UserContainer = class extends Container {
-    constructor(overrideInitialState) {
-      super()
+export const makeUnstated = (name, defaultState, handlers) => {
+  const containerClass = class extends Container {
+    constructor (initialState) {
+      super ()
 
-      this.state = overrideInitialState || initialState
+      this.state = initialState || defaultState
 
       Object.keys(handlers).forEach(handlerName =>
         this[handlerName] = this[handlerName].bind(this)
@@ -31,30 +27,35 @@ export const makeUnstated = (initialState, handlers) => {
     }
   }
 
+  if (Object.defineProperty)
+    Object.defineProperty(containerClass, 'name', {value: name})
+  // The class name is helpful for debugging but useless otherwise so it's ok
+  // if the browser doesn't support "Object.defineProperty".
+
   Object.entries(handlers)
     .forEach(([handlerName, handler]) =>
-      UserContainer.prototype[handlerName] =
-        function(...args) {
-          return this.setState(
-            handler(this.state)(...args)
-          )
-        }
+      containerClass.prototype[handlerName] = function(...args) {
+        return this.setState(
+          handler(this.state)(...args)
+        )
+      }
     )
 
-  return UserContainer
+  return containerClass
 }
 
-/**
- * A wrapper for Unstated's Subscribe to consume containers with
- * a higher order component.
+/*
+ * withUnstated
+ *
+ * Convenience utility to subscribe to containers with a HOC, instead of
+ * Unstated's default "Subscribe" render props component.
  */
-export const withUnstated = subscriptions =>
-  fromRenderProps(
-    ({children}) => h(
-      Subscribe,
-      {to: Object.values(subscriptions)},
-      children
-    ),
-
-    (...args) => zipObject(Object.keys(subscriptions), args)
-  )
+export const withUnstated = subscriptions => Component => props =>
+  <Subscribe to={Object.values(subscriptions)}>
+    {(...containerInstances) =>
+      <Component
+        {...props}
+        {...zipObject(Object.keys(subscriptions), containerInstances)}
+      />
+    }
+  </Subscribe>

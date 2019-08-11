@@ -1,15 +1,25 @@
 import {
-  Main, Settings, ChangePassword, TwitterCallback, Profile, TopicCreate,
-  TopicEdit
-} from 'scenes'
+  Landing, Home, Settings, ChangePassword, TwitterCallback, Profile,
+  Topic, Signin, Signup, PasswordReset,
+} from './scenes'
 
 
-export default [
-  ['/',                        Main,           {exact: true}],
-  ['/settings',                Settings,       {private: true}],
-  ['/change_password/:key',    ChangePassword, {private: true}],
-  ['/twitter/callback/:token', TwitterCallback],
-  ['/@:username',              Profile],
-  ['/topic/new',               TopicCreate],
-  ['/topic/:id/edit',          TopicEdit],
+/* eslint-disable max-len */
+const routes = [
+  ['landing',          '/',                                              Landing],
+  ['twitter-callback', '/twitter-callback?:oauth_token&:oauth_verifier', TwitterCallback],
+  ['profile',          '/:username',                                     Profile],
+  ['topic',            '/:username/:topicId',                            Topic],
+  ['home',             '/home',                                          Home,           {private: true}],
+  ['settings',         '/settings',                                      Settings,       {private: true}],
+  ['change-password',  '/change_password/:key',                          ChangePassword, {private: true}],
 ]
+  .map(([name, path, component, opts = {}]) => ({name, path, component, opts}))
+/* eslint-enable max-len */
+
+export default routes
+
+export const routesByName = routes.reduce(
+  (acc, route) => ({...acc, [route.name]: route}),
+  {}
+)

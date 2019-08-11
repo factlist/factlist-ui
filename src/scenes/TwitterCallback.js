@@ -1,23 +1,39 @@
+import urllib from 'url'
 import {compose} from 'recompose'
-import {saveToken, saveUser} from 'lib/storage'
-import {withNotification, withRouter, withFetch} from 'adapters'
+import {withRoute, withRouter} from 'react-router5'
+import {withUser, withNotification} from '/containers'
+import {saveJWT} from '/lib/storage'
+import {withFetch} from '/lib/request'
 
 
 export default compose(
+  withUser,
   withNotification,
-
+  withRoute,
   withRouter,
 
-  withFetch(({match, history, notification}) => ({
+  withFetch(({user, route, router, notification}) => ({
     signInFetch: ({
-      url: '/auth/me',
-      headers: {Authorization: 'Token ' + match.params.token},
-      then: resp => {
-        saveToken(match.params.token)
-        saveUser(resp.user)
-        history.push('/')
+      url: urllib.format({
+        pathname: '/create-access-token-with-twitter',
+        query: route.params,
+      }),
+      then: ({token}) => {
+        saveJWT(token)
+
+        return {
+          url: '/me',
+          then: userData => {
+            user.set(userData)
+              .then(() =>
+                router.navigate('home')
+              )
+          },
+        }
       },
-      catch: () => {
+      catch: err => {
+        console.error('twitter error', err)
+
         notification.show(
           'Sorry, we couldn\'t authenticate. Please try again later.'
         )
@@ -25,5 +41,5 @@ export default compose(
     }),
   }))
 )(
-  () => null
+  () => 'Please wait. You will be redirected..'
 )

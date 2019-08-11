@@ -1,0 +1,90 @@
+.container {
+  padding: 0px 10px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media screen and (min-width: 1120px) {
+  .container {
+    width: 1100px;
+  }
+}
+
+.header {
+  background-color: white;
+  padding: 15px 0;
+  margin-bottom: 40px;
+}
+
+.header:before {
+  position: absolute;
+  left: 0;
+  top: 75px;
+  height: 0.5px;
+  width: 100%;
+  content: "";
+  background: #ddd;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.logo {
+  min-width: 55px;
+}
+
+.searchBox input {
+  width: 100%;
+  max-width: 670px;
+  display: block;
+  margin: auto;
+  font: normal 14px Roboto, sans-serif;
+  background: url(/static/icons/search.png) 97% 50% no-repeat;
+  border: 1px solid #ddd;
+  padding: 10px 18px;
+  outline: none;
+}
+.searchBox input::placeholder {
+  color: #b2b2b2;
+}
+.searchBox input::focus {
+  border: 1px solid #b2b2b2;
+}
+
+.searchBox{
+  margin: 0 10px;
+}
+
+.saving {
+  opacity: 0.5;
+  font: normal 14px Roboto, sans-serif;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 835px) {
+  .searchBox {
+    flex: 4 1 835px !important;
+  }
+}
+
+
+/* logo styles */
+.default{
+  display: none;
+}
+
+.mini {
+  display: block;
+}
+
+@media screen and (min-width: 980px) {
+  .default{ display: block; }
+
+  .mini { display: none; }
+}

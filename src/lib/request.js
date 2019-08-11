@@ -1,55 +1,61 @@
-import {connect as connectRefetch} from 'react-refetch'
-import mapValues from 'lodash/mapValues'
-import noop from 'lodash/noop'
-import {getToken} from './storage'
+import {connect as refetchConnect} from 'react-refetch'
+import {memoize, identity} from 'lodash'
+import {getJWT} from './storage'
+import {debounce} from '/lib/util'
 
 
-const buildRequest = ({url, headers, body, ...rest}) => ({
-  url: process.env.REACT_APP_API_ENDPOINT + url,
-  headers: {
-    Authorization: 'Token ' + getToken(),
-    ...headers,
-  },
-  body: JSON.stringify(body),
-  ...rest,
-})
+const buildRequest = mapping => {
+  const
+    mapping_ = typeof mapping === 'string' ? {url: mapping} : mapping,
+    {url, headers, body, ...opts} = mapping_
+
+  return {
+    ...opts,
+
+    url: process.env.API_URL + url,
+
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getJWT(),
+    },
+
+    body: body && JSON.stringify(body),
+  }
+}
 
 const fetch_ = ({url, ...rest}) => fetch(url, rest)
 
-const handleResponse = resp =>
-  resp.text()
-    .then(data => {
-      const parsed = JSON.parse(data || {})
+const handleResponse = res =>
+  res.text()
+    .then(data =>
+      Promise[res.ok ? 'resolve' : 'reject'](
+        JSON.parse(data || null)
+      )
+    )
 
-      return resp.ok
-        ? Promise.resolve(parsed)
-        : Promise.reject(parsed)
-    })
+export const request = mapping =>
+  fetch_(buildRequest(mapping))
+    .then(handleResponse)
 
-export const withFetch = connectRefetch.defaults({
+export const withFetch = refetchConnect.defaults({
   buildRequest,
   fetch: fetch_,
   handleResponse,
 })
 
-export const formFetch = fetchFactory => (vals, formikBag) =>
-  mapValues(
-    fetchFactory(vals, formikBag),
-
-    fetchSpec => ({
-      force: true,
-
-      ...fetchSpec,
-
-      then: data => {
-        formikBag.setSubmitting(false)
-        ;(fetchSpec.then || noop)(data)
-      },
-
-      catch: errors => {
-        formikBag.setErrors(errors)
-        formikBag.setSubmitting(false)
-        ;(fetchSpec.catch || noop)(errors)
-      },
-    })
+export const autoSuggestBase = (delay, minChars, extractor, url) => {
+  const debouncedFetcher = debounce(
+    q => request(url + q).then(extractor),
+    delay
   )
+
+  return q =>
+    q.length < minChars
+      ? Promise.resolve([])
+      : debouncedFetcher(q)
+}
+
+export const autoSuggest = memoize(url =>
+  autoSuggestBase(200, 2, identity, url)
+)
